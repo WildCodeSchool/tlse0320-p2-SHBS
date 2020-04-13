@@ -4,7 +4,7 @@ import './Contact.css';
 
 const Contact = () => {
   return (
-    <div>
+    <div className="contact-page">
       <h1>Contact us</h1>
       <p>Hey, feel free to contact us if you have any questions or suggestions about the game.</p>
       <ContactForm />
