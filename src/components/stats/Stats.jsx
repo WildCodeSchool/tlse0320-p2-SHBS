@@ -1,7 +1,7 @@
 import React from 'react';
-import './Statistique.css';
+import './Stats.css';
 
-function Statistique() {
+function Stats() {
   return (
     <div>
       <h1>Page des Statistiques</h1>
@@ -9,4 +9,4 @@ function Statistique() {
   );
 }
 
-export default Statistique;
+export default Stats;

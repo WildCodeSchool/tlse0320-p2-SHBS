@@ -1,8 +1,8 @@
 import React from 'react';
-import './Accueil.css';
-import Footer from '../navigation/Footer';
+import Footer from '../nav/Footer';
+import './Home.css';
 
-function Accueil() {
+function Home() {
   return (
     <div>
       <h1>Page accueil</h1>
@@ -11,4 +11,4 @@ function Accueil() {
   );
 }
 
-export default Accueil;
+export default Home;

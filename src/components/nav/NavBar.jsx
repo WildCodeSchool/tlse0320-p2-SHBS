@@ -5,8 +5,8 @@ import './NavBar.css';
 function NavBar() {
   return (
     <ul>
-      <Link to="/Accueil">
-        <li>Accueil</li>
+      <Link to="/Home">
+        <li>Home</li>
       </Link>
       <Link to="Collection">
         <li>Collection</li>
@@ -14,8 +14,8 @@ function NavBar() {
       <Link to="Contact">
         <li>Contact</li>
       </Link>
-      <Link to="Statistique">
-        <li>Statistique</li>
+      <Link to="Stats">
+        <li>Stats</li>
       </Link>
     </ul>
   );

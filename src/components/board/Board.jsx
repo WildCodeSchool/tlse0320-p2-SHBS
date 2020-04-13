@@ -1,7 +1,7 @@
 import React from 'react';
-import './PlateauJeu.css';
+import './Board.css';
 
-function PlateauJeu() {
+function Board() {
   return (
     <div>
       <h1>Page Plateau de Jeu</h1>
@@ -9,4 +9,4 @@ function PlateauJeu() {
   );
 }
 
-export default PlateauJeu;
+export default Board;
