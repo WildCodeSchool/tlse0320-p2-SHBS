@@ -1,12 +1,15 @@
 import React from 'react';
+import ContactForm from './ContactForm/ContactForm';
 import './Contact.css';
 
-function Contact() {
+const Contact = () => {
   return (
     <div>
-      <h1>Page contact</h1>
+      <h1>Contact us</h1>
+      <p>Hey, feel free to contact us if you have any questions or suggestions about the game.</p>
+      <ContactForm />
     </div>
   );
-}
+};
 
 export default Contact;
