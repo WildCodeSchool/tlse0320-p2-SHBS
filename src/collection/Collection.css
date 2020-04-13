@@ -1,0 +1,9 @@
+h1 {
+  text-align: center;
+  margin: 50px;
+}
+.btnValid {
+  float: right;
+  margin-right: 50px;
+  font-size: 2em;
+}
