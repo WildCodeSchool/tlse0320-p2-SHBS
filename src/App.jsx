@@ -19,7 +19,7 @@ function App() {
           <Route path="/Contact" exact component={Contact} />
           <Route path="/Board" exact component={Board} />
           <Route path="/Stats" exact component={Stats} />
-          <Route path="/" component={() => <div>ERREUR 404 !!!</div>} />
+          {/* <Route path="/" component={() => <div>ERREUR 404 !!!</div>} /> */}
         </Switch>
       </Router>
     </div>
