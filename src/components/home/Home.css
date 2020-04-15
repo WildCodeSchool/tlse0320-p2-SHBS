@@ -38,11 +38,11 @@
 .home-playnow-button img {
   height: inherit;
   width: inherit;
-  transition: transform 0.5s;
+  transition: transform 0.2s;
 }
 
 .home-playnow-button img:hover {
-    transform: scale(1.2) rotate(5deg);
+    transform: scale(1.4) rotate(-3deg);
 }
 
 .home-arrows {
