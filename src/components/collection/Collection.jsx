@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import LargeCard from '../../components/Cards/LargeCard';
 import image from '../../img/cardskeleton.png';
-import SmallCard from '../../components/Cards/SmallCard';
 import StandardCard from '../../components/Cards/StandardCard';
 import './Collection.css';
 
@@ -34,25 +34,27 @@ const Collection = () => {
           <div className="collection-filter">Filtre</div>
 
           <div className="collection-cards">
-            <SmallCard />
-            <SmallCard />
-            <SmallCard />
-            <SmallCard />
-            <SmallCard />
-            <SmallCard />
-            <SmallCard />
-            <SmallCard />
-            <SmallCard />
-            <SmallCard />
-            <SmallCard />
-            <SmallCard />
-            <SmallCard />
-            <SmallCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
           </div>
         </div>
 
         <div className="collection-big-card">
-          <img className="collection-big-card-img" src={image} alt="" />
+          <LargeCard />
         </div>
       </div>
     </div>

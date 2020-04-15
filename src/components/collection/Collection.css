@@ -1,3 +1,8 @@
+body {
+  background-image: url(../../img/Dark\Scene\Wall\004jpg);
+  color: white;
+}
+
 .collection-valid-fight {
   font-size: 2em;
   text-align: center;
@@ -17,6 +22,7 @@
   align-items: center;
   border: solid 3px;
   margin: 10px;
+  background-color: grey;
 }
 
 .collection-valid {
@@ -67,8 +73,16 @@
   align-items: baseline;
 }
 
-.collection-big-card-img {
+.collection-big-card .standard-card {
   width: 150px;
-  height: auto;
+  margin: 10px;
+}
+
+.collection-deck .standard-card {
+  width: 140px;
+}
+
+.collection-cards .standard-card {
+  width: 100px;
   margin: 10px;
 }
