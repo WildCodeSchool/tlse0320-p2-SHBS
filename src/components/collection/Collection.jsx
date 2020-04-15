@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import LargeCard from '../../components/Cards/LargeCard';
-import StandardCard from '../../components/Cards/StandardCard';
+import LargeCard from '../Cards/LargeCard';
+import StandardCard from '../Cards/StandardCard';
 import NavBar from '../nav/NavBar';
 import './Collection.css';
 

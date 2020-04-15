@@ -8,13 +8,15 @@ function NavBar() {
     <nav className="navbar">
       <ul>
         <li>
-          <Link to="/Home">
+          <Link to="Home">
             <img src={logo} alt="Accueil SHBS" />
           </Link>
         </li>
-        <li>The game</li>
         <li>
           <Link to="Collection">The cards</Link>
+        </li>
+        <li>
+          <Link to="board">The game</Link>
         </li>
         <li>
           <Link to="Stats">User</Link>

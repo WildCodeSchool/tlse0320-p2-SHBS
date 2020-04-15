@@ -11,6 +11,7 @@ body {
   display: flex;
   flex-direction: row;
   height: 250px;
+  margin-top: 100px;
 }
 
 .collection-deck {
@@ -72,15 +73,32 @@ body {
 }
 
 .collection-big-card .standard-card {
-  width: 150px;
+  width: 145px;
+  height: 210px;
   margin: 10px;
+}
+.collection-big-card .image-card {
+  width: 90%;
+  margin: 7px;
 }
 
 .collection-deck .standard-card {
   width: 140px;
+  height: 200px;
+  margin: 10px;
+}
+.collection-deck .image-card {
+  width: 123px;
+  margin: 9px;
 }
 
 .collection-cards .standard-card {
-  width: 100px;
+  width: 104px;
+  height: 150px;
   margin: 10px;
+}
+
+.collection-cards .image-card {
+  width: 93px;
+  margin: 5px;
 }
