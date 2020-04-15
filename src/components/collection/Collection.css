@@ -29,11 +29,6 @@
   margin: 10px;
 }
 
-.collection-image {
-  width: 150px;
-  height: auto;
-}
-
 .collection-bottom {
   display: flex;
   flex-direction: row;
@@ -62,12 +57,6 @@
   height: 400px;
   overflow-y: auto;
   height: 350px;
-}
-
-.collection-card {
-  width: 100px;
-  height: auto;
-  margin: 10px;
 }
 
 .collection-big-card {

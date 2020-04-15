@@ -1,17 +1,20 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import image from '../../img/cardskeleton.png';
+import SmallCard from '../../components/Cards/SmallCard';
+import StandardCard from '../../components/Cards/StandardCard';
 import './Collection.css';
 
-function Collection() {
+const Collection = () => {
   const history = useHistory();
   return (
     <div>
       <div className="collection-top">
         <div className="collection-deck">
-          <img className="collection-image" src={image} alt="" />
-          <img className="collection-image" src={image} alt="" />
-          <img className="collection-image" src={image} alt="" />
+          <p className="collection-deck-title">My Deck</p>
+          <StandardCard />
+          <StandardCard />
+          <StandardCard />
         </div>
         <div className="collection-valid">
           <p className="collection-valid-title">Create your deck</p>
@@ -31,24 +34,20 @@ function Collection() {
           <div className="collection-filter">Filtre</div>
 
           <div className="collection-cards">
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
+            <SmallCard />
+            <SmallCard />
+            <SmallCard />
+            <SmallCard />
+            <SmallCard />
+            <SmallCard />
+            <SmallCard />
+            <SmallCard />
+            <SmallCard />
+            <SmallCard />
+            <SmallCard />
+            <SmallCard />
+            <SmallCard />
+            <SmallCard />
           </div>
         </div>
 
@@ -58,6 +57,6 @@ function Collection() {
       </div>
     </div>
   );
-}
+};
 
 export default Collection;
