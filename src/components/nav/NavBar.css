@@ -1,0 +1,35 @@
+.navbar {
+  height: 0;
+}
+
+.navbar ul {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+}
+
+.navbar li {
+  margin: 10px 50px 0;
+  color: #d2d2d2;
+  font-size: 3em;
+  text-decoration: none;
+  transition: transform 0.5s;
+}
+
+.navbar li:last-child {
+  margin-left: auto;
+}
+
+.navbar img {
+  width: 120px;
+}
+
+.navbar a {
+  text-decoration: inherit;
+  color: inherit;
+}
+
+.navbar li:hover {
+  transform: scale(1.2)
+}
