@@ -9,9 +9,9 @@ function Collection() {
     <div>
       <div className="collection-top">
         <div className="collection-deck">
-          <img className="collection-image" src={image} alt={''} />
-          <img className="collection-image" src={image} alt={''} />
-          <img className="collection-image" src={image} alt={''} />
+          <img className="collection-image" src={image} alt="" />
+          <img className="collection-image" src={image} alt="" />
+          <img className="collection-image" src={image} alt="" />
         </div>
         <div className="collection-valid">
           <p className="collection-valid-title">Create your deck</p>
@@ -31,29 +31,29 @@ function Collection() {
           <div className="collection-filter">Filtre</div>
 
           <div className="collection-cards">
-            <img className="collection-card" src={image} alt={''} />
-            <img className="collection-card" src={image} alt={''} />
-            <img className="collection-card" src={image} alt={''} />
-            <img className="collection-card" src={image} alt={''} />
-            <img className="collection-card" src={image} alt={''} />
-            <img className="collection-card" src={image} alt={''} />
-            <img className="collection-card" src={image} alt={''} />
-            <img className="collection-card" src={image} alt={''} />
-            <img className="collection-card" src={image} alt={''} />
-            <img className="collection-card" src={image} alt={''} />
-            <img className="collection-card" src={image} alt={''} />
-            <img className="collection-card" src={image} alt={''} />
-            <img className="collection-card" src={image} alt={''} />
-            <img className="collection-card" src={image} alt={''} />
-            <img className="collection-card" src={image} alt={''} />
-            <img className="collection-card" src={image} alt={''} />
-            <img className="collection-card" src={image} alt={''} />
-            <img className="collection-card" src={image} alt={''} />
+            <img className="collection-card" src={image} alt="" />
+            <img className="collection-card" src={image} alt="" />
+            <img className="collection-card" src={image} alt="" />
+            <img className="collection-card" src={image} alt="" />
+            <img className="collection-card" src={image} alt="" />
+            <img className="collection-card" src={image} alt="" />
+            <img className="collection-card" src={image} alt="" />
+            <img className="collection-card" src={image} alt="" />
+            <img className="collection-card" src={image} alt="" />
+            <img className="collection-card" src={image} alt="" />
+            <img className="collection-card" src={image} alt="" />
+            <img className="collection-card" src={image} alt="" />
+            <img className="collection-card" src={image} alt="" />
+            <img className="collection-card" src={image} alt="" />
+            <img className="collection-card" src={image} alt="" />
+            <img className="collection-card" src={image} alt="" />
+            <img className="collection-card" src={image} alt="" />
+            <img className="collection-card" src={image} alt="" />
           </div>
         </div>
 
         <div className="collection-big-card">
-          <img className="collection-big-card-img" src={image} alt={''} />
+          <img className="collection-big-card-img" src={image} alt="" />
         </div>
       </div>
     </div>
