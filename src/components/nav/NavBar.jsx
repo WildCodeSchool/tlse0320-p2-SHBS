@@ -9,7 +9,7 @@ function NavBar() {
       <ul>
         <li>
           <Link to="/Home">
-            <img src={logo} alt="Accueil SHBS"></img>
+            <img src={logo} alt="Accueil SHBS" />
           </Link>
         </li>
         <li>The game</li>
