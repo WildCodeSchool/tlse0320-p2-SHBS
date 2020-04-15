@@ -1,14 +1,15 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import LargeCard from '../../components/Cards/LargeCard';
-import image from '../../img/cardskeleton.png';
 import StandardCard from '../../components/Cards/StandardCard';
+import NavBar from '../nav/NavBar';
 import './Collection.css';
 
 const Collection = () => {
   const history = useHistory();
   return (
     <div>
+      <NavBar />
       <div className="collection-top">
         <div className="collection-deck">
           <p className="collection-deck-title">My Deck</p>

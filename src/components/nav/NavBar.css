@@ -1,5 +1,5 @@
 .navbar {
-  height: 0;
+  height: 0px;
 }
 
 .navbar ul {
@@ -31,5 +31,5 @@
 }
 
 .navbar li:hover {
-  transform: scale(1.2)
+  transform: scale(1.2);
 }
