@@ -8,7 +8,7 @@ function NavBar() {
     <nav className="navbar">
       <ul>
         <li>
-          <Link to="/Home">
+          <Link to="/">
             <img src={logo} alt="Accueil SHBS" />
           </Link>
         </li>

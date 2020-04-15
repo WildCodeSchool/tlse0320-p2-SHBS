@@ -1,5 +1,11 @@
 .stats-page {
-  margin: 5em;
+  background-image: url('../../img/Dark\ Scene\ Wall\ 004.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.stats-body {
+  margin: 15vh 5vw 0 5vw;
 }
 
 .stats-games ul,
