@@ -1,0 +1,18 @@
+.navbar ul {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 1em;
+}
+
+.navbar li {
+  margin-right: 3em;
+}
+
+.navbar li:last-child {
+  margin-left: auto;
+}
+
+.navbar img {
+  width: 120px;
+}
