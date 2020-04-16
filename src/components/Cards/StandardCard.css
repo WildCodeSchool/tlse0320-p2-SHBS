@@ -1,0 +1,8 @@
+.standard-card {
+  display: block;
+  background-image: url('../../img/cardskeleton.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 3%;
+  box-shadow: 5px 5px 5px black;
+}

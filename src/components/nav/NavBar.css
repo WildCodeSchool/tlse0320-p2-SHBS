@@ -1,5 +1,8 @@
 .navbar {
-  height: 0;
+  height: 0px;
+  position: fixed;
+  width: 90%;
+  margin-left: 5%;
 }
 
 .navbar ul {
@@ -10,11 +13,12 @@
 }
 
 .navbar li {
-  margin: 10px 50px 0;
+  margin: 10px 25px 0;
   color: #d2d2d2;
   font-size: 3em;
   text-decoration: none;
   transition: transform 0.2s;
+  text-shadow: 5px 5px #333;
 }
 
 .navbar li:last-child {
@@ -22,7 +26,7 @@
 }
 
 .navbar img {
-  width: 120px;
+  width: 160px;
 }
 
 .navbar a {
@@ -31,5 +35,5 @@
 }
 
 .navbar li:hover {
-  transform: scale(1.2)
+  transform: scale(1.2);
 }
