@@ -14,3 +14,7 @@ code {
   font-family: 'BADABB';
   src: local('BADABB'), url('./fonts/BADABB.TTF') format('truetype');
 }
+
+html {
+  scroll-behavior: smooth;
+}
