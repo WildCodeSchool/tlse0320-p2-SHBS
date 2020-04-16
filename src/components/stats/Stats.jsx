@@ -1,6 +1,7 @@
 import React from 'react';
 import './Stats.css';
-import xpBar from '../../img/xpBar.png';
+import loadingbar from '../../img/loadingbar.png';
+import statsTitle from '../../img/stats.png';
 import cardskeleton from '../../img/cardskeleton.png';
 import NavBar from '../nav/NavBar';
 
@@ -9,7 +10,7 @@ const Stats = () => {
     <div className="stats-page">
       <NavBar />
       <div className="stats-body">
-        <h1>Statistics</h1>
+        <img className="stats-title" src={statsTitle} alt="Statistics"></img>
         <section className="stats-games">
           <h2>Games</h2>
           <ul>
@@ -24,7 +25,7 @@ const Stats = () => {
             <p>Lvl 7</p>
             <div>
               <p>0 xp</p>
-              <img src={xpBar} alt="xp-bar"></img>
+              <img src={loadingbar} alt="xp-bar"></img>
               <p>1200 xp</p>
             </div>
           </div>

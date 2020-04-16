@@ -5,7 +5,14 @@
 }
 
 .stats-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 15vh 5vw 0 5vw;
+}
+
+.stats-body section {
+  width: 100%;
 }
 
 .stats-games ul,
@@ -14,11 +21,15 @@
   justify-content: space-between;
 }
 
+.stats-body h2 {
+  color: #d2d2d2;
+  font-size: 3em;
+}
+
 /* Title */
 
-.stats-page h1 {
-  text-align: center;
-  margin: 1em;
+.stats-page .stats-title {
+  width: 500px;
 }
 
 /* Games section */
@@ -41,7 +52,7 @@
 .stats-played > div {
   display: flex;
   justify-content: space-around;
-  margin: 3em;
+  padding: 3em;
 }
 
 .stats-played img {
