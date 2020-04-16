@@ -44,12 +44,12 @@ class Home extends React.Component {
             <Link to="Collection" className="home-playnow-button">
               <img src={playnowtext} alt="Play now button text" />
             </Link>
-            <a href="#bottom-encre" ref={this.scrollRef}>
+            <a className="home-arrow-link" href="#home-bottom-encre" ref={this.scrollRef}>
               <img src={arrowswhite} alt="Arrows to scroll down" className="home-arrows" />
             </a>
           </div>
         </div>
-        <div id="bottom-encre" className="home-second-page">
+        <div id="home-bottom-encre" className="home-second-page">
           <div>
             <img
               src="https://via.placeholder.com/720x480.png?text=Board Presentation"
