@@ -1,33 +1,71 @@
 .stats-page {
-  margin: 5em;
+  background-image: url('../../img/Dark\ Scene\ Wall\ 004.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+/* NavBar */
+
+.stats-page .navbar {
+  background-image: url('../../img/navbar.png');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.stats-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0vh 7vw 0 7vw;
+}
+
+.stats-body section {
+  width: 100%;
+  margin-top: 7vh;
 }
 
 .stats-games ul,
 .stats-level div {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.stats-body h2 {
+  color: #d2d2d2;
+  font-size: 2.5em;
+  text-shadow: 2px 2px 2px black;
+}
+
+.stats-body p,
+.stats-body li {
+  color: rgb(255, 179, 37);
+  font-size: 1.8em;
+  text-shadow: 1px 4px 2px black;
 }
 
 /* Title */
 
-.stats-page h1 {
-  text-align: center;
-  margin: 1em;
+.stats-page .stats-title {
+  width: 350px;
 }
 
 /* Games section */
 
 .stats-games ul {
   list-style: none;
-  margin: 3em;
-  margin-right: 40%;
+  margin: 2em 22% 0 6em;
 }
 
 /* Level section */
 
 .stats-level > div {
-  margin: 3em;
-  margin-right: 50%;
+  margin: 2em 22% 0 6em;
+}
+
+.stats-loading-bar {
+  width: 30vw;
+  margin: 0 1em 0 1em;
 }
 
 /* Most played section */
@@ -35,9 +73,13 @@
 .stats-played > div {
   display: flex;
   justify-content: space-around;
-  margin: 3em;
+  padding: 2em 3em 3em 3em;
+}
+
+.stats-played p {
+  text-align: center;
 }
 
 .stats-played img {
-  width: 200px;
+  width: 150px;
 }
