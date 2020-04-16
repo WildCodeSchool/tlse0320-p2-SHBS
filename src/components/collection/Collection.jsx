@@ -8,7 +8,7 @@ import './Collection.css';
 const Collection = () => {
   const history = useHistory();
   return (
-    <div>
+    <div className="collection-page">
       <NavBar />
       <div className="collection-top">
         <div className="collection-deck">
