@@ -1,11 +1,13 @@
 import React from 'react';
-import StandardCard from './StandardCard';
-import './StandardCard.css';
+import './LargeCard.css';
 
 const LargeCard = () => {
   return (
-    <div>
-      <StandardCard />
+    <div className="large-card">
+      <img
+        src="https://www.superherodb.com/pictures2/portraits/10/100/639.jpg"
+        alt="portrait hero"
+      />
     </div>
   );
 };

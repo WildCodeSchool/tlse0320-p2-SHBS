@@ -2,6 +2,7 @@
   background-image: url('../../img/navbar.png');
   background-position: center;
   background-repeat: no-repeat;
+  height: 15vh;
 }
 
 .collection-page {
@@ -11,7 +12,7 @@
 }
 
 .collection-title {
-  width: 350px;
+  height: 5vh;
   align-self: center;
 }
 
@@ -20,27 +21,31 @@
 .collection-top {
   display: flex;
   flex-direction: row;
-  height: 50vh;
+  height: 30vh;
 }
 
 .collection-deck {
   display: flex;
   flex-direction: row;
-  width: 75vw;
+  width: 60vw;
   justify-content: space-around;
   align-items: center;
-  border: solid 3px;
   margin: 10px;
   background-color: rgba(255, 255, 255, 0.3);
+  border: solid 1px;
 }
 
 .collection-deck-title {
   font-size: 60px;
+  align-self: center;
+  padding-left: 3%;
+  width: 15vw;
   color: #d2d2d2;
+  text-shadow: 5px 5px #333;
 }
 
 .collection-deck .standard-card {
-  width: 140px;
+  width: 120px;
 }
 
 .collection-valid {
@@ -49,8 +54,9 @@
   justify-content: space-around;
   align-items: center;
   width: 25vw;
-  border: solid 3px;
+  border: solid 1px;
   margin: 10px;
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
 .collection-valid-title,
@@ -58,10 +64,25 @@
   font-size: 25px;
   color: #d2d2d2;
   text-align: center;
+  text-shadow: 3px 3px #333;
 }
 
 .collection-valid-fight {
-  width: 200px;
+  background-image: url('../../img/splashbackground.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: auto;
+  width: 10vw;
+}
+
+.collection-valid-fight img {
+  height: inherit;
+  width: inherit;
+  transition: transform 0.2s;
+}
+
+.collection-valid-fight img:hover {
+  transform: scale(1.4) rotate(-3deg);
 }
 
 /* Bottom part (card mozaik + card detail) */
@@ -81,9 +102,8 @@
 
 .collection-filter {
   height: 30px;
-  margin-bottom: 10px;
   text-align: right;
-  margin-right: 100px;
+  margin: 20px 100px 10px 0px;
 }
 
 .collection-cards {
@@ -97,18 +117,38 @@
 
 .collection-cards .standard-card {
   width: 100px;
-  margin: 10px;
+  margin: 20px 30px 20px 30px;
+}
+
+.collection-cards .container-card-text .attack {
+  z-index: 1;
+  position: absolute;
+  text-align: center;
+  top: 79%;
+  left: 23%;
+  color: red;
+  font-size: 80%;
+}
+
+.collection-cards .container-card-text .life {
+  z-index: 1;
+  position: absolute;
+  text-align: center;
+  top: 79%;
+  right: 23%;
+  color: green;
+  font-size: 80%;
 }
 
 .collection-big-card {
   display: flex;
   width: 25vw;
   margin: 10px;
-  border: solid 3px;
+  border: solid 1px;
   align-items: baseline;
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
-.collection-big-card .standard-card {
-  width: 150px;
-  margin: 10px;
+.collection-big-card .large-card {
+  margin: 20px;
 }
