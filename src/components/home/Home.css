@@ -1,3 +1,10 @@
+.home-main .navbar {
+  height: 0px;
+  position: fixed;
+  width: 90%;
+  margin-left: 5%;
+}
+
 .home-first-bg {
   background-image: url('../../img/venomvsspiderman.jpg');
   height: 100vh;

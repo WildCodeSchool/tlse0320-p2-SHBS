@@ -1,8 +1,8 @@
 import React from 'react';
+import StandardCard from '../Cards/StandardCard';
 import './Stats.css';
 import loadingbar from '../../img/loadingbar.png';
 import statsTitle from '../../img/stats.png';
-import cardskeleton from '../../img/cardskeleton.png';
 import NavBar from '../nav/NavBar';
 
 const Stats = () => {
@@ -25,7 +25,7 @@ const Stats = () => {
             <p>Lvl 7</p>
             <div>
               <p>0 xp</p>
-              <img src={loadingbar} alt="xp-bar"></img>
+              <img className="stats-loading-bar" src={loadingbar} alt="xp-bar"></img>
               <p>1200 xp</p>
             </div>
           </div>
@@ -35,15 +35,15 @@ const Stats = () => {
           <div>
             <div>
               <p>8 games</p>
-              <img src={cardskeleton} alt="card name"></img>
+              <StandardCard />
             </div>
             <div>
               <p>8 games</p>
-              <img src={cardskeleton} alt="card name"></img>
+              <StandardCard />
             </div>
             <div>
               <p>8 games</p>
-              <img src={cardskeleton} alt="card name"></img>
+              <StandardCard />
             </div>
           </div>
         </section>
