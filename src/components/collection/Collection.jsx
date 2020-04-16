@@ -1,17 +1,21 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import image from '../../img/cardskeleton.png';
+import LargeCard from '../../components/Cards/LargeCard';
+import StandardCard from '../../components/Cards/StandardCard';
+import NavBar from '../nav/NavBar';
 import './Collection.css';
 
-function Collection() {
+const Collection = () => {
   const history = useHistory();
   return (
-    <div>
+    <div className="collection-page">
+      <NavBar />
       <div className="collection-top">
         <div className="collection-deck">
-          <img className="collection-image" src={image} alt="" />
-          <img className="collection-image" src={image} alt="" />
-          <img className="collection-image" src={image} alt="" />
+          <p className="collection-deck-title">My Deck</p>
+          <StandardCard />
+          <StandardCard />
+          <StandardCard />
         </div>
         <div className="collection-valid">
           <p className="collection-valid-title">Create your deck</p>
@@ -31,33 +35,31 @@ function Collection() {
           <div className="collection-filter">Filtre</div>
 
           <div className="collection-cards">
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
-            <img className="collection-card" src={image} alt="" />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
+            <StandardCard />
           </div>
         </div>
 
         <div className="collection-big-card">
-          <img className="collection-big-card-img" src={image} alt="" />
+          <LargeCard />
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Collection;
