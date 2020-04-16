@@ -9,6 +9,7 @@ import './Home.css';
 class Home extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { theposition: window.pageYOffset };
     this.handleScroll = this.handleScroll.bind(this);
     this.scrollRef = React.createRef();
   }
@@ -22,8 +23,11 @@ class Home extends React.Component {
   }
 
   handleScroll() {
-    this.scrollRef.current.click();
-    console.log('ok');
+    const { theposition } = this.state;
+    if (theposition === 0) {
+      this.scrollRef.current.click();
+    }
+    this.setState({ theposition: window.pageYOffset });
   }
 
   render() {
