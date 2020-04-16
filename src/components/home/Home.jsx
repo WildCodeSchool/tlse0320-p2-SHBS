@@ -23,6 +23,14 @@ const Home = () => {
           <img src={arrowswhite} alt="Arrows to scroll down" className="home-arrows" />
         </div>
       </div>
+      <div className="home-second-page">
+        <div>
+          <img
+            src="https://via.placeholder.com/720x480.png?text=Board Presentation"
+            alt="Placeholder"
+          />
+        </div>
+      </div>
     </div>
   );
 };

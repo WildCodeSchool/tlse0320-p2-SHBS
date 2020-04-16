@@ -42,11 +42,24 @@
 }
 
 .home-playnow-button img:hover {
-    transform: scale(1.4) rotate(-3deg);
+  transform: scale(1.4) rotate(-3deg);
 }
 
 .home-arrows {
   height: 75px;
   margin-top: auto;
   margin-bottom: 20px;
+}
+
+/* Second part */
+
+.home-second-page {
+  background-image: url('../../img/Dark Scene Wall 004.jpg');
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
