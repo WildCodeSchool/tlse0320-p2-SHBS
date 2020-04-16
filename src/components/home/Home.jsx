@@ -24,7 +24,7 @@ class Home extends React.Component {
 
   handleScroll() {
     const { theposition } = this.state;
-    if (theposition === 0) {
+    if (theposition < window.pageYOffset && theposition < 700) {
       this.scrollRef.current.click();
     }
     this.setState({ theposition: window.pageYOffset });
