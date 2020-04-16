@@ -1,15 +1,17 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-import LargeCard from '../../components/Cards/LargeCard';
-import StandardCard from '../../components/Cards/StandardCard';
+import { Link } from 'react-router-dom';
+import LargeCard from '../Cards/LargeCard';
+import StandardCard from '../Cards/StandardCard';
+import titleCollection from '../../img/cardscollection.png';
+import buttonFight from '../../img/Fight.png';
 import NavBar from '../nav/NavBar';
 import './Collection.css';
 
 const Collection = () => {
-  const history = useHistory();
   return (
     <div className="collection-page">
       <NavBar />
+      <img className="collection-title" src={titleCollection} alt="Collection" />
       <div className="collection-top">
         <div className="collection-deck">
           <p className="collection-deck-title">My Deck</p>
@@ -20,13 +22,9 @@ const Collection = () => {
         <div className="collection-valid">
           <p className="collection-valid-title">Create your deck</p>
           <p className="collection-valid-check">You need 1 more card before fighting</p>
-          <button
-            className="collection-valid-fight"
-            type="button"
-            onClick={() => history.push('/Board')}
-          >
-            Fight
-          </button>
+          <Link to="Board">
+            <img className="collection-valid-fight" src={buttonFight} alt="Button" />
+          </Link>
         </div>
       </div>
 
