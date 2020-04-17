@@ -15,19 +15,19 @@ const Stats = () => {
           <section className="stats-games">
             <h2>Games</h2>
             <ul>
-              <li>Played : 18</li>
-              <li>Victories : 9</li>
-              <li>Ratio V/D : 50%</li>
+              <li className="bigger-P-Li">Played : 18</li>
+              <li className="bigger-P-Li">Victories : 9</li>
+              <li className="bigger-P-Li">Ratio V/D : 50%</li>
             </ul>
           </section>
           <section className="stats-level">
             <h2>Your level</h2>
             <div>
-              <p>Lvl 7</p>
+              <p className="bigger-P-Li">Lvl 7</p>
               <div className="stats-bar-wrapper">
-                <p>0 xp</p>
+                <p className="bigger-P-Li">0 xp</p>
                 <img className="stats-loading-bar" src={loadingbar} alt="xp-bar" />
-                <p>1200 xp</p>
+                <p className="bigger-P-Li">1200 xp</p>
               </div>
             </div>
           </section>
@@ -35,15 +35,15 @@ const Stats = () => {
             <h2>Most played heroes</h2>
             <div>
               <div>
-                <p>8 games</p>
+                <p className="bigger-P-Li">8 games</p>
                 <StandardCard />
               </div>
               <div>
-                <p>8 games</p>
+                <p className="bigger-P-Li">8 games</p>
                 <StandardCard />
               </div>
               <div>
-                <p>8 games</p>
+                <p className="bigger-P-Li">8 games</p>
                 <StandardCard />
               </div>
             </div>
