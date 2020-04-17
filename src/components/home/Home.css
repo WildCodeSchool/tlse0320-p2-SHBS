@@ -103,7 +103,7 @@
   }
 }
 
-/* Second part */
+/* Second part and rules*/
 
 .home-second-page {
   background-image: url('../../img/Dark Scene Wall 004.jpg');
@@ -112,6 +112,38 @@
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.home-second-page div {
+  display: flex;
+  flex-direction: row;
   justify-content: center;
-  align-items: flex-end;
+  align-content: center;
+  margin: 0 20%;
+  height: 250px;
+}
+
+.home-second-page div:first-child {
+  margin-top: 200px;
+}
+
+.home-second-page div:last-child {
+  flex-direction: row-reverse;
+}
+
+.home-second-page img {
+  height: inherit;
+  width: auto;
+}
+
+.home-main p {
+  color: #efc958;
+  text-align: justify;
+  margin: auto 0 auto 10%;
+}
+
+.home-second-page div:last-child p {
+  margin: auto 10% auto 0;
 }

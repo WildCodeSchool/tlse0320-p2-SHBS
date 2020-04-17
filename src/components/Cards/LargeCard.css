@@ -1,0 +1,8 @@
+.large-card img {
+  display: block;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 3%;
+  box-shadow: 5px 5px 5px black;
+  width: 120px;
+}

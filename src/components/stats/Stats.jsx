@@ -10,43 +10,45 @@ const Stats = () => {
     <div className="stats-page">
       <NavBar />
       <div className="stats-body">
-        <img className="stats-title" src={statsTitle} alt="Statistics"></img>
-        <section className="stats-games">
-          <h2>Games</h2>
-          <ul>
-            <li>Played : 18</li>
-            <li>Victories : 9</li>
-            <li>Ratio V/D : 50%</li>
-          </ul>
-        </section>
-        <section className="stats-level">
-          <h2>Your level</h2>
-          <div>
-            <p>Lvl 7</p>
+        <div className="stats-wrapper">
+          <img className="stats-title" src={statsTitle} alt="Statistics" />
+          <section className="stats-games">
+            <h2>Games</h2>
+            <ul>
+              <li>Played : 18</li>
+              <li>Victories : 9</li>
+              <li>Ratio V/D : 50%</li>
+            </ul>
+          </section>
+          <section className="stats-level">
+            <h2>Your level</h2>
             <div>
-              <p>0 xp</p>
-              <img className="stats-loading-bar" src={loadingbar} alt="xp-bar"></img>
-              <p>1200 xp</p>
+              <p>Lvl 7</p>
+              <div className="stats-bar-wrapper">
+                <p>0 xp</p>
+                <img className="stats-loading-bar" src={loadingbar} alt="xp-bar" />
+                <p>1200 xp</p>
+              </div>
             </div>
-          </div>
-        </section>
-        <section className="stats-played">
-          <h2>Most played heroes</h2>
-          <div>
+          </section>
+          <section className="stats-played">
+            <h2>Most played heroes</h2>
             <div>
-              <p>8 games</p>
-              <StandardCard />
+              <div>
+                <p>8 games</p>
+                <StandardCard />
+              </div>
+              <div>
+                <p>8 games</p>
+                <StandardCard />
+              </div>
+              <div>
+                <p>8 games</p>
+                <StandardCard />
+              </div>
             </div>
-            <div>
-              <p>8 games</p>
-              <StandardCard />
-            </div>
-            <div>
-              <p>8 games</p>
-              <StandardCard />
-            </div>
-          </div>
-        </section>
+          </section>
+        </div>
       </div>
     </div>
   );

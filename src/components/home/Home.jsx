@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import NavBar from '../nav/NavBar';
+import SecondHomePage from './SecondHomePage';
+import RulesPage from './RulesPage';
 import SHBSLong from '../../img/SHBSLong.png';
 import playnowtext from '../../img/playnowtext.png';
 import arrowswhite from '../../img/arrowswhite.png';
@@ -49,14 +51,8 @@ class Home extends React.Component {
             </a>
           </div>
         </div>
-        <div id="home-bottom-encre" className="home-second-page">
-          <div>
-            <img
-              src="https://via.placeholder.com/720x480.png?text=Board Presentation"
-              alt="Placeholder"
-            />
-          </div>
-        </div>
+        <SecondHomePage />
+        <RulesPage />
       </div>
     );
   }

@@ -1,8 +1,31 @@
-.standard-card {
+.container-card-text {
+  display: inline-block;
+  position: relative;
+}
+
+.container-card-text .standard-card {
   display: block;
-  background-image: url('../../img/cardskeleton.png');
+  background-image: url('https://www.superherodb.com/pictures2/portraits/10/100/32.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 3%;
   box-shadow: 5px 5px 5px black;
+}
+
+.container-card-text .attack {
+  z-index: 1;
+  position: absolute;
+  text-align: center;
+  top: 86%;
+  left: 8%;
+  color: red;
+}
+
+.container-card-text .life {
+  z-index: 1;
+  position: absolute;
+  text-align: center;
+  top: 86%;
+  right: 8%;
+  color: green;
 }
