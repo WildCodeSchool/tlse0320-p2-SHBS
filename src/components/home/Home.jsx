@@ -32,7 +32,7 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div className="home-main" onScroll={this.handleScroll}>
+      <div className="home-main">
         <NavBar />
         <div className="home-first-bg">
           <div className="home-assets">
