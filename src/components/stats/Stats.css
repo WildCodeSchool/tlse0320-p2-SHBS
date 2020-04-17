@@ -36,19 +36,6 @@
   margin-top: 1em;
 }
 
-.stats-body h2 {
-  color: #d2d2d2;
-  font-size: 2.5em;
-  text-shadow: 2px 2px 2px black;
-}
-
-.stats-body p,
-.stats-body li {
-  color: #efc958;
-  font-size: 1.8em;
-  text-shadow: 1px 4px 2px black;
-}
-
 /* Title */
 
 .stats-page .stats-title {
