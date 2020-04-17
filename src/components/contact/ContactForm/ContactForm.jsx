@@ -4,7 +4,11 @@ import './ContactForm.css';
 class ContactForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { name: '', email: '', message: '' };
+    this.state = {
+      name: '',
+      email: '',
+      message: ''
+    };
     this.changeName = this.changeName.bind(this);
     this.changeEmail = this.changeEmail.bind(this);
     this.changeMessage = this.changeMessage.bind(this);
@@ -23,19 +27,20 @@ class ContactForm extends Component {
   }
 
   render() {
+    const contact = this.state;
     return (
       <form className="contact-form">
         <input
           id="contact-name"
           type="text"
-          value={this.state.name}
+          value={contact.name}
           onChange={this.changeName}
           placeholder="Name"
         />
         <input
           id="contact-mail"
           type="email"
-          value={this.state.email}
+          value={contact.email}
           onChange={this.changeEmail}
           placeholder="E-mail"
         />
@@ -48,7 +53,7 @@ class ContactForm extends Component {
         <textarea
           id="contact-textarea"
           type="text"
-          value={this.state.message}
+          value={contact.message}
           onChange={this.changeMessage}
           placeholder="Message"
         />
