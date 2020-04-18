@@ -3,7 +3,7 @@ import React from 'react';
 const SecondHomePage = () => {
   return (
     <section className="home-second-page darkcity-bg flex-column" id="home-bottom-encre">
-      <article>
+      <article className="flex-row">
         <img
           src="https://via.placeholder.com/720x480.png?text=Board Presentation"
           alt="Placeholder"
@@ -19,7 +19,7 @@ const SecondHomePage = () => {
           asperiores eaque odit quo quisquam, corporis quidem!
         </p>
       </article>
-      <article>
+      <article className="flex-row">
         <img
           src="https://via.placeholder.com/720x480.png?text=Cards Presentation"
           alt="Placeholder"

@@ -37,7 +37,7 @@ class Home extends React.Component {
       <div className="home-main">
         <NavBar />
         <div className="home-first-bg">
-          <div className="home-assets">
+          <div className="home-assets flex-column">
             <img
               src={SHBSLong}
               alt="SuperHeroes Battle Simulator's title"
