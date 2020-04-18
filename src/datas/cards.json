@@ -1,0 +1,34 @@
+{
+  "poison ivy": {
+    "id": "522",
+    "name": "Poison Ivy"
+  },
+  "black cat": {
+    "id": "99",
+    "name": "Black Cat"
+  },
+  "joker": {
+    "id": "370",
+    "name": "Joker"
+  },
+  "batman": {
+    "id": "70",
+    "name": "Batman"
+  },
+  "rorschach": {
+    "id": "569",
+    "name": "Rorschach"
+  },
+  "bane": {
+    "id": "60",
+    "name": "Bane"
+  },
+  "psylocke": {
+    "id": "529",
+    "name": "Psylocke"
+  },
+  "luke skywalker": {
+    "id": "418",
+    "name": "Luke Skywalker"
+  }
+}

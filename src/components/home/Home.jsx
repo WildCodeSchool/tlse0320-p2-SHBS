@@ -37,13 +37,13 @@ class Home extends React.Component {
       <div className="home-main">
         <NavBar />
         <div className="home-first-bg">
-          <div className="home-assets">
+          <div className="home-assets flex-column">
             <img
               src={SHBSLong}
               alt="SuperHeroes Battle Simulator's title"
               className="home-shbs-title"
             />
-            <Link to="Collection" className="home-playnow-button">
+            <Link to="Collection" className="home-playnow-button button-splashbg">
               <img src={playnowtext} alt="Play now button text" />
             </Link>
             <a className="home-arrow-link" href="#home-bottom-encre" ref={this.scrollRef}>

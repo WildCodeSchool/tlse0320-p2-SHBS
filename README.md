@@ -10,7 +10,9 @@ Les nouveaux composants doivent être stockés dans un nouveau dossier (le dossi
 ### CSS rules
 
 CSS classes & IDs must me named after the component's name and in slug-case (ex: home-classname).
-Les classes et les ID CSS doivent être nommés d'après le nom du composant et écrits en slug-case ex: home-classname).*
+Global CSS classes were made in app.css. Use them as much as possible.
+Les classes et les ID CSS doivent être nommés d'après le nom du composant et écrits en slug-case ex: home-classname).
+Des classes de CSS gloables ont été créées dans app.css. Utilisez-les autant que possible.
 
 ### Var names
 
