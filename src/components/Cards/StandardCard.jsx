@@ -2,10 +2,15 @@ import React from 'react';
 import cardskeleton from '../../img/cardskeleton.png';
 import './StandardCard.css';
 
-const StandardCard = () => {
+const StandardCard = ({ characterimg }) => {
   return (
     <div className="container-card-text">
-      <img className="standard-card" src={cardskeleton} alt="border of the card" />
+      <img
+        className="standard-card"
+        style={{ backgroundImage: `url('${characterimg}')` }}
+        src={cardskeleton}
+        alt="border of the card"
+      />
       <div className="attack">
         <p>63</p>
       </div>
