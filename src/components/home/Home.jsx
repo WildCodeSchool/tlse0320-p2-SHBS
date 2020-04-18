@@ -43,7 +43,7 @@ class Home extends React.Component {
               alt="SuperHeroes Battle Simulator's title"
               className="home-shbs-title"
             />
-            <Link to="Collection" className="home-playnow-button">
+            <Link to="Collection" className="home-playnow-button button-splashbg">
               <img src={playnowtext} alt="Play now button text" />
             </Link>
             <a className="home-arrow-link" href="#home-bottom-encre" ref={this.scrollRef}>

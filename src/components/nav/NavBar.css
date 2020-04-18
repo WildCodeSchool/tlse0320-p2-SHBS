@@ -1,3 +1,11 @@
+/* NavBar */
+.navbar {
+  height: 0px;
+  position: fixed;
+  width: 90%;
+  margin-left: 5%;
+}
+
 .navbar ul {
   display: flex;
   align-items: center;

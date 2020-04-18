@@ -13,7 +13,8 @@ body {
 p,
 li {
   color: #efc958;
-  text-shadow: 1px 4px 2px black;
+  text-shadow: 3px 3px #333;
+  text-align: center;
 }
 
 .bigger-P-Li {
@@ -23,5 +24,25 @@ li {
 h2 {
   font-size: 4.5vh;
   color: #d2d2d2;
-  text-shadow: 2px 2px 2px black;
+  text-shadow: 5px 5px #333;
+}
+
+.darkcity-bg {
+  background-image: url('./img/Dark Scene Wall 004.jpg');
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.button-splashbg {
+  background-image: url('./img/splashbackground.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: auto;
 }

@@ -1,10 +1,3 @@
-.home-main .navbar {
-  height: 0px;
-  position: fixed;
-  width: 90%;
-  margin-left: 5%;
-}
-
 .home-first-bg {
   background-image: url('../../img/venomvsspiderman.jpg');
   height: 100vh;
@@ -35,10 +28,6 @@
 }
 
 .home-playnow-button {
-  background-image: url('../../img/splashbackground.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: auto;
   width: 15vw;
 }
 
@@ -106,17 +95,10 @@
 /* Second part and rules*/
 
 .home-second-page {
-  background-image: url('../../img/Dark Scene Wall 004.jpg');
-  height: 100vh;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
   justify-content: space-evenly;
-  flex-direction: column;
 }
 
-.home-second-page div {
+.home-second-page article {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -125,11 +107,11 @@
   height: 250px;
 }
 
-.home-second-page div:first-child {
+.home-second-page article:first-child {
   margin-top: 200px;
 }
 
-.home-second-page div:last-child {
+.home-second-page article:last-child {
   flex-direction: row-reverse;
 }
 
@@ -139,11 +121,10 @@
 }
 
 .home-main p {
-  color: #efc958;
   text-align: justify;
   margin: auto 0 auto 10%;
 }
 
-.home-second-page div:last-child p {
+.home-second-page article:last-child p {
   margin: auto 10% auto 0;
 }

@@ -1,17 +1,5 @@
-.collection-page .navbar {
-  background-image: url('../../img/navbar.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 15vh;
-}
-
-.collection-page {
-  background-image: url('../../img/Dark Scene Wall 004.jpg');
-  display: flex;
-  flex-direction: column;
-}
-
 .collection-title {
+  margin-top: 150px;
   height: 5vh;
   align-self: center;
 }
@@ -36,12 +24,9 @@
 }
 
 .collection-deck-title {
-  font-size: 60px;
   align-self: center;
   padding-left: 3%;
   width: 15vw;
-  color: #d2d2d2;
-  text-shadow: 5px 5px #333;
 }
 
 .collection-deck .standard-card {
@@ -49,8 +34,6 @@
 }
 
 .collection-valid {
-  display: flex;
-  flex-direction: column;
   justify-content: space-around;
   align-items: center;
   width: 25vw;
@@ -59,19 +42,7 @@
   background-color: rgba(255, 255, 255, 0.3);
 }
 
-.collection-valid-title,
-.collection-valid-check {
-  font-size: 25px;
-  color: #d2d2d2;
-  text-align: center;
-  text-shadow: 3px 3px #333;
-}
-
 .collection-valid-fight {
-  background-image: url('../../img/splashbackground.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: auto;
   width: 10vw;
 }
 
@@ -94,8 +65,6 @@
 }
 
 .collection-bottom-left {
-  display: flex;
-  flex-direction: column;
   width: 75vw;
   margin: 10px;
 }
@@ -121,22 +90,14 @@
 }
 
 .collection-cards .container-card-text .attack {
-  z-index: 1;
-  position: absolute;
-  text-align: center;
-  top: 79%;
+  top: 78%;
   left: 23%;
-  color: red;
   font-size: 80%;
 }
 
 .collection-cards .container-card-text .life {
-  z-index: 1;
-  position: absolute;
-  text-align: center;
-  top: 79%;
+  top: 78%;
   right: 23%;
-  color: green;
   font-size: 80%;
 }
 
