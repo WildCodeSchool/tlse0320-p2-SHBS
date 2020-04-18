@@ -30,5 +30,21 @@
   "luke skywalker": {
     "id": "418",
     "name": "Luke Skywalker"
+  },
+  "iron man": {
+    "id": "346",
+    "name": "Iron Man"
+  },
+  "boba fett": {
+    "id": "127",
+    "name": "Boba Fett"
+  },
+  "x-23": {
+    "id": "723",
+    "name": "X-23"
+  },
+  "one punch man": {
+    "id": "502",
+    "name": "One Punch Man"
   }
 }
