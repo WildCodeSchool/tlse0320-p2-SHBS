@@ -1,20 +1,10 @@
-.collection-title {
-  margin-top: 150px;
-  height: 5vh;
-  align-self: center;
-}
-
 /* Top part (deck + validation) */
 
 .collection-top {
-  display: flex;
-  flex-direction: row;
   height: 30vh;
 }
 
 .collection-deck {
-  display: flex;
-  flex-direction: row;
   width: 60vw;
   justify-content: space-around;
   align-items: center;
@@ -59,8 +49,6 @@
 /* Bottom part (card mozaik + card detail) */
 
 .collection-bottom {
-  display: flex;
-  flex-direction: row;
   height: 50vh;
 }
 
@@ -76,8 +64,6 @@
 }
 
 .collection-cards {
-  display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   height: 400px;

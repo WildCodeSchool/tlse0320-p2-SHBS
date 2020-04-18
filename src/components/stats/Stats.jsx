@@ -10,7 +10,7 @@ const Stats = () => {
     <div className="stats-page">
       <NavBar />
       <div className="stats-body darkcity-bg flex-column">
-        <img className="stats-title" src={statsTitle} alt="Statistics" />
+        <img className="page-title" src={statsTitle} alt="Statistics" />
         <section className="stats-games">
           <h2>Games</h2>
           <ul>

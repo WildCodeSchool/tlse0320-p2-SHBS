@@ -6,7 +6,7 @@ import './NavBar.css';
 function NavBar() {
   return (
     <nav className="navbar">
-      <ul>
+      <ul className="flex-row">
         <li>
           <Link to="/">
             <img src={logo} alt="Accueil SHBS" />

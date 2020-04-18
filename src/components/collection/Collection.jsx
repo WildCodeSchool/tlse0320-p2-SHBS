@@ -11,10 +11,10 @@ const Collection = () => {
   return (
     <div className="collection-page darkcity-bg flex-column">
       <NavBar />
-      <img className="collection-title" src={titleCollection} alt="Collection" />
-      <div className="collection-top">
+      <img className="collection-title page-title" src={titleCollection} alt="Collection" />
+      <div className="collection-top flex-row">
         <h2 className="collection-deck-title">My Deck</h2>
-        <div className="collection-deck">
+        <div className="collection-deck flex-row">
           <StandardCard />
           <StandardCard />
           <StandardCard />
@@ -28,14 +28,14 @@ const Collection = () => {
         </div>
       </div>
 
-      <div className="collection-bottom">
+      <div className="collection-bottom flex-row">
         <div className="collection-bottom-left flex-column">
           <div className="collection-filter">
             <input type="search" />
             <button type="button"> Filter </button>
           </div>
 
-          <div className="collection-cards">
+          <div className="collection-cards flex-row">
             <StandardCard />
             <StandardCard />
             <StandardCard />
