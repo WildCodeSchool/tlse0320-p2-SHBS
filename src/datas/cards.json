@@ -31,6 +31,22 @@
     "id": "418",
     "name": "Luke Skywalker"
   },
+  "alien": {
+    "id": "18",
+    "name": "Alien"
+  },
+  "king kong": {
+    "id": "389",
+    "name": "King Kong"
+  },
+  "hellboy": {
+    "id": "322",
+    "name": "Hellboy"
+  },
+  "black manta": {
+    "id": "105",
+    "name": "Black Manta"
+  },
   "iron man": {
     "id": "346",
     "name": "Iron Man"
