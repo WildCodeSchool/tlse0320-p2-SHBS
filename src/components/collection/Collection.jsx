@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-/* import axios from 'axios'; */
 import { Link } from 'react-router-dom';
-/* import cards from '../../datas/cards.json'; */
+import cards from '../../datas/cards.json';
 import LargeCard from '../Cards/LargeCard';
 import StandardCard from '../Cards/StandardCard';
 import titleCollection from '../../img/cardscollection.png';
@@ -13,32 +12,16 @@ class Collection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      characters: [
-        {
-          id: '522',
-          name: 'Poison Ivy',
-          image: 'https://www.superherodb.com/pictures2/portraits/10/100/757.jpg'
-        }
-      ],
-      idToDisplay: 0
+      characters: cards,
+      indexToDisplay: 0
     };
   }
-  //https://www.superherodb.com/pictures2/portraits/10/100/757.jpg
-  /*   componentDidMount() {
-    this.getCharacters();
-  } */
 
-  /*   getCharacters = () => {
-    axios
-      .get('https://melroune.github.io/starwars-api/api/all.json')
-      .then(res => this.setState({ cards: res.data }))
-      .then(res => console.log(res));
-  }; */
-  handleClick = id => {
-    this.setState({ idToDisplay: id });
+  handleClick = index => {
+    this.setState({ indexToDisplay: index });
   };
   render() {
-    const { characters, idToDisplay } = this.state;
+    const { characters, indexToDisplay } = this.state;
     return (
       <div className="collection-page">
         <NavBar />
@@ -46,9 +29,9 @@ class Collection extends Component {
         <div className="collection-top">
           <p className="collection-deck-title">My Deck</p>
           <div className="collection-deck">
+            {/*<StandardCard />
             <StandardCard />
-            <StandardCard />
-            <StandardCard />
+            <StandardCard /> */}
           </div>
           <div className="collection-valid">
             <p className="collection-valid-title">Create your deck</p>
@@ -69,8 +52,10 @@ class Collection extends Component {
               {characters.map(character => (
                 <StandardCard
                   handleClick={this.handleClick}
-                  charactername={character.name}
-                  characterimg={character.image}
+                  combat={character.combat}
+                  durability={character.durability}
+                  image={character.image}
+                  index={character.index}
                   key={character.id}
                 />
               ))}
@@ -78,7 +63,7 @@ class Collection extends Component {
           </div>
 
           <div className="collection-big-card">
-            <LargeCard />
+            <LargeCard character={characters[indexToDisplay]} />
           </div>
         </div>
       </div>
