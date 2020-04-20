@@ -1,14 +1,12 @@
 import React from 'react';
 import StandardCard from '../Cards/StandardCard';
-import './Stats.css';
 import loadingbar from '../../img/loadingbar.png';
 import statsTitle from '../../img/stats.png';
-import NavBar from '../nav/NavBar';
+import './Stats.css';
 
 const Stats = () => {
   return (
     <div className="stats-page">
-      <NavBar />
       <div className="stats-body darkcity-bg flex-column">
         <img className="page-title" src={statsTitle} alt="Statistics" />
         <section className="stats-games">

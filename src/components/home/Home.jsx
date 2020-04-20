@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import NavBar from '../nav/NavBar';
 import SecondHomePage from './SecondHomePage';
 import RulesPage from './RulesPage';
 import SHBSLong from '../../img/SHBSLong.png';
@@ -35,7 +34,6 @@ class Home extends React.Component {
   render() {
     return (
       <div className="home-main">
-        <NavBar />
         <div className="home-first-bg">
           <div className="home-assets flex-column">
             <img

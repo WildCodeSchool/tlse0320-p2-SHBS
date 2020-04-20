@@ -4,13 +4,11 @@ import LargeCard from '../Cards/LargeCard';
 import StandardCard from '../Cards/StandardCard';
 import titleCollection from '../../img/cardscollection.png';
 import fightext from '../../img/Fightext.png';
-import NavBar from '../nav/NavBar';
 import './Collection.css';
 
 const Collection = () => {
   return (
     <div className="collection-page darkcity-bg flex-column">
-      <NavBar />
       <img className="collection-title page-title" src={titleCollection} alt="Collection" />
       <div className="collection-top flex-row">
         <h2 className="collection-deck-title">My Deck</h2>
