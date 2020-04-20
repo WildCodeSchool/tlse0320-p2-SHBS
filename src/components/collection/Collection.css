@@ -1,9 +1,154 @@
-h1 {
-  text-align: center;
-  margin: 50px;
+.collection-page .navbar {
+  background-image: url('../../img/navbar.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 15vh;
 }
-.btnValid {
-  float: right;
-  margin-right: 50px;
-  font-size: 2em;
+
+.collection-page {
+  background-image: url('../../img/Dark Scene Wall 004.jpg');
+  display: flex;
+  flex-direction: column;
+}
+
+.collection-title {
+  height: 5vh;
+  align-self: center;
+}
+
+/* Top part (deck + validation) */
+
+.collection-top {
+  display: flex;
+  flex-direction: row;
+  height: 30vh;
+}
+
+.collection-deck {
+  display: flex;
+  flex-direction: row;
+  width: 60vw;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border: solid 1px;
+}
+
+.collection-deck-title {
+  font-size: 60px;
+  align-self: center;
+  padding-left: 3%;
+  width: 15vw;
+  color: #d2d2d2;
+  text-shadow: 5px 5px #333;
+}
+
+.collection-deck .standard-card {
+  width: 120px;
+}
+
+.collection-valid {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 25vw;
+  border: solid 1px;
+  margin: 10px;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.collection-valid-title,
+.collection-valid-check {
+  font-size: 25px;
+  color: #d2d2d2;
+  text-align: center;
+  text-shadow: 3px 3px #333;
+}
+
+.collection-valid-fight {
+  background-image: url('../../img/splashbackground.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: auto;
+  width: 10vw;
+}
+
+.collection-valid-fight img {
+  height: inherit;
+  width: inherit;
+  transition: transform 0.2s;
+}
+
+.collection-valid-fight img:hover {
+  transform: scale(1.4) rotate(-3deg);
+}
+
+/* Bottom part (card mozaik + card detail) */
+
+.collection-bottom {
+  display: flex;
+  flex-direction: row;
+  height: 50vh;
+}
+
+.collection-bottom-left {
+  display: flex;
+  flex-direction: column;
+  width: 75vw;
+  margin: 10px;
+}
+
+.collection-filter {
+  height: 30px;
+  text-align: right;
+  margin: 20px 100px 10px 0px;
+}
+
+.collection-cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  height: 400px;
+  overflow-y: auto;
+}
+
+.collection-cards .standard-card {
+  width: 100px;
+  margin: 20px 30px 20px 30px;
+}
+
+.collection-cards .container-card-text .attack {
+  z-index: 1;
+  position: absolute;
+  text-align: center;
+  top: 79%;
+  left: 23%;
+  color: red;
+  font-size: 80%;
+}
+
+.collection-cards .container-card-text .life {
+  z-index: 1;
+  position: absolute;
+  text-align: center;
+  top: 79%;
+  right: 23%;
+  color: green;
+  font-size: 80%;
+}
+
+.collection-big-card {
+  display: flex;
+  width: 25vw;
+  margin: 10px;
+  border: solid 1px;
+  align-items: baseline;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.collection-big-card .large-card {
+  margin: 20px;
 }

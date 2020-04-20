@@ -1,4 +1,38 @@
-h1 {
+.board-page {
+  background-image: url('../../img/Dark Scene Wall 004.jpg');
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.board-cards .standard-card {
+  width: 150px;
+  margin: 20px;
+}
+.board-cards {
+  width: 100vh;
+  margin: 10vh;
+}
+.board-cards-top {
+  display: flex;
+  flex-direction: row;
+}
+.board-cards-bottom {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20vh;
+}
+.board-log-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 25vw;
+}
+.combat-log-title {
   text-align: center;
-  margin: 50px;
+  margin-bottom: 20px;
+  margin-right: 50px;
+  color: gold;
+}
+.board-menu {
+  width: 15vw;
 }

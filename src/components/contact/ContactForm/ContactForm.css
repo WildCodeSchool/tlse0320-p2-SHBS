@@ -1,0 +1,25 @@
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+#contact-name,
+#contact-mail,
+#contact-select,
+#contact-textarea,
+#contact-submit {
+  font-family: cursive;
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.2em;
+}
+
+#contact-textarea {
+  height: 150px;
+  padding: 0.2em;
+}
+
+#contact-submit {
+  align-self: flex-end;
+}

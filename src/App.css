@@ -5,3 +5,23 @@
   padding: 0;
   margin: 0;
 }
+
+body {
+  font-family: BADABB;
+}
+
+p,
+li {
+  color: #efc958;
+  text-shadow: 1px 4px 2px black;
+}
+
+.bigger-P-Li {
+  font-size: 3vh;
+}
+
+h2 {
+  font-size: 4.5vh;
+  color: #d2d2d2;
+  text-shadow: 2px 2px 2px black;
+}

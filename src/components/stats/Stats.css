@@ -1,4 +1,86 @@
-h1 {
+/* NavBar */
+
+.stats-page .navbar {
+  height: 0px;
+  position: fixed;
+  width: 90%;
+  margin-left: 5%;
+}
+
+.stats-body {
+  background-image: url('../../img/Dark\ Scene\ Wall\ 004.jpg');
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.stats-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 150px 7vw 0 7vw;
+  height: 100vh;
+}
+
+.stats-body section {
+  width: 100%;
+}
+
+.stats-games ul,
+.stats-level div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1em;
+}
+
+/* Title */
+
+.stats-page .stats-title {
+  width: 350px;
+}
+
+/* Games section */
+
+.stats-games ul {
+  list-style: none;
+  margin: 0 22% 0 6em;
+}
+
+/* Level section */
+
+.stats-bar-wrapper {
+  margin: 0 22% 0 6em !important;
+}
+
+.stats-level p {
   text-align: center;
-  margin: 50px;
+  width: 150px;
+}
+
+.stats-level p:last-child {
+  margin: 0;
+}
+
+.stats-loading-bar {
+  width: 30vw;
+  margin: 0 1em 0 1em;
+}
+
+/* Most played section */
+
+.stats-played > div {
+  display: flex;
+  justify-content: space-around;
+  padding: 2em 3em 0 3em;
+}
+
+.stats-played p {
+  text-align: center;
+}
+
+.stats-played img {
+  width: 150px;
 }
