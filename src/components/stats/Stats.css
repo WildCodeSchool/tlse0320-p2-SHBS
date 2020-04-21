@@ -1,26 +1,7 @@
-/* NavBar */
-
-.stats-page .navbar {
-  height: 0px;
-  position: fixed;
-  width: 90%;
-  margin-left: 5%;
-}
-
 .stats-body {
-  background-image: url('../../img/Dark\ Scene\ Wall\ 004.jpg');
-  height: 100vh;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.stats-wrapper {
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  padding: 150px 7vw 0 7vw;
+  padding: 0px 7vw 0 7vw;
   height: 100vh;
 }
 
@@ -34,12 +15,6 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 1em;
-}
-
-/* Title */
-
-.stats-page .stats-title {
-  width: 350px;
 }
 
 /* Games section */

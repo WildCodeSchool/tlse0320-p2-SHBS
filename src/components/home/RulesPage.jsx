@@ -2,8 +2,8 @@ import React from 'react';
 
 const RulesPage = () => {
   return (
-    <div className="home-second-page">
-      <div>
+    <section className="home-second-page darkcity-bg flex-column">
+      <article className="flex-row">
         <img
           src="https://via.placeholder.com/720x480.png?text=Board Presentation"
           alt="Placeholder"
@@ -18,8 +18,8 @@ const RulesPage = () => {
           fugiat sit et nisi, eligendi, accusantium atque id voluptatum amet deleniti ipsa
           asperiores eaque odit quo quisquam, corporis quidem!
         </p>
-      </div>
-      <div>
+      </article>
+      <article className="flex-row">
         <img
           src="https://via.placeholder.com/720x480.png?text=Cards Presentation"
           alt="Placeholder"
@@ -34,8 +34,8 @@ const RulesPage = () => {
           fugiat sit et nisi, eligendi, accusantium atque id voluptatum amet deleniti ipsa
           asperiores eaque odit quo quisquam, corporis quidem!
         </p>
-      </div>
-    </div>
+      </article>
+    </section>
   );
 };
 
