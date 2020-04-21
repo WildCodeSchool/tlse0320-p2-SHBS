@@ -5,12 +5,14 @@ import Collection from './components/collection/Collection';
 import Contact from './components/contact/Contact';
 import Board from './components/board/Board';
 import Stats from './components/stats/Stats';
+import NavBar from './components/nav/NavBar';
 import './App.css';
 
 function App() {
   return (
     <div>
       <Router>
+        <NavBar />
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/Collection" exact component={Collection} />
