@@ -69,8 +69,8 @@ class Collection extends Component {
   render() {
     const { characters, indexToDisplay, numberOfCardsRequired } = this.state;
     return (
-      <div className="collection-page darkcity-bg flex-column">
-        <img className="collection-title page-title" src={titleCollection} alt="Collection" />
+      <div className="darkcity-bg flex-column">
+        <img className="page-title" src={titleCollection} alt="Collection" />
         <div className="collection-top flex-row">
           <h2 className="collection-deck-title">My Deck</h2>
           <CollectionDeck
@@ -80,7 +80,7 @@ class Collection extends Component {
           />
           <div className="collection-valid flex-column">
             <p className="collection-valid-title bigger-P-Li">Create your deck</p>
-            <p className="collection-valid-check bigger-P-Li">{numberOfCardsRequired}</p>
+            <p className="bigger-P-Li">{numberOfCardsRequired}</p>
             <Link to="Board" className="collection-valid-fight button-splashbg">
               <img src={fightext} alt="Button to launch" />
             </Link>
