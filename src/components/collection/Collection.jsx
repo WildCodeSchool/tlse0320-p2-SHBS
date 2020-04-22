@@ -23,23 +23,17 @@ class Collection extends Component {
   };
 
   componentDidMount() {
-    const { characters } = this.state;
-    axios
-      .all(
-        Object.keys(characters).map(card =>
-          axios.get(
-            `https://cors-anywhere.herokuapp.com/https://superheroapi.com/api/2797197167065435/${characters[card].id}`
-          )
-        )
-      )
-      .then(
-        axios.spread(function(...res) {
-          res.forEach(char => console.log(char.data));
-          this.setState(res);
-        })
-      );
+    const { characters, charsDatas } = this.state;
+    axios.all(Object.keys(characters).map( card => axios.get(`https://akabab.github.io/superhero-api/api/id/${characters[card].id}.json`)))
+      .then(axios.spread(function (...res) {
+        const allChars = res.map(result => result.data)
+        console.log(allChars)
+        this.setState({charsDatas: allChars})
+      }.bind(this)
+    ))
+      .then(console.log)
   }
-
+  
   // componentDidMount() {
   //   const { characters } = this.state;
   //   axios.all(
@@ -82,23 +76,20 @@ class Collection extends Component {
               <input type="search" />
               <button type="button"> Filter </button>
             </div>
-            if ({loadedDatas}){' '}
-            {
-              <div className="collection-cards flex-row">
-                {characters.map(character => {
-                  return (
-                    <StandardCard
-                      handleHover={this.handleHover}
-                      combat={this.state.combat}
-                      durability={this.state.durability}
-                      image={this.state.image}
-                      index={this.state.index}
-                      key={this.state.id}
-                    />
-                  );
-                })}
-              </div>
-            }
+                <div className="collection-cards flex-row">
+                  {charsDatas.map(character => {
+                    return (
+                      <StandardCard
+                        handleHover={this.handleHover}
+                        combat={character.powerstats.combat}
+                        durability={character.powerstats.durability}
+                        image={character.images.md}
+                        //index={character.index}
+                        key={character.id}
+                      />
+                    )}
+                  )}
+                </div> 
           </div>
 
           <div className="collection-big-card">
