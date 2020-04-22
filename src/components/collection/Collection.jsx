@@ -12,15 +12,23 @@ class Collection extends Component {
     super(props);
     this.state = {
       characters: cards,
-      indexToDisplay: 0
+      indexToDisplay: 0,
+      search: ''
     };
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   handleClick = index => {
     this.setState({ indexToDisplay: index });
   };
+
+  handleSearch(event) {
+    this.setState({ search: event.target.value });
+  }
+
   render() {
-    const { characters, indexToDisplay } = this.state;
+    const { characters, indexToDisplay, search } = this.state;
+    let NewSearch = search.toUpperCase();
     return (
       <div className="collection-page darkcity-bg flex-column">
         <img className="collection-title page-title" src={titleCollection} alt="Collection" />
@@ -45,19 +53,28 @@ class Collection extends Component {
         <div className="collection-bottom flex-row">
           <div className="collection-bottom-left flex-column">
             <div className="collection-filter">
-              <input type="search" />
+              {/* Modify label and input */}
+              <label htmlFor="research">Search :</label>
+              <input
+                id="research"
+                type="text"
+                value={this.state.search}
+                onChange={this.handleSearch}
+              />
             </div>
             <div className="collection-cards flex-row">
-              {characters.map(character => (
-                <StandardCard
-                  handleClick={this.handleClick}
-                  combat={character.combat}
-                  durability={character.durability}
-                  image={character.image}
-                  index={character.index}
-                  key={character.id}
-                />
-              ))}
+              {characters
+                .filter(test => test.name.toUpperCase().includes(NewSearch))
+                .map(character => (
+                  <StandardCard
+                    handleClick={this.handleClick}
+                    combat={character.combat}
+                    durability={character.durability}
+                    image={character.image}
+                    index={character.index}
+                    key={character.id}
+                  />
+                ))}
             </div>
           </div>
 
