@@ -54,7 +54,7 @@ class Collection extends Component {
           <div className="collection-bottom-left flex-column">
             <div className="collection-filter">
               {/* Modify label and input */}
-              <label htmlFor="research">Search :</label>
+              <label htmlFor="research">`Search : `</label>
               <input
                 id="research"
                 type="text"
@@ -64,7 +64,7 @@ class Collection extends Component {
             </div>
             <div className="collection-cards flex-row">
               {characters
-                .filter(test => test.name.toUpperCase().includes(NewSearch))
+                .filter(test => test.name.toUpperCase().startsWith(NewSearch, 0))
                 .map(character => (
                   <StandardCard
                     handleClick={this.handleClick}
