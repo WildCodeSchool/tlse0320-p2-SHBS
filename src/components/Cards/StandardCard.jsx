@@ -2,9 +2,18 @@ import React from 'react';
 import cardskeleton from '../../img/cardskeleton.png';
 import './StandardCard.css';
 
-const StandardCard = ({ combat, durability, image, handleClick, index }) => {
+const StandardCard = props => {
+  const { combat, durability, image, handleHover, index, handleClick } = props;
+
   return (
-    <div className="container-card-text" onMouseEnter={() => handleClick(index)}>
+    <div
+      role="button"
+      tabIndex={0}
+      className="container-card-text"
+      onClick={() => handleClick()}
+      onMouseEnter={() => handleHover(index)}
+      onKeyPress={() => {}}
+    >
       <img
         className="standard-card"
         style={{ backgroundImage: `url('${image}')` }}

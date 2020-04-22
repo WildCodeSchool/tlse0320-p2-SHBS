@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import cards from '../../datas/cards.json';
 import LargeCard from '../Cards/LargeCard';
 import StandardCard from '../Cards/StandardCard';
+import CollectionDeck from './CollectionDeck';
 import titleCollection from '../../img/cardscollection.png';
 import fightext from '../../img/Fightext.png';
 import './Collection.css';
@@ -12,13 +13,31 @@ class Collection extends Component {
     super(props);
     this.state = {
       characters: cards,
-      indexToDisplay: 0
+      indexToDisplay: 0,
+      deckSelect: []
     };
   }
 
-  handleClick = index => {
+  handleHover = index => {
     this.setState({ indexToDisplay: index });
   };
+
+  handleClick = () => {
+    const { deckSelect, characters, indexToDisplay } = this.state;
+    if (deckSelect.length < 3) {
+      this.setState({
+        deckSelect: deckSelect.concat(characters[indexToDisplay])
+      });
+    }
+  };
+
+  handleDeckClick = () => {
+    const { deckSelect, characters, indexToDisplay } = this.state;
+    this.setState({
+      deckSelect: deckSelect.splice(characters[indexToDisplay], indexToDisplay + 1)
+    });
+  };
+
   render() {
     const { characters, indexToDisplay } = this.state;
     return (
@@ -26,11 +45,11 @@ class Collection extends Component {
         <img className="collection-title page-title" src={titleCollection} alt="Collection" />
         <div className="collection-top flex-row">
           <h2 className="collection-deck-title">My Deck</h2>
-          <div className="collection-deck">
-            {/*<StandardCard />
-            <StandardCard />
-            <StandardCard /> */}
-          </div>
+          <CollectionDeck
+            handleClick={this.handleDeckClick}
+            handleHover={this.handleHover}
+            deckSelect={this.state.deckSelect}
+          />
           <div className="collection-valid flex-column">
             <p className="collection-valid-title bigger-P-Li">Create your deck</p>
             <p className="collection-valid-check bigger-P-Li">
@@ -41,7 +60,6 @@ class Collection extends Component {
             </Link>
           </div>
         </div>
-
         <div className="collection-bottom flex-row">
           <div className="collection-bottom-left flex-column">
             <div className="collection-filter">
@@ -51,6 +69,7 @@ class Collection extends Component {
             <div className="collection-cards flex-row">
               {characters.map(character => (
                 <StandardCard
+                  handleHover={this.handleHover}
                   handleClick={this.handleClick}
                   combat={character.combat}
                   durability={character.durability}
@@ -61,7 +80,6 @@ class Collection extends Component {
               ))}
             </div>
           </div>
-
           <div className="collection-big-card">
             <LargeCard character={characters[indexToDisplay]} />
           </div>
@@ -70,4 +88,5 @@ class Collection extends Component {
     );
   }
 }
+
 export default Collection;
