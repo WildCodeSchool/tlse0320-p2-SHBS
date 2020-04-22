@@ -14,7 +14,8 @@ class Collection extends Component {
     this.state = {
       characters: cards,
       indexToDisplay: 0,
-      deckSelect: []
+      deckSelect: [],
+      numberOfCardsRequired: 'You need 3 more card before fighting'
     };
   }
 
@@ -29,17 +30,44 @@ class Collection extends Component {
         deckSelect: deckSelect.concat(characters[indexToDisplay])
       });
     }
+    switch (deckSelect.length) {
+      case 0:
+        this.setState({ numberOfCardsRequired: 'You need 2 more card before fighting' });
+        break;
+      case 1:
+        this.setState({ numberOfCardsRequired: 'You need 1 more card before fighting' });
+        break;
+      case 2:
+        this.setState({ numberOfCardsRequired: 'You can fight !' });
+      default:
+        break;
+    }
   };
 
   handleDeckClick = () => {
     const { deckSelect, characters, indexToDisplay } = this.state;
+    let tempDeck = [...deckSelect];
+    let tempIndex = tempDeck.indexOf(characters[indexToDisplay]);
+    tempDeck.splice(tempIndex, 1);
     this.setState({
-      deckSelect: deckSelect.splice(characters[indexToDisplay], indexToDisplay + 1)
+      deckSelect: tempDeck
     });
+    switch (deckSelect.length) {
+      case 3:
+        this.setState({ numberOfCardsRequired: 'You need 1 more card before fighting' });
+        break;
+      case 2:
+        this.setState({ numberOfCardsRequired: 'You need 2 more card before fighting' });
+        break;
+      case 1:
+        this.setState({ numberOfCardsRequired: 'You need 3 more card before fighting' });
+      default:
+        break;
+    }
   };
 
   render() {
-    const { characters, indexToDisplay } = this.state;
+    const { characters, indexToDisplay, numberOfCardsRequired } = this.state;
     return (
       <div className="collection-page darkcity-bg flex-column">
         <img className="collection-title page-title" src={titleCollection} alt="Collection" />
@@ -52,9 +80,7 @@ class Collection extends Component {
           />
           <div className="collection-valid flex-column">
             <p className="collection-valid-title bigger-P-Li">Create your deck</p>
-            <p className="collection-valid-check bigger-P-Li">
-              You need 1 more card before fighting
-            </p>
+            <p className="collection-valid-check bigger-P-Li">{numberOfCardsRequired}</p>
             <Link to="Board" className="collection-valid-fight button-splashbg">
               <img src={fightext} alt="Button to launch" />
             </Link>
