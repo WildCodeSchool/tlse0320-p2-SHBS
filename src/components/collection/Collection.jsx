@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import cards from '../../datas/cards.json';
+import axios from 'axios';
+import cards from '../../datas/newCards.json';
 import LargeCard from '../Cards/LargeCard';
 import StandardCard from '../Cards/StandardCard';
 import titleCollection from '../../img/cardscollection.png';
@@ -12,15 +13,48 @@ class Collection extends Component {
     super(props);
     this.state = {
       characters: cards,
-      indexToDisplay: 0
+      charsDatas: [],
+      loadedDatas: false
     };
   }
 
-  handleClick = index => {
+  handleHover = index => {
     this.setState({ indexToDisplay: index });
   };
+
+  componentDidMount() {
+    const { characters } = this.state;
+    axios
+      .all(
+        Object.keys(characters).map(card =>
+          axios.get(
+            `https://cors-anywhere.herokuapp.com/https://superheroapi.com/api/2797197167065435/${characters[card].id}`
+          )
+        )
+      )
+      .then(
+        axios.spread(function(...res) {
+          res.forEach(char => console.log(char.data));
+          this.setState(res);
+        })
+      );
+  }
+
+  // componentDidMount() {
+  //   const { characters } = this.state;
+  //   axios.all(
+  //     .get(`https://cors-anywhere.herokuapp.com/https://superheroapi.com/api/2797197167065435/${characters.batman.id}`)
+  //     .get(`https://cors-anywhere.herokuapp.com/https://superheroapi.com/api/2797197167065435/${characters.bane.id}`)
+
+  //   )
+  //     .then (res => {
+  //       // all requests are now complete
+  //       console.log(res.data);
+  //     });
+  // }
+
   render() {
-    const { characters, indexToDisplay } = this.state;
+    const { charsDatas, loadedDatas } = this.state;
     return (
       <div className="collection-page darkcity-bg flex-column">
         <img className="collection-title page-title" src={titleCollection} alt="Collection" />
@@ -48,22 +82,27 @@ class Collection extends Component {
               <input type="search" />
               <button type="button"> Filter </button>
             </div>
-            <div className="collection-cards flex-row">
-              {characters.map(character => (
-                <StandardCard
-                  handleClick={this.handleClick}
-                  combat={character.combat}
-                  durability={character.durability}
-                  image={character.image}
-                  index={character.index}
-                  key={character.id}
-                />
-              ))}
-            </div>
+            if ({loadedDatas}){' '}
+            {
+              <div className="collection-cards flex-row">
+                {characters.map(character => {
+                  return (
+                    <StandardCard
+                      handleHover={this.handleHover}
+                      combat={this.state.combat}
+                      durability={this.state.durability}
+                      image={this.state.image}
+                      index={this.state.index}
+                      key={this.state.id}
+                    />
+                  );
+                })}
+              </div>
+            }
           </div>
 
           <div className="collection-big-card">
-            <LargeCard character={characters[indexToDisplay]} />
+            {/* <LargeCard character={characters[indexToDisplay]} /> */}
           </div>
         </div>
       </div>

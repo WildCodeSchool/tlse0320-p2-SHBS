@@ -2,9 +2,9 @@ import React from 'react';
 import cardskeleton from '../../img/cardskeleton.png';
 import './StandardCard.css';
 
-const StandardCard = ({ combat, durability, image, handleClick, index }) => {
+const StandardCard = ({ combat, durability, image, handleHover, index }) => {
   return (
-    <div className="container-card-text" onMouseEnter={() => handleClick(index)}>
+    <div className="container-card-text" onMouseEnter={() => handleHover(index)}>
       <img
         className="standard-card"
         style={{ backgroundImage: `url('${image}')` }}
