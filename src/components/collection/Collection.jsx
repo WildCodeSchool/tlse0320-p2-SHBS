@@ -46,7 +46,6 @@ class Collection extends Component {
           <div className="collection-bottom-left flex-column">
             <div className="collection-filter">
               <input type="search" />
-              <button type="button"> Filter </button>
             </div>
             <div className="collection-cards flex-row">
               {characters.map(character => (
