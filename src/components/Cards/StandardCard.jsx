@@ -3,10 +3,17 @@ import PropTypes from 'prop-types';
 import cardskeleton from '../../img/cardskeleton.png';
 import './StandardCard.css';
 
-const StandardCard = ({ combat, durability, image, handleHover, index }) => {
-  const storedIndex = index;
+const StandardCard = props => {
+  const { combat, durability, image, handleHover, index, handleClick, cardClass } = props;
   return (
-    <div className="container-card-text" onMouseEnter={() => handleHover(storedIndex)}>
+    <div
+      role="button"
+      tabIndex={0}
+      className={cardClass}
+      onClick={() => handleClick()}
+      onMouseEnter={() => handleHover(index)}
+      onKeyPress={() => {}}
+    >
       <img
         className="standard-card"
         style={{ backgroundImage: `url('${image}')` }}
@@ -28,7 +35,9 @@ StandardCard.propTypes = {
   durability: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
   handleHover: PropTypes.func.isRequired,
-  index: PropTypes.number.isRequired
+  index: PropTypes.number.isRequired,
+  cardClass: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired
 };
 
 export default StandardCard;
