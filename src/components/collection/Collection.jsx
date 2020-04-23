@@ -45,6 +45,7 @@ class Collection extends Component {
         break;
       case 2:
         this.setState({ numberOfCardsRequired: 'You can fight !' });
+        break;
       default:
         break;
     }
@@ -67,13 +68,14 @@ class Collection extends Component {
         break;
       case 1:
         this.setState({ numberOfCardsRequired: 'You need 3 more card before fighting' });
+        break;
       default:
         break;
     }
   };
 
   render() {
-    const { characters, indexToDisplay, numberOfCardsRequired, search } = this.state;
+    const { characters, indexToDisplay, numberOfCardsRequired, search, deckSelect } = this.state;
     let NewSearch = search.toUpperCase();
     return (
       <div className="darkcity-bg flex-column">
@@ -84,6 +86,7 @@ class Collection extends Component {
             handleClick={this.handleDeckClick}
             handleHover={this.handleHover}
             deckSelect={this.state.deckSelect}
+            cardClass="standard-card"
           />
           <div className="collection-valid flex-column">
             <p className="collection-valid-title bigger-P-Li">Create your deck</p>
@@ -117,6 +120,9 @@ class Collection extends Component {
                     image={character.image}
                     index={character.index}
                     key={character.id}
+                    cardClass={
+                      deckSelect.includes(character) ? 'isChosen standard-card' : 'standard-card'
+                    }
                   />
                 ))}
             </div>

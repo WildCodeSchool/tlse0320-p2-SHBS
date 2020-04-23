@@ -3,7 +3,7 @@ import cardskeleton from '../../img/cardskeleton.png';
 import './StandardCard.css';
 
 const StandardCard = props => {
-  const { combat, durability, image, handleHover, index, handleClick } = props;
+  const { combat, durability, image, handleHover, index, handleClick, cardClass } = props;
 
   return (
     <div
@@ -15,7 +15,7 @@ const StandardCard = props => {
       onKeyPress={() => {}}
     >
       <img
-        className="standard-card"
+        className={cardClass}
         style={{ backgroundImage: `url('${image}')` }}
         src={cardskeleton}
         alt="border of the card"
