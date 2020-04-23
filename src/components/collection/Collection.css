@@ -22,7 +22,7 @@
 }
 
 .collection-deck .standard-card {
-  width: 120px;
+  width: 7.5vw;
 }
 
 .collection-valid {
@@ -68,25 +68,15 @@
 .collection-cards {
   flex-wrap: wrap;
   justify-content: center;
-  height: 400px;
   overflow-y: auto;
 }
 
 .collection-cards .standard-card {
-  width: 100px;
+  width: 7vw;
+}
+
+.collection-cards .container-card-text {
   margin: 20px 30px 20px 30px;
-}
-
-.collection-cards .container-card-text .attack {
-  top: 78%;
-  left: 23%;
-  font-size: 80%;
-}
-
-.collection-cards .container-card-text .life {
-  top: 78%;
-  right: 23%;
-  font-size: 80%;
 }
 
 .collection-big-card {

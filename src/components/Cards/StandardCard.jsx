@@ -20,12 +20,8 @@ const StandardCard = props => {
         src={cardskeleton}
         alt="border of the card"
       />
-      <div className="attack">
-        <p>{combat}</p>
-      </div>
-      <div className="life">
-        <p>{durability}</p>
-      </div>
+      <p className="attack">{combat}</p>
+      <p className="life">{durability}</p>
     </div>
   );
 };
