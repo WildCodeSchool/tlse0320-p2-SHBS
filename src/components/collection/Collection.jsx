@@ -31,7 +31,7 @@ class Collection extends Component {
 
   handleClick = () => {
     const { deckSelect, characters, indexToDisplay } = this.state;
-    if (deckSelect.length < 3) {
+    if (deckSelect.length < 3 && !deckSelect.includes(characters[indexToDisplay])) {
       this.setState({
         deckSelect: deckSelect.concat(characters[indexToDisplay])
       });
