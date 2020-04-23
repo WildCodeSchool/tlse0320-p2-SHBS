@@ -67,19 +67,19 @@ class Collection extends Component {
       this.setState({
         deckSelect: deckSelect.concat(characters[indexToDisplay])
       });
-    }
-    switch (deckSelect.length) {
-      case 0:
-        this.setState({ numberOfCardsRequired: 'You need 2 more cards before fighting' });
-        break;
-      case 1:
-        this.setState({ numberOfCardsRequired: 'You need 1 more card before fighting' });
-        break;
-      case 2:
-        this.setState({ numberOfCardsRequired: 'You can fight !' });
-        break;
-      default:
-        break;
+      switch (deckSelect.length) {
+        case 0:
+          this.setState({ numberOfCardsRequired: 'You need 2 more cards before fighting' });
+          break;
+        case 1:
+          this.setState({ numberOfCardsRequired: 'You need 1 more card before fighting' });
+          break;
+        case 2:
+          this.setState({ numberOfCardsRequired: 'You can fight !' });
+          break;
+        default:
+          break;
+      }
     }
   };
 
