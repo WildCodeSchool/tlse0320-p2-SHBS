@@ -1,20 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './LargeCard.css';
 
-const LargeCard = ({ character }) => {
+const LargeCard = ({ combat, durability, image, name }) => {
   return (
     <>
       <div className="large-card">
-        <img src={character.image} alt={character.name} />
+        <img src={image} alt={name} />
       </div>
-      <div>
-        <p>Name : {character.name}</p>
-        <p>Combat : {character.combat}</p>
-        <p>Durability : {character.durability}</p>
-        <p>Special attack : {character.specialattack}</p>
-      </div>
+      <ul>
+        <li>{`Name : ${name}`}</li>
+        <li>{`Combat : ${combat}`}</li>
+        <li>{`Durability : ${durability}`}</li>
+      </ul>
     </>
   );
+};
+
+LargeCard.propTypes = {
+  name: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  combat: PropTypes.number.isRequired,
+  durability: PropTypes.number.isRequired
 };
 
 export default LargeCard;
