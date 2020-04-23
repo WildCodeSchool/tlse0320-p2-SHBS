@@ -96,10 +96,10 @@ class Collection extends Component {
         this.setState({ numberOfCardsRequired: 'You need 1 more card before fighting' });
         break;
       case 2:
-        this.setState({ numberOfCardsRequired: 'You need 2 more card before fighting' });
+        this.setState({ numberOfCardsRequired: 'You need 2 more cards before fighting' });
         break;
       case 1:
-        this.setState({ numberOfCardsRequired: 'You need 3 more card before fighting' });
+        this.setState({ numberOfCardsRequired: 'You need 3 more cards before fighting' });
         break;
       default:
         break;
@@ -175,14 +175,16 @@ class Collection extends Component {
                 })}
             </div>
           </div>
-          <div className="collection-big-card">
-            <LargeCard
-              name={charToDisplay.name}
-              image={charToDisplay.images.md}
-              combat={charToDisplay.powerstats.combat}
-              durability={charToDisplay.powerstats.durability}
-            />
-          </div>
+          <LargeCard
+            name={charToDisplay.name}
+            image={charToDisplay.images.md}
+            intelligence={charToDisplay.powerstats.intelligence}
+            strength={charToDisplay.powerstats.strength}
+            speed={charToDisplay.powerstats.speed}
+            durability={charToDisplay.powerstats.durability}
+            power={charToDisplay.powerstats.power}
+            combat={charToDisplay.powerstats.combat}
+          />
         </div>
       </div>
     );
