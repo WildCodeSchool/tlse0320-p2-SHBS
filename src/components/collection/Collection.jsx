@@ -86,7 +86,7 @@ class Collection extends Component {
             handleClick={this.handleDeckClick}
             handleHover={this.handleHover}
             deckSelect={this.state.deckSelect}
-            cardClass="standard-card"
+            cardClass="container-card-text"
           />
           <div className="collection-valid flex-column">
             <p className="collection-valid-title bigger-P-Li">Create your deck</p>
@@ -121,7 +121,9 @@ class Collection extends Component {
                     index={character.index}
                     key={character.id}
                     cardClass={
-                      deckSelect.includes(character) ? 'isChosen standard-card' : 'standard-card'
+                      deckSelect.includes(character)
+                        ? 'isChosen container-card-text'
+                        : 'container-card-text'
                     }
                   />
                 ))}

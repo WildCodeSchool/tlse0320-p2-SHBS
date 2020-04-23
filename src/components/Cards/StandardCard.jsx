@@ -9,13 +9,13 @@ const StandardCard = props => {
     <div
       role="button"
       tabIndex={0}
-      className="container-card-text"
+      className={cardClass}
       onClick={() => handleClick()}
       onMouseEnter={() => handleHover(index)}
       onKeyPress={() => {}}
     >
       <img
-        className={cardClass}
+        className="standard-card"
         style={{ backgroundImage: `url('${image}')` }}
         src={cardskeleton}
         alt="border of the card"
