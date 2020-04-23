@@ -12,9 +12,19 @@ class Collection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      characters: cards,
-      charsDatas: [],
-      loadedDatas: false
+      charsDatas: cards,
+      characters: [],
+      indexToDisplay: 0,
+      charToDisplay: {
+        name: 'Poison Ivy',
+        images: {
+          md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/522-poison-ivy.jpg'
+        },
+        powerstats: {
+          combat: 40,
+          durability: 40
+        }
+      }
     };
   }
 
@@ -23,32 +33,31 @@ class Collection extends Component {
   };
 
   componentDidMount() {
-    const { characters, charsDatas } = this.state;
-    axios.all(Object.keys(characters).map( card => axios.get(`https://akabab.github.io/superhero-api/api/id/${characters[card].id}.json`)))
-      .then(axios.spread(function (...res) {
-        const allChars = res.map(result => result.data)
-        console.log(allChars)
-        this.setState({charsDatas: allChars})
-      }.bind(this)
-    ))
-      .then(console.log)
+    const { charsDatas } = this.state;
+    axios
+      .all(
+        Object.keys(charsDatas).map(card =>
+          axios.get(`https://akabab.github.io/superhero-api/api/id/${charsDatas[card].id}.json`)
+        )
+      )
+      .then(
+        axios.spread(
+          function(...res) {
+            const allChars = res.map(result => result.data);
+            this.setState({ characters: allChars });
+          }.bind(this)
+        )
+      );
   }
-  
-  // componentDidMount() {
-  //   const { characters } = this.state;
-  //   axios.all(
-  //     .get(`https://cors-anywhere.herokuapp.com/https://superheroapi.com/api/2797197167065435/${characters.batman.id}`)
-  //     .get(`https://cors-anywhere.herokuapp.com/https://superheroapi.com/api/2797197167065435/${characters.bane.id}`)
 
-  //   )
-  //     .then (res => {
-  //       // all requests are now complete
-  //       console.log(res.data);
-  //     });
-  // }
+  componentDidUpdate() {
+    if (this.state.charToDisplay !== this.state.characters[this.state.indexToDisplay]) {
+      this.setState({ charToDisplay: this.state.characters[this.state.indexToDisplay] });
+    }
+  }
 
   render() {
-    const { charsDatas, loadedDatas } = this.state;
+    const { characters, charToDisplay } = this.state;
     return (
       <div className="collection-page darkcity-bg flex-column">
         <img className="collection-title page-title" src={titleCollection} alt="Collection" />
@@ -76,24 +85,29 @@ class Collection extends Component {
               <input type="search" />
               <button type="button"> Filter </button>
             </div>
-                <div className="collection-cards flex-row">
-                  {charsDatas.map(character => {
-                    return (
-                      <StandardCard
-                        handleHover={this.handleHover}
-                        combat={character.powerstats.combat}
-                        durability={character.powerstats.durability}
-                        image={character.images.md}
-                        //index={character.index}
-                        key={character.id}
-                      />
-                    )}
-                  )}
-                </div> 
+            <div className="collection-cards flex-row">
+              {characters.map((character, i) => {
+                return (
+                  <StandardCard
+                    handleHover={this.handleHover}
+                    combat={character.powerstats.combat}
+                    durability={character.powerstats.durability}
+                    image={character.images.md}
+                    index={parseInt(i)}
+                    key={character.id}
+                  />
+                );
+              })}
+            </div>
           </div>
 
           <div className="collection-big-card">
-            {/* <LargeCard character={characters[indexToDisplay]} /> */}
+            <LargeCard
+              name={charToDisplay.name}
+              image={charToDisplay.images.md}
+              combat={charToDisplay.powerstats.combat}
+              durability={charToDisplay.powerstats.durability}
+            />
           </div>
         </div>
       </div>
