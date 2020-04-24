@@ -30,8 +30,19 @@ class Collection extends Component {
         deckSelect: deckSelect.concat(characters[indexToDisplay])
       });
     }
-    const reqCards = deckSelect.length-3;
-    const nbOfCardsRequiredMsg = reqCards=== 0 ?  `You need ${reqCards} more card(s) before fighting` : 'You can fight !'
+    switch (deckSelect.length) {
+      case 0:
+        this.setState({ numberOfCardsRequired: 'You need 2 more card before fighting' });
+        break;
+      case 1:
+        this.setState({ numberOfCardsRequired: 'You need 1 more card before fighting' });
+        break;
+      case 2:
+        this.setState({ numberOfCardsRequired: 'You can fight !' });
+      default:
+        break;
+    }
+  };
 
   handleDeckClick = () => {
     const { deckSelect, characters, indexToDisplay } = this.state;
