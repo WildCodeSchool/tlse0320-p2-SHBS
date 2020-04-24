@@ -22,13 +22,13 @@
 }
 
 .collection-deck .standard-card {
-  width: 120px;
+  width: 7.5vw;
 }
 
 .collection-valid {
   justify-content: space-around;
   align-items: center;
-  width: 25vw;
+  width: 27vw;
   border: solid 1px;
   margin: 10px;
   background-color: rgba(255, 255, 255, 0.3);
@@ -82,33 +82,11 @@
 }
 
 .collection-cards .standard-card {
-  width: 100px;
+  width: 7vw;
+}
+
+.collection-cards .container-card-text {
   margin: 20px 30px 20px 30px;
-}
-
-.collection-cards .container-card-text .attack {
-  top: 78%;
-  left: 23%;
-  font-size: 80%;
-}
-
-.collection-cards .container-card-text .life {
-  top: 78%;
-  right: 23%;
-  font-size: 80%;
-}
-
-.collection-big-card {
-  display: flex;
-  width: 25vw;
-  margin: 10px;
-  border: solid 1px;
-  align-items: baseline;
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
-.collection-big-card .large-card {
-  margin: 20px;
 }
 
 /*Collection cards state*/
@@ -116,4 +94,9 @@
 .collection-card-is-chosen {
   filter: grayscale(50%);
   opacity: 50%;
+}
+
+.collection-filter label {
+  font-size: 3vh;
+  margin-right: 20px;
 }
