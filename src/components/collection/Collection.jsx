@@ -27,7 +27,8 @@ class Collection extends Component {
         powerstats: {
           combat: 40,
           durability: 40
-        }
+        },
+        index: 0
       }
     };
     this.handleSearch = this.handleSearch.bind(this);
@@ -49,6 +50,7 @@ class Collection extends Component {
         axios.spread(
           function(...res) {
             const allChars = res.map(result => result.data);
+            allChars.forEach((chars, i) => (chars['index'] = i));
             this.setState({ characters: allChars });
           }.bind(this)
         )
@@ -144,7 +146,7 @@ class Collection extends Component {
           <div className="collection-bottom-left flex-column">
             <div className="collection-filter">
               {/* Modify label and input */}
-              <label htmlFor="research">`Search : `</label>
+              <label htmlFor="research">Search :</label>
               <input
                 id="research"
                 type="text"
@@ -155,7 +157,7 @@ class Collection extends Component {
             <div className="collection-cards flex-row">
               {characters
                 .filter(test => test.name.toUpperCase().startsWith(NewSearch, 0))
-                .map((character, i) => {
+                .map(character => {
                   return (
                     <StandardCard
                       handleHover={this.handleHover}
@@ -163,7 +165,7 @@ class Collection extends Component {
                       combat={character.powerstats.combat}
                       durability={character.powerstats.durability}
                       image={character.images.md}
-                      index={parseInt(i)}
+                      index={character.index}
                       key={character.id}
                       cardClass={
                         deckSelect.includes(character)

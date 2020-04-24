@@ -85,3 +85,8 @@
   filter: grayscale(50%);
   opacity: 50%;
 }
+
+.collection-filter label {
+  font-size: 3vh;
+  margin-right: 20px;
+}

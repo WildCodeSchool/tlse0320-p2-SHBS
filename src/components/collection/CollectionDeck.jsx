@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import StandardCard from '../Cards/StandardCard';
 
 const CollectionDeck = props => {
-  const { deckSelect, handleHover, handleClick, cardClass, index } = props;
+  const { deckSelect, handleHover, handleClick, cardClass } = props;
   return (
     <div className="collection-deck">
       {deckSelect.map(character => (
@@ -13,7 +13,7 @@ const CollectionDeck = props => {
           combat={character.powerstats.combat}
           durability={character.powerstats.durability}
           image={character.images.md}
-          index={index}
+          index={character.index}
           key={character.id}
           cardClass={cardClass}
         />
@@ -26,8 +26,7 @@ CollectionDeck.propTypes = {
   deckSelect: PropTypes.arrayOf.isRequired,
   handleHover: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
-  cardClass: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired
+  cardClass: PropTypes.string.isRequired
 };
 
 export default CollectionDeck;
