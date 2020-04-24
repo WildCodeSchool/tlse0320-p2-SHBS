@@ -69,19 +69,7 @@ class Collection extends Component {
       this.setState({
         deckSelect: deckSelect.concat(characters[indexToDisplay])
       });
-      switch (deckSelect.length) {
-        case 0:
-          this.setState({ numberOfCardsRequired: 'You need 2 more cards before fighting' });
-          break;
-        case 1:
-          this.setState({ numberOfCardsRequired: 'You need 1 more card before fighting' });
-          break;
-        case 2:
-          this.setState({ numberOfCardsRequired: 'You can fight !' });
-          break;
-        default:
-          break;
-      }
+      this.cardsRequired(2 - deckSelect.length);
     }
   };
 
@@ -93,19 +81,16 @@ class Collection extends Component {
     this.setState({
       deckSelect: tempDeck
     });
-    switch (deckSelect.length) {
-      case 3:
-        this.setState({ numberOfCardsRequired: 'You need 1 more card before fighting' });
-        break;
-      case 2:
-        this.setState({ numberOfCardsRequired: 'You need 2 more cards before fighting' });
-        break;
-      case 1:
-        this.setState({ numberOfCardsRequired: 'You need 3 more cards before fighting' });
-        break;
-      default:
-        break;
-    }
+    this.cardsRequired(4 - deckSelect.length);
+  };
+
+  cardsRequired = reqCards => {
+    const pluriel = reqCards === 3 || reqCards === 2 ? 's' : '';
+    const nbOfCardsRequiredMsg =
+      reqCards !== 0
+        ? `You need ${reqCards} more card${pluriel} before fighting`
+        : 'You can fight !';
+    this.setState({ numberOfCardsRequired: nbOfCardsRequiredMsg });
   };
 
   handleSearch(event) {
