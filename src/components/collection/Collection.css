@@ -87,13 +87,13 @@
 
 .collection-cards .container-card-text {
   margin: 20px 30px 20px 30px;
+  align-self: flex-start;
 }
 
 /*Collection cards state*/
 
 .collection-card-is-chosen {
   filter: grayscale(50%);
-  align-self: flex-start;
   opacity: 50%;
 }
 
