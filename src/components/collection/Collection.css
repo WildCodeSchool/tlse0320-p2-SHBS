@@ -63,6 +63,7 @@
 
 .collection-bottom-left {
   width: 76vw;
+  height: 47vh;
   margin: 0.7vw;
 }
 
@@ -101,4 +102,15 @@
 .collection-filter label {
   font-size: 3vh;
   margin-right: 20px;
+}
+
+.collection-deck .container-card-text {
+  animation: deckApparition 0.2s ease-out;
+}
+
+@keyframes deckApparition {
+  from {
+    transform: scale(1.2);
+    opacity: 0;
+  }
 }
