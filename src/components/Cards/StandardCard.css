@@ -6,23 +6,22 @@
 .container-card-text .standard-card {
   display: block;
   background-size: cover;
-  background-repeat: no-repeat;
+  background-position: center;
   border-radius: 4.5%;
   box-shadow: 5px 5px 5px black;
 }
 
-.container-card-text .attack {
-  z-index: 1;
+.container-card-text p {
   position: absolute;
-  text-align: center;
+  text-shadow: none;
+}
+
+.container-card-text .attack {
   top: 86%;
   left: 8%;
 }
 
 .container-card-text .life {
-  z-index: 1;
-  position: absolute;
-  text-align: center;
   top: 86%;
   right: 8%;
 }

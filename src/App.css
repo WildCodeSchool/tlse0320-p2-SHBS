@@ -29,7 +29,8 @@ li {
 
 /* h2 font size and color */
 
-h2 {
+h2,
+label {
   font-size: 4.5vh;
   color: #d2d2d2;
   text-shadow: 5px 5px #333;
