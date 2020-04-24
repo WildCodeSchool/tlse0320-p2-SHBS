@@ -104,7 +104,7 @@
 
 /*Collection cards state*/
 
-.isChosen {
+.collection-card-is-chosen {
   filter: grayscale(50%);
   opacity: 50%;
 }
