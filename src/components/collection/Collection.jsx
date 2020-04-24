@@ -14,18 +14,24 @@ class Collection extends Component {
     this.state = {
       characters: cards,
       indexToDisplay: 0,
+      search: '',
       deckSelect: [],
       numberOfCardsRequired: 'You need 3 more card before fighting'
     };
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   handleHover = index => {
     this.setState({ indexToDisplay: index });
   };
 
+  handleSearch(event) {
+    this.setState({ search: event.target.value });
+  }
+
   handleClick = () => {
     const { deckSelect, characters, indexToDisplay } = this.state;
-    if (deckSelect.length < 3) {
+    if (deckSelect.length < 3 && !deckSelect.includes(characters[indexToDisplay])) {
       this.setState({
         deckSelect: deckSelect.concat(characters[indexToDisplay])
       });
@@ -39,6 +45,7 @@ class Collection extends Component {
         break;
       case 2:
         this.setState({ numberOfCardsRequired: 'You can fight !' });
+        break;
       default:
         break;
     }
@@ -61,13 +68,15 @@ class Collection extends Component {
         break;
       case 1:
         this.setState({ numberOfCardsRequired: 'You need 3 more card before fighting' });
+        break;
       default:
         break;
     }
   };
 
   render() {
-    const { characters, indexToDisplay, numberOfCardsRequired } = this.state;
+    const { characters, indexToDisplay, numberOfCardsRequired, search, deckSelect } = this.state;
+    let NewSearch = search.toUpperCase();
     return (
       <div className="darkcity-bg flex-column">
         <img className="page-title" src={titleCollection} alt="Collection" />
@@ -77,6 +86,7 @@ class Collection extends Component {
             handleClick={this.handleDeckClick}
             handleHover={this.handleHover}
             deckSelect={this.state.deckSelect}
+            cardClass="container-card-text"
           />
           <div className="collection-valid flex-column">
             <p className="collection-valid-title bigger-P-Li">Create your deck</p>
@@ -89,21 +99,34 @@ class Collection extends Component {
         <div className="collection-bottom flex-row">
           <div className="collection-bottom-left flex-column">
             <div className="collection-filter">
-              <input type="search" />
-              <button type="button"> Filter </button>
+              {/* Modify label and input */}
+              <label htmlFor="research">`Search : `</label>
+              <input
+                id="research"
+                type="text"
+                value={this.state.search}
+                onChange={this.handleSearch}
+              />
             </div>
             <div className="collection-cards flex-row">
-              {characters.map(character => (
-                <StandardCard
-                  handleHover={this.handleHover}
-                  handleClick={this.handleClick}
-                  combat={character.combat}
-                  durability={character.durability}
-                  image={character.image}
-                  index={character.index}
-                  key={character.id}
-                />
-              ))}
+              {characters
+                .filter(test => test.name.toUpperCase().startsWith(NewSearch, 0))
+                .map(character => (
+                  <StandardCard
+                    handleHover={this.handleHover}
+                    handleClick={this.handleClick}
+                    combat={character.combat}
+                    durability={character.durability}
+                    image={character.image}
+                    index={character.index}
+                    key={character.id}
+                    cardClass={
+                      deckSelect.includes(character)
+                        ? 'isChosen container-card-text'
+                        : 'container-card-text'
+                    }
+                  />
+                ))}
             </div>
           </div>
           <div className="collection-big-card">

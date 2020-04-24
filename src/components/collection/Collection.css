@@ -5,6 +5,7 @@
 }
 
 .collection-deck {
+  display: flex;
   width: 60vw;
   justify-content: space-around;
   align-items: center;
@@ -99,4 +100,11 @@
 
 .collection-big-card .large-card {
   margin: 20px;
+}
+
+/*Collection cards state*/
+
+.isChosen {
+  filter: grayscale(50%);
+  opacity: 50%;
 }
