@@ -135,7 +135,14 @@ class Collection extends Component {
           <div className="collection-valid flex-column">
             <p className="collection-valid-title bigger-P-Li">Create your deck</p>
             <p className="bigger-P-Li">{numberOfCardsRequired}</p>
-            <Link to="Board" className="collection-valid-fight button-splashbg">
+            <Link
+              to="Board"
+              className={
+                deckSelect.length < 3
+                  ? 'collection-valid-no-fight button-no-splashbg'
+                  : 'collection-valid-fight button-splashbg'
+              }
+            >
               <img src={fightext} alt="Button to launch" />
             </Link>
           </div>
