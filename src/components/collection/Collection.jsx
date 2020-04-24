@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import cards from '../../datas/cards.json';
+import axios from 'axios';
+import cards from '../../datas/newCards.json';
 import LargeCard from '../Cards/LargeCard';
 import StandardCard from '../Cards/StandardCard';
 import CollectionDeck from './CollectionDeck';
@@ -12,11 +13,22 @@ class Collection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      characters: cards,
+      charsDatas: cards,
+      characters: [],
       indexToDisplay: 0,
       search: '',
       deckSelect: [],
-      numberOfCardsRequired: 'You need 3 more card before fighting'
+      numberOfCardsRequired: 'You need 3 more cards before fighting',
+      charToDisplay: {
+        name: 'Poison Ivy',
+        images: {
+          md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/522-poison-ivy.jpg'
+        },
+        powerstats: {
+          combat: 40,
+          durability: 40
+        }
+      }
     };
     this.handleSearch = this.handleSearch.bind(this);
   }
@@ -25,8 +37,28 @@ class Collection extends Component {
     this.setState({ indexToDisplay: index });
   };
 
-  handleSearch(event) {
-    this.setState({ search: event.target.value });
+  componentDidMount() {
+    const { charsDatas } = this.state;
+    axios
+      .all(
+        Object.keys(charsDatas).map(card =>
+          axios.get(`https://akabab.github.io/superhero-api/api/id/${charsDatas[card].id}.json`)
+        )
+      )
+      .then(
+        axios.spread(
+          function(...res) {
+            const allChars = res.map(result => result.data);
+            this.setState({ characters: allChars });
+          }.bind(this)
+        )
+      );
+  }
+
+  componentDidUpdate() {
+    if (this.state.charToDisplay !== this.state.characters[this.state.indexToDisplay]) {
+      this.setState({ charToDisplay: this.state.characters[this.state.indexToDisplay] });
+    }
   }
 
   handleClick = () => {
@@ -38,7 +70,7 @@ class Collection extends Component {
     }
     switch (deckSelect.length) {
       case 0:
-        this.setState({ numberOfCardsRequired: 'You need 2 more card before fighting' });
+        this.setState({ numberOfCardsRequired: 'You need 2 more cards before fighting' });
         break;
       case 1:
         this.setState({ numberOfCardsRequired: 'You need 1 more card before fighting' });
@@ -74,8 +106,19 @@ class Collection extends Component {
     }
   };
 
+  handleSearch(event) {
+    this.setState({ search: event.target.value });
+  }
+
   render() {
-    const { characters, indexToDisplay, numberOfCardsRequired, search, deckSelect } = this.state;
+    const {
+      characters,
+      numberOfCardsRequired,
+      search,
+      deckSelect,
+      charToDisplay,
+      indexToDisplay
+    } = this.state;
     let NewSearch = search.toUpperCase();
     return (
       <div className="darkcity-bg flex-column">
@@ -85,7 +128,8 @@ class Collection extends Component {
           <CollectionDeck
             handleClick={this.handleDeckClick}
             handleHover={this.handleHover}
-            deckSelect={this.state.deckSelect}
+            deckSelect={deckSelect}
+            index={indexToDisplay}
             cardClass="container-card-text"
           />
           <div className="collection-valid flex-column">
@@ -111,26 +155,33 @@ class Collection extends Component {
             <div className="collection-cards flex-row">
               {characters
                 .filter(test => test.name.toUpperCase().startsWith(NewSearch, 0))
-                .map(character => (
-                  <StandardCard
-                    handleHover={this.handleHover}
-                    handleClick={this.handleClick}
-                    combat={character.combat}
-                    durability={character.durability}
-                    image={character.image}
-                    index={character.index}
-                    key={character.id}
-                    cardClass={
-                      deckSelect.includes(character)
-                        ? 'isChosen container-card-text'
-                        : 'container-card-text'
-                    }
-                  />
-                ))}
+                .map((character, i) => {
+                  return (
+                    <StandardCard
+                      handleHover={this.handleHover}
+                      handleClick={this.handleClick}
+                      combat={character.powerstats.combat}
+                      durability={character.powerstats.durability}
+                      image={character.images.md}
+                      index={parseInt(i)}
+                      key={character.id}
+                      cardClass={
+                        deckSelect.includes(character)
+                          ? 'collection-card-is-chosen container-card-text'
+                          : 'container-card-text'
+                      }
+                    />
+                  );
+                })}
             </div>
           </div>
           <div className="collection-big-card">
-            <LargeCard character={characters[indexToDisplay]} />
+            <LargeCard
+              name={charToDisplay.name}
+              image={charToDisplay.images.md}
+              combat={charToDisplay.powerstats.combat}
+              durability={charToDisplay.powerstats.durability}
+            />
           </div>
         </div>
       </div>

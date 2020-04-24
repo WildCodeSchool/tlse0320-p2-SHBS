@@ -1,66 +1,107 @@
 {
-  "poison ivy": {
+  "poisonIvy": {
     "id": "522",
+    "index": 1,
     "name": "Poison Ivy"
   },
-  "black cat": {
+  "blackCat": {
     "id": "99",
+    "index": 2,
     "name": "Black Cat"
   },
   "joker": {
     "id": "370",
+    "index": 3,
     "name": "Joker"
   },
   "batman": {
     "id": "70",
+    "index": 4,
     "name": "Batman"
   },
   "rorschach": {
     "id": "569",
+    "index": 5,
     "name": "Rorschach"
   },
   "bane": {
     "id": "60",
+    "index": 6,
     "name": "Bane"
   },
   "psylocke": {
     "id": "529",
+    "index": 7,
     "name": "Psylocke"
   },
-  "luke skywalker": {
+  "lukeskyWalker": {
     "id": "418",
+    "index": 8,
     "name": "Luke Skywalker"
   },
   "alien": {
     "id": "18",
+    "index": 9,
     "name": "Alien"
   },
-  "king kong": {
+  "kingKong": {
     "id": "389",
+    "index": 10,
     "name": "King Kong"
   },
   "hellboy": {
     "id": "322",
+    "index": 11,
     "name": "Hellboy"
   },
-  "black manta": {
+  "blackManta": {
     "id": "105",
+    "index": 12,
     "name": "Black Manta"
   },
-  "iron man": {
+  "ironMan": {
     "id": "346",
+    "index": 13,
     "name": "Iron Man"
   },
-  "boba fett": {
+  "bobaFett": {
     "id": "127",
+    "index": 14,
     "name": "Boba Fett"
   },
   "x-23": {
     "id": "723",
+    "index": 15,
     "name": "X-23"
   },
-  "one punch man": {
+  "onePunchMan": {
     "id": "502",
+    "index": 16,
     "name": "One Punch Man"
+  },
+  "goku": {
+    "id": 289,
+    "index": 17,
+    "name": "Goku"
+  },
+  "naruto": {
+    "id": 485,
+    "index": 18,
+    "name": "Naruto Uzumaki"
+  },
+  "yoda": {
+    "id": 729,
+    "index": 19,
+    "name": "Yoda"
+  },
+  "harryPotter": {
+    "id": 310,
+    "index": 20,
+    "name": "Harry Potter"
+  },
+  "captainAmerica": {
+    "id": 149,
+    "index": 8,
+    "name": "Captain America"
   }
 }
