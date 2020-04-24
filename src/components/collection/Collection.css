@@ -99,6 +99,10 @@
   transition: all 0.1s ease-out;
 }
 
+.collection-card-is-chosen:hover {
+  cursor: default;
+}
+
 .collection-filter label {
   font-size: 3vh;
   margin-right: 20px;
