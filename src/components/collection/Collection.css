@@ -69,7 +69,9 @@
   flex-wrap: wrap;
   justify-content: center;
   height: 400px;
-  overflow-y: auto;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #efc958 #d2d2d2;
 }
 
 .collection-cards .standard-card {

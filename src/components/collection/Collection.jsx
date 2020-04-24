@@ -144,7 +144,7 @@ class Collection extends Component {
           <div className="collection-bottom-left flex-column">
             <div className="collection-filter">
               {/* Modify label and input */}
-              <label htmlFor="research">`Search : `</label>
+              <label htmlFor="research">Search:</label>
               <input
                 id="research"
                 type="text"
