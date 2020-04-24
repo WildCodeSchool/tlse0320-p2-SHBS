@@ -3,13 +3,13 @@ import cardskeleton from '../../img/cardskeleton.png';
 import './StandardCard.css';
 
 const StandardCard = props => {
-  const { combat, durability, image, handleHover, index, handleClick } = props;
+  const { combat, durability, image, handleHover, index, handleClick, cardClass } = props;
 
   return (
     <div
       role="button"
       tabIndex={0}
-      className="container-card-text"
+      className={cardClass}
       onClick={() => handleClick()}
       onMouseEnter={() => handleHover(index)}
       onKeyPress={() => {}}

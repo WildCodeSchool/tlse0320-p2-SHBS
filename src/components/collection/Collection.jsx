@@ -31,13 +31,25 @@ class Collection extends Component {
 
   handleClick = () => {
     const { deckSelect, characters, indexToDisplay } = this.state;
-    if (deckSelect.length < 3) {
+    if (deckSelect.length < 3 && !deckSelect.includes(characters[indexToDisplay])) {
       this.setState({
         deckSelect: deckSelect.concat(characters[indexToDisplay])
       });
     }
-    const reqCards = deckSelect.length-3;
-    const nbOfCardsRequiredMsg = reqCards=== 0 ?  `You need ${reqCards} more card(s) before fighting` : 'You can fight !'
+    switch (deckSelect.length) {
+      case 0:
+        this.setState({ numberOfCardsRequired: 'You need 2 more card before fighting' });
+        break;
+      case 1:
+        this.setState({ numberOfCardsRequired: 'You need 1 more card before fighting' });
+        break;
+      case 2:
+        this.setState({ numberOfCardsRequired: 'You can fight !' });
+        break;
+      default:
+        break;
+    }
+  };
 
   handleDeckClick = () => {
     const { deckSelect, characters, indexToDisplay } = this.state;
@@ -56,13 +68,14 @@ class Collection extends Component {
         break;
       case 1:
         this.setState({ numberOfCardsRequired: 'You need 3 more card before fighting' });
+        break;
       default:
         break;
     }
   };
 
   render() {
-    const { characters, indexToDisplay, numberOfCardsRequired, search } = this.state;
+    const { characters, indexToDisplay, numberOfCardsRequired, search, deckSelect } = this.state;
     let NewSearch = search.toUpperCase();
     return (
       <div className="darkcity-bg flex-column">
@@ -73,6 +86,7 @@ class Collection extends Component {
             handleClick={this.handleDeckClick}
             handleHover={this.handleHover}
             deckSelect={this.state.deckSelect}
+            cardClass="container-card-text"
           />
           <div className="collection-valid flex-column">
             <p className="collection-valid-title bigger-P-Li">Create your deck</p>
@@ -106,6 +120,11 @@ class Collection extends Component {
                     image={character.image}
                     index={character.index}
                     key={character.id}
+                    cardClass={
+                      deckSelect.includes(character)
+                        ? 'isChosen container-card-text'
+                        : 'container-card-text'
+                    }
                   />
                 ))}
             </div>
