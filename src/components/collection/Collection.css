@@ -93,8 +93,9 @@
 /*Collection cards state*/
 
 .collection-card-is-chosen {
-  filter: grayscale(50%);
+  filter: grayscale(60%);
   opacity: 50%;
+  transition: all 0.15s ease-in-out;
 }
 
 .collection-filter label {
