@@ -17,7 +17,7 @@ class Collection extends Component {
       characters: [],
       indexToDisplay: 0,
       search: '',
-      deckSelect: [],
+      deckSelect: ['empty', 'empty', 'empty'],
       numberOfCardsRequired: 'You need 3 more cards before fighting',
       charToDisplay: {
         name: 'Poison Ivy',
@@ -65,11 +65,25 @@ class Collection extends Component {
 
   handleClick = () => {
     const { deckSelect, characters, indexToDisplay } = this.state;
-    if (deckSelect.length < 3 && !deckSelect.includes(characters[indexToDisplay])) {
-      this.setState({
-        deckSelect: deckSelect.concat(characters[indexToDisplay])
-      });
-      this.cardsRequired(2 - deckSelect.length);
+    if (!deckSelect.includes(characters[indexToDisplay])) {
+      let tempDeck = [...deckSelect];
+      if (deckSelect[0] === 'empty') {
+        tempDeck[0] = characters[indexToDisplay];
+        this.setState({
+          deckSelect: tempDeck
+        });
+      } else if (deckSelect[1] === 'empty') {
+        tempDeck[1] = characters[indexToDisplay];
+        this.setState({
+          deckSelect: tempDeck
+        });
+      } else if (deckSelect[2] === 'empty') {
+        tempDeck[2] = characters[indexToDisplay];
+        this.setState({
+          deckSelect: tempDeck
+        });
+      }
+      this.cardsRequired(tempDeck);
     }
   };
 
@@ -77,18 +91,19 @@ class Collection extends Component {
     const { deckSelect, characters, indexToDisplay } = this.state;
     let tempDeck = [...deckSelect];
     let tempIndex = tempDeck.indexOf(characters[indexToDisplay]);
-    tempDeck.splice(tempIndex, 1);
+    tempDeck.splice(tempIndex, 1, 'empty');
     this.setState({
       deckSelect: tempDeck
     });
-    this.cardsRequired(4 - deckSelect.length);
+    this.cardsRequired(tempDeck);
   };
 
-  cardsRequired = reqCards => {
-    const pluriel = reqCards === 3 || reqCards === 2 ? 's' : '';
+  cardsRequired = tempDeck => {
+    const reqCards = tempDeck.filter(card => card === 'empty');
+    const pluriel = reqCards.length === 3 || reqCards.length === 2 ? 's' : '';
     const nbOfCardsRequiredMsg =
-      reqCards !== 0
-        ? `You need ${reqCards} more card${pluriel} before fighting`
+      reqCards.length !== 0
+        ? `You need ${reqCards.length} more card${pluriel} before fighting`
         : 'You can fight !';
     this.setState({ numberOfCardsRequired: nbOfCardsRequiredMsg });
   };

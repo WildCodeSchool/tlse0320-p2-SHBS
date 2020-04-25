@@ -25,6 +25,10 @@
   width: 7.5vw;
 }
 
+.collection-deck .collection-empty-card {
+  width: 7.5vw;
+}
+
 .collection-valid {
   justify-content: space-around;
   align-items: center;
