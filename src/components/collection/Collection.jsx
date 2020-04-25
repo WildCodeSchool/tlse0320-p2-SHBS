@@ -100,7 +100,7 @@ class Collection extends Component {
 
   cardsRequired = tempDeck => {
     const reqCards = tempDeck.filter(card => card === 'empty');
-    const pluriel = reqCards.length === 3 || reqCards.length === 2 ? 's' : '';
+    const pluriel = reqCards.length > 1 ? 's' : '';
     const nbOfCardsRequiredMsg =
       reqCards.length !== 0
         ? `You need ${reqCards.length} more card${pluriel} before fighting`
