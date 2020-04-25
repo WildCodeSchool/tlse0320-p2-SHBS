@@ -27,6 +27,8 @@
 
 .collection-deck .collection-empty-card {
   width: 7.5vw;
+  transform: skew(-5deg);
+  opacity: 40%;
 }
 
 .collection-valid {

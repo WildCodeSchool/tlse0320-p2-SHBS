@@ -140,7 +140,7 @@ class Collection extends Component {
             <Link
               to="Board"
               className={
-                deckSelect.length < 3
+                deckSelect.includes('empty')
                   ? 'collection-valid-no-fight button-no-splashbg'
                   : 'collection-valid-fight button-splashbg'
               }
