@@ -6,7 +6,11 @@ import './StandardCard.css';
 const StandardCard = props => {
   const { combat, durability, image, handleHover, index, handleClick, cardClass } = props;
   return (
-    <div className={cardClass} onClick={handleClick} onMouseEnter={() => handleHover(index)}>
+    <div
+      className={cardClass}
+      onClick={handleClick}
+      //onMouseEnter={() => handleHover(index)}
+    >
       <img
         className="standard-card"
         style={{ backgroundImage: `url('${image}')` }}
