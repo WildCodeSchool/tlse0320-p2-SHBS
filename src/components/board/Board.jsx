@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import StandardCard from '../Cards/StandardCard';
 import './Board.css';
 
 const Board = () => {
+  const [indexToDisplay, setIndexToDisplay] = useState(0);
+  const [selectedCard, setSelectedCard] = useState([]);
   const [opponentDeck, setOpponentDeck] = useState([
     {
       id: 522,
@@ -15,12 +17,13 @@ const Board = () => {
         power: 100,
         combat: 50
       },
+      index: 1,
       images: {
         md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/69-batman.jpg'
       }
     },
     {
-      id: 522,
+      id: 523,
       name: 'Batman',
       powerstats: {
         intelligence: 81,
@@ -30,12 +33,13 @@ const Board = () => {
         power: 100,
         combat: 50
       },
+      index: 2,
       images: {
         md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/69-batman.jpg'
       }
     },
     {
-      id: 522,
+      id: 524,
       name: 'Batman',
       powerstats: {
         intelligence: 81,
@@ -45,6 +49,7 @@ const Board = () => {
         power: 100,
         combat: 50
       },
+      index: 3,
       images: {
         md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/69-batman.jpg'
       }
@@ -52,7 +57,7 @@ const Board = () => {
   ]);
   const [playerDeck, setPlayerDeck] = useState([
     {
-      id: 522,
+      id: 525,
       name: 'Poison Ivy',
       powerstats: {
         intelligence: 81,
@@ -62,12 +67,13 @@ const Board = () => {
         power: 100,
         combat: 50
       },
+      index: 4,
       images: {
         md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/522-poison-ivy.jpg'
       }
     },
     {
-      id: 522,
+      id: 526,
       name: 'Poison Ivy',
       powerstats: {
         intelligence: 81,
@@ -77,12 +83,13 @@ const Board = () => {
         power: 100,
         combat: 50
       },
+      index: 5,
       images: {
         md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/522-poison-ivy.jpg'
       }
     },
     {
-      id: 522,
+      id: 527,
       name: 'Poison Ivy',
       powerstats: {
         intelligence: 81,
@@ -92,40 +99,61 @@ const Board = () => {
         power: 100,
         combat: 50
       },
+      index: 6,
       images: {
         md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/522-poison-ivy.jpg'
       }
     }
   ]);
 
+  const handleHover = index => {
+    setIndexToDisplay(index);
+  };
+
+  const handleClick = () => {
+    if (playerDeck[indexToDisplay].cat === 'player') {
+      setSelectedCard(playerDeck[indexToDisplay]);
+    }
+  };
+
+  useEffect(() => {
+    console.log('====================================');
+    console.log(selectedCard);
+    console.log('====================================');
+  }, [selectedCard]);
+
   return (
     <section className="darkcity-bg flex-row">
       <div className="board-cards flex-column">
         <div className="board-cards-top container-card-text flex-row">
-          {opponentDeck.map(character => {
+          {opponentDeck.map((character, i) => {
+            character['cat'] = 'opponent';
+            character['boardIndex'] = i;
             return (
               <StandardCard
-                //handleHover={this.handleHover}
-                //handleClick={this.handleClick}
+                handleHover={handleHover}
+                handleClick={handleClick}
                 combat={character.powerstats.combat}
                 durability={character.powerstats.durability}
                 image={character.images.md}
-                index={character.index}
+                index={character.boardIndex}
                 key={character.id}
               />
             );
           })}
         </div>
         <div className="board-cards-bottom container-card-text flex-row">
-          {playerDeck.map(character => {
+          {playerDeck.map((character, i) => {
+            character['cat'] = 'player';
+            character['boardIndex'] = i;
             return (
               <StandardCard
-                //handleHover={this.handleHover}
-                //handleClick={this.handleClick}
+                handleHover={handleHover}
+                handleClick={handleClick}
                 combat={character.powerstats.combat}
                 durability={character.powerstats.durability}
                 image={character.images.md}
-                index={character.index}
+                index={character.boardIndex}
                 key={character.id}
               />
             );
