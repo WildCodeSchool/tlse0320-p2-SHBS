@@ -1,29 +1,33 @@
-.board-page {
-  justify-content: space-evenly;
-}
-
-.board-cards .standard-card {
-  width: 150px;
-  margin: 20px;
-}
-
 .board-cards {
-  width: 100vh;
-  margin: 10vh;
-}
-
-.board-cards-bottom,
-.board-cards-top {
-  justify-content: center;
+  align-self: flex-end;
+  margin: 0 auto 4vh auto;
 }
 
 .board-cards-bottom {
-  margin-top: auto;
+  margin-top: 18vh;
 }
 
+/* Cards */
+
+.board-cards .standard-card {
+  width: 10vw;
+}
+
+.board-cards .container-card-text {
+  margin: 0 3vw 0 3vw;
+}
+
+.board-cards .container-card-text p {
+  font-size: 120%;
+}
+
+/* Console */
+
 .board-log-text {
-  justify-content: center;
-  width: 25vw;
+  position: absolute;
+  right: 0;
+  width: 18vw;
+  margin: 20vh 1vw 0 0;
 }
 
 .board-log-text h2 {
@@ -31,10 +35,7 @@
 }
 
 .board-game-history {
-  margin-top: 25px;
-  height: 40vh;
-  align-self: center;
-  width: 90%;
+  height: 60vh;
   background-color: rgba(255, 255, 255, 0.3);
-  border: 2px solid #333;
+  border: 1px solid black;
 }
