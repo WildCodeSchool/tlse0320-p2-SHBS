@@ -26,7 +26,11 @@ class Collection extends Component {
         },
         powerstats: {
           combat: 40,
-          durability: 40
+          durability: 40,
+          strength: 14,
+          speed: 21,
+          power: 23,
+          intelligence: 81
         },
         index: 0
       }

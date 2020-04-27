@@ -32,7 +32,7 @@ const CollectionDeck = props => {
 };
 
 CollectionDeck.propTypes = {
-  deckSelect: PropTypes.arrayOf.isRequired,
+  deckSelect: PropTypes.instanceOf(Array).isRequired,
   handleHover: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
   cardClass: PropTypes.string.isRequired
