@@ -4,9 +4,24 @@ import cardskeleton from '../../img/cardskeleton.png';
 import './StandardCard.css';
 
 const StandardCard = props => {
-  const { combat, durability, image, handleHover, index, handleClick, cardClass } = props;
+  const {
+    combat,
+    durability,
+    image,
+    handleHover,
+    index,
+    handleClick,
+    cardClass,
+    clearIndex,
+    category
+  } = props;
   return (
-    <div className={cardClass} onClick={handleClick} onMouseEnter={() => handleHover(index)}>
+    <div
+      className={cardClass}
+      onClick={handleClick}
+      onMouseEnter={() => handleHover([index, category])}
+      onMouseLeave={clearIndex}
+    >
       <img
         className="standard-card"
         style={{ backgroundImage: `url('${image}')` }}

@@ -3,7 +3,7 @@ import StandardCard from '../Cards/StandardCard';
 import './Board.css';
 
 const Board = () => {
-  const [indexToDisplay, setIndexToDisplay] = useState(0);
+  const [indexToDisplay, setIndexToDisplay] = useState([]);
   const [selectedCard, setSelectedCard] = useState([]);
   const [opponentDeck, setOpponentDeck] = useState([
     {
@@ -110,9 +110,13 @@ const Board = () => {
     setIndexToDisplay(index);
   };
 
+  const clearIndex = () => {
+    setIndexToDisplay([]);
+  };
+
   const handleClick = () => {
-    if (playerDeck[indexToDisplay].cat === 'player') {
-      setSelectedCard(playerDeck[indexToDisplay]);
+    if (indexToDisplay[1] === 'player') {
+      setSelectedCard(playerDeck[indexToDisplay[0]]);
     }
   };
 
@@ -122,12 +126,17 @@ const Board = () => {
     console.log('====================================');
   }, [selectedCard]);
 
+  useEffect(() => {
+    console.log('====================================');
+    console.log(indexToDisplay);
+    console.log('====================================');
+  }, [indexToDisplay]);
+
   return (
     <section className="darkcity-bg flex-row">
       <div className="board-cards flex-column">
         <div className="board-cards-top container-card-text flex-row">
           {opponentDeck.map((character, i) => {
-            character['cat'] = 'opponent';
             character['boardIndex'] = i;
             return (
               <StandardCard
@@ -137,6 +146,7 @@ const Board = () => {
                 durability={character.powerstats.durability}
                 image={character.images.md}
                 index={character.boardIndex}
+                category="opponent"
                 key={character.id}
               />
             );
@@ -144,16 +154,17 @@ const Board = () => {
         </div>
         <div className="board-cards-bottom container-card-text flex-row">
           {playerDeck.map((character, i) => {
-            character['cat'] = 'player';
             character['boardIndex'] = i;
             return (
               <StandardCard
                 handleHover={handleHover}
                 handleClick={handleClick}
+                clearIndex={clearIndex}
                 combat={character.powerstats.combat}
                 durability={character.powerstats.durability}
                 image={character.images.md}
                 index={character.boardIndex}
+                category="player"
                 key={character.id}
               />
             );
