@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import StandardCard from '../Cards/StandardCard';
+//import StandardCard from '../Cards/StandardCard';
 import './Board.css';
+import DisplayBoard from './DisplayBoard';
 
 const Board = () => {
   const [indexToDisplay, setIndexToDisplay] = useState([]);
   const [selectedCard, setSelectedCard] = useState([]);
-  const [opponentDeck, setOpponentDeck] = useState([
+  const [opponentDeck] = useState([
     {
       id: 522,
       name: 'Batman',
@@ -55,7 +56,7 @@ const Board = () => {
       }
     }
   ]);
-  const [playerDeck, setPlayerDeck] = useState([
+  const [playerDeck] = useState([
     {
       id: 525,
       name: 'Poison Ivy',
@@ -105,6 +106,7 @@ const Board = () => {
       }
     }
   ]);
+  const [playerTurn, setPlayerTurn] = useState(true);
 
   const handleHover = index => {
     setIndexToDisplay(index);
@@ -117,65 +119,95 @@ const Board = () => {
   const handleClick = () => {
     if (indexToDisplay[1] === 'player') {
       setSelectedCard(playerDeck[indexToDisplay[0]]);
+    } else if (indexToDisplay[1] === 'opponent' && selectedCard.length !== 0) {
+      opponentDeck[indexToDisplay[0]].powerstats.durability =
+        opponentDeck[indexToDisplay[0]].powerstats.durability -
+        playerDeck[selectedCard.boardIndex].powerstats.combat;
+      playerDeck[selectedCard.boardIndex].powerstats.durability =
+        playerDeck[selectedCard.boardIndex].powerstats.durability -
+        opponentDeck[indexToDisplay[0]].powerstats.combat;
+      setPlayerTurn(!playerTurn);
     }
   };
 
   useEffect(() => {
-    console.log('====================================');
-    console.log(selectedCard);
-    console.log('====================================');
-  }, [selectedCard]);
+    playerDeck.forEach((card, i) => {
+      if (card.powerstats.durability <= 0) {
+        playerDeck.splice(i, 1);
+      }
+    });
+    opponentDeck.forEach((card, i) => {
+      if (card.powerstats.durability <= 0) {
+        opponentDeck.splice(i, 1);
+      }
+    });
+  }, [playerDeck, opponentDeck]);
 
-  useEffect(() => {
-    console.log('====================================');
-    console.log(indexToDisplay);
-    console.log('====================================');
-  }, [indexToDisplay]);
+  // useEffect(() => {
+  //   console.log('====================================');
+  //   console.log(selectedCard);
+  //   console.log('====================================');
+  // }, [selectedCard]);
+
+  // useEffect(() => {
+  //   console.log('====================================');
+  //   console.log(indexToDisplay);
+  //   console.log('====================================');
+  // }, [indexToDisplay]);
 
   return (
-    <section className="darkcity-bg flex-row">
-      <div className="board-cards flex-column">
-        <div className="board-cards-top container-card-text flex-row">
-          {opponentDeck.map((character, i) => {
-            character['boardIndex'] = i;
-            return (
-              <StandardCard
-                handleHover={handleHover}
-                handleClick={handleClick}
-                combat={character.powerstats.combat}
-                durability={character.powerstats.durability}
-                image={character.images.md}
-                index={character.boardIndex}
-                category="opponent"
-                key={character.id}
-              />
-            );
-          })}
-        </div>
-        <div className="board-cards-bottom container-card-text flex-row">
-          {playerDeck.map((character, i) => {
-            character['boardIndex'] = i;
-            return (
-              <StandardCard
-                handleHover={handleHover}
-                handleClick={handleClick}
-                clearIndex={clearIndex}
-                combat={character.powerstats.combat}
-                durability={character.powerstats.durability}
-                image={character.images.md}
-                index={character.boardIndex}
-                category="player"
-                key={character.id}
-              />
-            );
-          })}
-        </div>
-      </div>
-      <div className="board-log-text flex-column">
-        <h2>Combat log</h2>
-        <div className="board-game-history" />
-      </div>
-    </section>
+    <DisplayBoard
+      opponentDeck={opponentDeck}
+      playerDeck={playerDeck}
+      handleClick={handleClick}
+      handleHover={handleHover}
+      clearIndex={clearIndex}
+    />
+    // <section className="darkcity-bg flex-row">
+    //   <div className="board-cards flex-column">
+    //     <div className="board-cards-top flex-row">
+    //       {opponentDeck.map((character, i) => {
+    //         character['boardIndex'] = i;
+    //         return (
+    //           <StandardCard
+    //             handleHover={handleHover}
+    //             handleClick={handleClick}
+    //             combat={character.powerstats.combat}
+    //             durability={character.powerstats.durability}
+    //             image={character.images.md}
+    //             index={character.boardIndex}
+    //             category="opponent"
+    //             key={character.id}
+    //             cardClass="container-card-text"
+    //           />
+    //         );
+    //       })}
+    //     </div>
+    //     <div className="board-cards-bottom flex-row">
+    //       {playerDeck.map((character, i) => {
+    //         character['boardIndex'] = i;
+    //         return (
+    //           <StandardCard
+    //             handleHover={handleHover}
+    //             handleClick={handleClick}
+    //             clearIndex={clearIndex}
+    //             combat={character.powerstats.combat}
+    //             durability={character.powerstats.durability}
+    //             image={character.images.md}
+    //             index={character.boardIndex}
+    //             category="player"
+    //             key={character.id}
+    //             cardClass="container-card-text"
+    //           />
+    //         );
+    //       })}
+    //     </div>
+    //   </div>
+    //   <div className="board-log-text flex-column">
+    //     <h2>Combat log</h2>
+    //     <div className="board-game-history" />
+    //   </div>
+    // </section>
   );
 };
 
