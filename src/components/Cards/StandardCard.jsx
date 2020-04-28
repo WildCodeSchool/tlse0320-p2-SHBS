@@ -13,13 +13,14 @@ const StandardCard = props => {
     handleClick,
     cardClass,
     clearIndex,
-    category
+    category,
+    alive
   } = props;
   return (
     <div
       className={cardClass}
       onClick={handleClick}
-      onMouseEnter={() => handleHover([index, category])}
+      onMouseEnter={() => handleHover([index, category, alive])}
       onMouseLeave={clearIndex}
     >
       <img

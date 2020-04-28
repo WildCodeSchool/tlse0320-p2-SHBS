@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-//import StandardCard from '../Cards/StandardCard';
+import React, { useState } from 'react';
 import './Board.css';
 import DisplayBoard from './DisplayBoard';
 
@@ -117,43 +116,23 @@ const Board = () => {
   };
 
   const handleClick = () => {
-    if (indexToDisplay[1] === 'player') {
+    if (indexToDisplay[1] === 'player' && indexToDisplay[2] === 'alive') {
       setSelectedCard(playerDeck[indexToDisplay[0]]);
-    } else if (indexToDisplay[1] === 'opponent' && selectedCard.length !== 0) {
+    } else if (
+      indexToDisplay[1] === 'opponent' &&
+      selectedCard.length !== 0 &&
+      indexToDisplay[2] === 'alive'
+    ) {
       opponentDeck[indexToDisplay[0]].powerstats.durability =
         opponentDeck[indexToDisplay[0]].powerstats.durability -
         playerDeck[selectedCard.boardIndex].powerstats.combat;
       playerDeck[selectedCard.boardIndex].powerstats.durability =
         playerDeck[selectedCard.boardIndex].powerstats.durability -
         opponentDeck[indexToDisplay[0]].powerstats.combat;
+      setSelectedCard([]);
       setPlayerTurn(!playerTurn);
     }
   };
-
-  useEffect(() => {
-    playerDeck.forEach((card, i) => {
-      if (card.powerstats.durability <= 0) {
-        playerDeck.splice(i, 1);
-      }
-    });
-    opponentDeck.forEach((card, i) => {
-      if (card.powerstats.durability <= 0) {
-        opponentDeck.splice(i, 1);
-      }
-    });
-  }, [playerDeck, opponentDeck]);
-
-  // useEffect(() => {
-  //   console.log('====================================');
-  //   console.log(selectedCard);
-  //   console.log('====================================');
-  // }, [selectedCard]);
-
-  // useEffect(() => {
-  //   console.log('====================================');
-  //   console.log(indexToDisplay);
-  //   console.log('====================================');
-  // }, [indexToDisplay]);
 
   return (
     <DisplayBoard
@@ -163,51 +142,6 @@ const Board = () => {
       handleHover={handleHover}
       clearIndex={clearIndex}
     />
-    // <section className="darkcity-bg flex-row">
-    //   <div className="board-cards flex-column">
-    //     <div className="board-cards-top flex-row">
-    //       {opponentDeck.map((character, i) => {
-    //         character['boardIndex'] = i;
-    //         return (
-    //           <StandardCard
-    //             handleHover={handleHover}
-    //             handleClick={handleClick}
-    //             combat={character.powerstats.combat}
-    //             durability={character.powerstats.durability}
-    //             image={character.images.md}
-    //             index={character.boardIndex}
-    //             category="opponent"
-    //             key={character.id}
-    //             cardClass="container-card-text"
-    //           />
-    //         );
-    //       })}
-    //     </div>
-    //     <div className="board-cards-bottom flex-row">
-    //       {playerDeck.map((character, i) => {
-    //         character['boardIndex'] = i;
-    //         return (
-    //           <StandardCard
-    //             handleHover={handleHover}
-    //             handleClick={handleClick}
-    //             clearIndex={clearIndex}
-    //             combat={character.powerstats.combat}
-    //             durability={character.powerstats.durability}
-    //             image={character.images.md}
-    //             index={character.boardIndex}
-    //             category="player"
-    //             key={character.id}
-    //             cardClass="container-card-text"
-    //           />
-    //         );
-    //       })}
-    //     </div>
-    //   </div>
-    //   <div className="board-log-text flex-column">
-    //     <h2>Combat log</h2>
-    //     <div className="board-game-history" />
-    //   </div>
-    // </section>
   );
 };
 

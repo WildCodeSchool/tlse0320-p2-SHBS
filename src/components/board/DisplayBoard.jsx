@@ -8,6 +8,7 @@ const DisplayBoard = props => {
       <div className="board-cards flex-column">
         <div className="board-cards-top flex-row">
           {opponentDeck.map((character, i) => {
+            character.alive = character.powerstats.durability > 0 ? 'alive' : 'dead';
             character.boardIndex = i;
             return (
               <StandardCard
@@ -19,13 +20,15 @@ const DisplayBoard = props => {
                 index={character.boardIndex}
                 category="opponent"
                 key={character.id}
-                cardClass="container-card-text"
+                alive={character.alive}
+                cardClass={`container-card-text ${character.alive}`}
               />
             );
           })}
         </div>
         <div className="board-cards-bottom flex-row">
           {playerDeck.map((character, i) => {
+            character.alive = character.powerstats.durability > 0 ? 'alive' : 'dead';
             character.boardIndex = i;
             return (
               <StandardCard
@@ -38,7 +41,8 @@ const DisplayBoard = props => {
                 index={character.boardIndex}
                 category="player"
                 key={character.id}
-                cardClass="container-card-text"
+                alive={character.alive}
+                cardClass={`container-card-text ${character.alive}`}
               />
             );
           })}
