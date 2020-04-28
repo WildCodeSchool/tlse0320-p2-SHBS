@@ -75,11 +75,8 @@ class Collection extends Component {
         charactersAvailable.splice(Math.floor(Math.random() * charactersAvailable.length), 1)[0]
       );
     }
-    console.log('===============================');
-    console.log(this.state.deckSelect);
-    console.log(charactersAvailable);
-    console.log(deckOpponent);
-    console.log('===============================');
+    this.props.addDeck(this.state.deckSelect);
+    this.props.addDeckOp(deckOpponent);
   }
 
   handleClick = () => {

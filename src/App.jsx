@@ -13,6 +13,10 @@ function App() {
   const addDeck = deckSelect => {
     setDeck(deckSelect);
   };
+  const [deckOp, setDeckOp] = useState([]);
+  const addDeckOp = deckOpponent => {
+    setDeckOp(deckOpponent);
+  };
   return (
     <div>
       <Router>
@@ -20,10 +24,10 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/Collection" exact>
-            <Collection addDeck={addDeck} />
+            <Collection addDeck={addDeck} addDeckOp={addDeckOp} />
           </Route>
           <Route path="/Board" exact>
-            <Board deck={deck} />
+            <Board deck={deck} deckOp={deckOp} />
           </Route>
           <Route path="/Contact" exact component={Contact} />
           <Route path="/Stats" exact component={Stats} />
