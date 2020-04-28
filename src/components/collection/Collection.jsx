@@ -19,6 +19,7 @@ class Collection extends Component {
       search: '',
       deckSelect: ['empty', 'empty', 'empty'],
       numberOfCardsRequired: 'You need 3 more cards before fighting',
+      validButtonFight: false,
       charToDisplay: {
         name: 'Poison Ivy',
         images: {
@@ -119,14 +120,20 @@ class Collection extends Component {
     const pluriel = reqCards.length > 1 ? 's' : '';
     const nbOfCardsRequiredMsg =
       reqCards.length !== 0
-        ? `You need ${reqCards.length} more card${pluriel} before fighting`
-        : 'You can fight !';
+        ? (`You need ${reqCards.length} more card${pluriel} before     fighting`,
+          this.setState({ validButtonFight: false }))
+        : ('You can fight !', this.setState({ validButtonFight: true }));
     this.setState({ numberOfCardsRequired: nbOfCardsRequiredMsg });
   };
 
   handleSearch(event) {
     this.setState({ search: event.target.value });
   }
+
+  validFightButton = () => {
+    const { validButtonFight } = this.state;
+    return validButtonFight ? `Board` : `Collection`;
+  };
 
   render() {
     const {
@@ -154,7 +161,7 @@ class Collection extends Component {
             <p className="collection-valid-title bigger-P-Li">Create your deck</p>
             <p className="bigger-P-Li">{numberOfCardsRequired}</p>
             <Link
-              to="Board"
+              to={{ pathname: this.validFightButton() }}
               className={
                 deckSelect.includes('empty')
                   ? 'collection-valid-no-fight button-no-splashbg'
