@@ -12,7 +12,7 @@ const opponentDeck = [
       speed: 21,
       durability: 300,
       power: 100,
-      combat: 50
+      combat: 30
     },
     index: 1,
     images: {
@@ -28,7 +28,7 @@ const opponentDeck = [
       speed: 21,
       durability: 400,
       power: 100,
-      combat: 50
+      combat: 80
     },
     index: 2,
     images: {
@@ -44,7 +44,7 @@ const opponentDeck = [
       speed: 21,
       durability: 500,
       power: 100,
-      combat: 50
+      combat: 200
     },
     index: 3,
     images: {
@@ -62,7 +62,7 @@ const playerDeck = [
       speed: 21,
       durability: 200,
       power: 100,
-      combat: 50
+      combat: 40
     },
     index: 4,
     images: {
@@ -78,7 +78,7 @@ const playerDeck = [
       speed: 21,
       durability: 250,
       power: 100,
-      combat: 50
+      combat: 100
     },
     index: 5,
     images: {
@@ -94,7 +94,7 @@ const playerDeck = [
       speed: 21,
       durability: 300,
       power: 100,
-      combat: 50
+      combat: 200
     },
     index: 6,
     images: {
@@ -115,6 +115,14 @@ const Board = () => {
     opponentDeck[1].powerstats.durability,
     opponentDeck[2].powerstats.durability
   ]);
+  const [attack, setAttack] = useState([
+    playerDeck[0].powerstats.combat,
+    playerDeck[1].powerstats.combat,
+    playerDeck[2].powerstats.combat,
+    opponentDeck[0].powerstats.combat,
+    opponentDeck[1].powerstats.combat,
+    opponentDeck[2].powerstats.combat
+  ]);
   const [playerTurn, setPlayerTurn] = useState(true);
 
   const handleHover = index => {
@@ -125,30 +133,13 @@ const Board = () => {
     setIndexToDisplay();
   };
 
-  // const losePoints = () => {
-  //   const nbToDecrement =
-  //     opponentDeck[indexToDisplay[0]].powerstats.durability -
-  //     playerDeck[selectedCard.boardIndex].powerstats.combat;
-  //   if (opponentDeck[indexToDisplay[0]].powerstats.durability > nbToDecrement) {
-  //     opponentDeck[indexToDisplay[0]].powerstats.durability -= 1;
-  //   }
-  // };
-
   const handleClick = () => {
     if (indexToDisplay < 3 && isAlive[indexToDisplay]) {
       setSelectedCard(playerDeck[indexToDisplay]);
     } else if (indexToDisplay >= 3 && selectedCard.length !== 0 && isAlive[indexToDisplay]) {
-      // opponentDeck[indexToDisplay[0]].powerstats.durability -=
-      //   playerDeck[selectedCard.boardIndex].powerstats.combat;
-      // playerDeck[selectedCard.boardIndex].powerstats.durability -=
-      //   opponentDeck[indexToDisplay[0]].powerstats.combat;
-
-      // setInterval(losePoints, 1000);
-      // losePoints();
       const tempLife = [...life];
-      tempLife[indexToDisplay] -= 200;
+      tempLife[indexToDisplay] -= attack[selectedCard.boardIndex];
       setLife(tempLife);
-
       setSelectedCard([]);
       setPlayerTurn(!playerTurn);
     }
@@ -162,6 +153,7 @@ const Board = () => {
       handleHover={handleHover}
       clearIndex={clearIndex}
       life={life}
+      attack={attack}
       isAlive={isAlive}
     />
   );
