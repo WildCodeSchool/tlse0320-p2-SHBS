@@ -34,7 +34,8 @@
   background-color: rgba(255, 255, 255, 0.3);
 }
 
-.collection-valid-fight {
+.collection-valid-fight,
+.collection-valid-no-fight {
   width: 10vw;
 }
 
@@ -42,6 +43,12 @@
   height: inherit;
   width: inherit;
   transition: transform 0.2s;
+}
+
+.collection-valid-no-fight img {
+  height: inherit;
+  width: inherit;
+  filter: grayscale(90%);
 }
 
 .collection-valid-fight img:hover {
@@ -68,7 +75,10 @@
 .collection-cards {
   flex-wrap: wrap;
   justify-content: center;
-  overflow-y: auto;
+  height: 400px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #efc958 #d2d2d2;
 }
 
 .collection-cards .standard-card {
