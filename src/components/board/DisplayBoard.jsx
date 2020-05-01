@@ -2,22 +2,12 @@ import React from 'react';
 import StandardCard from '../Cards/StandardCard';
 
 const DisplayBoard = props => {
-  const {
-    opponentDeck,
-    playerDeck,
-    handleHover,
-    handleClick,
-    clearIndex,
-    life,
-    attack,
-    isAlive
-  } = props;
+  const { opponentDeck, playerDeck, handleHover, handleClick, clearIndex, life, attack } = props;
   return (
     <section className="darkcity-bg flex-row">
       <div className="board-cards flex-column">
         <div className="board-cards-top flex-row">
           {opponentDeck.map((character, i) => {
-            character.boardIndex = i + 3;
             return (
               <StandardCard
                 handleHover={handleHover}
@@ -28,7 +18,7 @@ const DisplayBoard = props => {
                 index={i + 3}
                 key={character.id}
                 cardClass={
-                  isAlive[i + 3] ? 'container-card-text alive' : 'container-card-text dead'
+                  life[i + 3] > 0 ? 'container-card-text alive' : 'container-card-text dead'
                 }
               />
             );
@@ -36,7 +26,6 @@ const DisplayBoard = props => {
         </div>
         <div className="board-cards-bottom flex-row">
           {playerDeck.map((character, i) => {
-            character.boardIndex = i;
             return (
               <StandardCard
                 handleHover={handleHover}
@@ -47,7 +36,7 @@ const DisplayBoard = props => {
                 image={character.images.md}
                 index={i}
                 key={character.id}
-                cardClass={isAlive[i] ? 'container-card-text alive' : 'container-card-text dead'}
+                cardClass={life[i] > 0 ? 'container-card-text alive' : 'container-card-text dead'}
               />
             );
           })}

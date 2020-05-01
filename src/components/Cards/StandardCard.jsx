@@ -20,6 +20,7 @@ const StandardCard = props => {
       onClick={handleClick}
       onMouseEnter={() => handleHover(index)}
       onMouseLeave={clearIndex}
+      index={index}
     >
       <img
         className="standard-card"
