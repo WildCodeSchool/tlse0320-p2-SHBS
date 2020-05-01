@@ -141,16 +141,14 @@ const Board = () => {
   /* Losing points one by one */
   useEffect(() => {
     const id = setInterval(() => {
-      if (didMount) {
-        if (life[areFighting[0]] > areFighting[1] && life[areFighting[0]] > 0) {
-          setIsLoosingPoints(true);
-          const tempLife = [...life];
-          tempLife[areFighting[0]] -= 1;
-          setLife(tempLife);
-          setAreFighting([areFighting[0], areFighting[1], !areFighting[2]]);
-        } else {
-          setIsLoosingPoints(false);
-        }
+      if (didMount && life[areFighting[0]] > areFighting[1] && life[areFighting[0]] > 0) {
+        setIsLoosingPoints(true);
+        const tempLife = [...life];
+        tempLife[areFighting[0]] -= 1;
+        setLife(tempLife);
+        setAreFighting([areFighting[0], areFighting[1], !areFighting[2]]);
+      } else {
+        setIsLoosingPoints(false);
       }
     }, 20);
     return () => {
@@ -160,10 +158,8 @@ const Board = () => {
 
   /* Set IA turn and timing */
   useEffect(() => {
-    if (didMount) {
-      if (!isLoosingPoints && !playerTurn) {
-        setTimeout(() => setOponentTurn(!oponentTurn), 1300);
-      }
+    if (didMount && !isLoosingPoints && !playerTurn) {
+      setTimeout(() => setOponentTurn(!oponentTurn), 1300);
     }
   }, [isLoosingPoints]);
 
