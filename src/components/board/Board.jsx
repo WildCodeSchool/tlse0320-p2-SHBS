@@ -10,7 +10,7 @@ const opponentDeck = [
       intelligence: 81,
       strength: 14,
       speed: 21,
-      durability: 300,
+      durability: 100,
       power: 100,
       combat: 30
     },
@@ -26,9 +26,9 @@ const opponentDeck = [
       intelligence: 81,
       strength: 14,
       speed: 21,
-      durability: 400,
+      durability: 80,
       power: 100,
-      combat: 80
+      combat: 38
     },
     index: 2,
     images: {
@@ -42,9 +42,9 @@ const opponentDeck = [
       intelligence: 81,
       strength: 14,
       speed: 21,
-      durability: 500,
+      durability: 75,
       power: 100,
-      combat: 200
+      combat: 40
     },
     index: 3,
     images: {
@@ -60,7 +60,7 @@ const playerDeck = [
       intelligence: 81,
       strength: 14,
       speed: 21,
-      durability: 200,
+      durability: 70,
       power: 100,
       combat: 40
     },
@@ -76,9 +76,9 @@ const playerDeck = [
       intelligence: 81,
       strength: 14,
       speed: 21,
-      durability: 250,
+      durability: 90,
       power: 100,
-      combat: 100
+      combat: 30
     },
     index: 5,
     images: {
@@ -92,9 +92,9 @@ const playerDeck = [
       intelligence: 81,
       strength: 14,
       speed: 21,
-      durability: 300,
+      durability: 95,
       power: 100,
-      combat: 200
+      combat: 50
     },
     index: 6,
     images: {
@@ -109,7 +109,7 @@ const Board = () => {
   const [selectedCard, setSelectedCard] = useState();
   const [playerTurn, setPlayerTurn] = useState(true);
   const [oponentTurn, setOponentTurn] = useState(false);
-  const [areFighting, setAreFighting] = useState([null, null, false]);
+  const [areFighting, setAreFighting] = useState([null, null, false, null]);
   const [isLoosingPoints, setIsLoosingPoints] = useState(false);
   const [life, setLife] = useState([
     playerDeck[0].powerstats.durability,
@@ -146,11 +146,11 @@ const Board = () => {
         const tempLife = [...life];
         tempLife[areFighting[0]] -= 1;
         setLife(tempLife);
-        setAreFighting([areFighting[0], areFighting[1], !areFighting[2]]);
+        setAreFighting([areFighting[0], areFighting[1], !areFighting[2], areFighting[3]]);
       } else {
         setIsLoosingPoints(false);
       }
-    }, 20);
+    }, 1000 / areFighting[3]);
     return () => {
       clearInterval(id);
     };
@@ -178,10 +178,12 @@ const Board = () => {
       const randomOponent = oponentSort[Math.floor(Math.random() * oponentSort.length)];
       const randomPlayer = playerSort[Math.floor(Math.random() * playerSort.length)];
       /* Apply attack */
-      const diffDamage = life[randomPlayer] - attack[randomOponent];
-      setAreFighting([randomPlayer, diffDamage, !areFighting[2]]);
+      const newLife = life[randomPlayer] - attack[randomOponent];
+      const diffDamage =
+        attack[randomOponent] < life[randomPlayer] ? attack[randomOponent] : life[randomPlayer];
+      setAreFighting([randomPlayer, newLife, !areFighting[2], diffDamage]);
       setPlayerTurn(true);
-      console.log(`IA n°${randomOponent} attack player n°${randomPlayer}`);
+      console.log(`IA n°${randomOponent} attack player n°${randomPlayer} => loose ${diffDamage}`);
     }
   }, [oponentTurn]);
 
@@ -192,10 +194,11 @@ const Board = () => {
       setSelectedCard(index);
     } else if (index >= 3 && life[index] > 0 && selectedCard) {
       setPlayerTurn(false);
-      const diffDamage = life[index] - attack[selectedCard];
-      setAreFighting([index, diffDamage, !areFighting[2]]);
+      const newLife = life[index] - attack[selectedCard];
+      const diffDamage = attack[selectedCard] < life[index] ? attack[selectedCard] : life[index];
+      setAreFighting([index, newLife, !areFighting[2], diffDamage]);
       setSelectedCard();
-      console.log(`Player n°${selectedCard} attack IA n°${index}`);
+      console.log(`Player n°${selectedCard} attack IA n°${index} => loose ${diffDamage}`);
     }
   };
 
