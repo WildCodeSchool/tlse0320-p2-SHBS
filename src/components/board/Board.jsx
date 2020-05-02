@@ -109,7 +109,7 @@ const Board = () => {
   const [selectedCard, setSelectedCard] = useState();
   const [playerTurn, setPlayerTurn] = useState(true);
   const [oponentTurn, setOponentTurn] = useState(false);
-  const [areFighting, setAreFighting] = useState(['', '', false]);
+  const [areFighting, setAreFighting] = useState([null, null, false]);
   const [isLoosingPoints, setIsLoosingPoints] = useState(false);
   const [life, setLife] = useState([
     playerDeck[0].powerstats.durability,
@@ -158,9 +158,14 @@ const Board = () => {
 
   /* Set IA turn and timing */
   useEffect(() => {
-    if (didMount && !isLoosingPoints && !playerTurn) {
-      setTimeout(() => setOponentTurn(!oponentTurn), 1300);
-    }
+    const id = setTimeout(() => {
+      if (didMount && !isLoosingPoints && !playerTurn) {
+        setOponentTurn(!oponentTurn);
+      }
+    }, 1400);
+    return () => {
+      clearTimeout(id);
+    };
   }, [isLoosingPoints]);
 
   /* IA turn */
@@ -171,7 +176,7 @@ const Board = () => {
       const oponentSort = [...aliveSort].splice(3).filter(card => card !== 'dead');
       const playerSort = [...aliveSort].splice(0, 3).filter(card => card !== 'dead');
       const randomOponent = oponentSort[Math.floor(Math.random() * oponentSort.length)];
-      const randomPlayer = playerSort[Math.floor(Math.random() * oponentSort.length)];
+      const randomPlayer = playerSort[Math.floor(Math.random() * playerSort.length)];
       /* Apply attack */
       const diffDamage = life[randomPlayer] - attack[randomOponent];
       setAreFighting([randomPlayer, diffDamage, !areFighting[2]]);
@@ -186,10 +191,10 @@ const Board = () => {
     if (index < 3 && life[index] > 0 && playerTurn && !isLoosingPoints) {
       setSelectedCard(index);
     } else if (index >= 3 && life[index] > 0 && selectedCard) {
+      setPlayerTurn(false);
       const diffDamage = life[index] - attack[selectedCard];
       setAreFighting([index, diffDamage, !areFighting[2]]);
       setSelectedCard();
-      setPlayerTurn(false);
       console.log(`Player n°${selectedCard} attack IA n°${index}`);
     }
   };
