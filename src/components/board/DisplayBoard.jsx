@@ -34,7 +34,9 @@ const DisplayBoard = props => {
                     life[i + 3] > 0 ? 'container-card-text alive' : 'container-card-text dead'
                   }
                 />
-                <div className={indexToDisplay ? 'info-show flex-column' : 'info-hide'}>
+                <div
+                  className={indexToDisplay !== undefined ? 'info-show flex-column' : 'info-hide'}
+                >
                   <h5>{character.name}</h5>
                   <h5>Life : {character.powerstats.durability}</h5>
                   <h5>Attack : {character.powerstats.combat}</h5>
@@ -47,7 +49,9 @@ const DisplayBoard = props => {
           {playerDeck.map((character, i) => {
             return (
               <div>
-                <div className={indexToDisplay ? 'info-show flex-column' : 'info-hide'}>
+                <div
+                  className={indexToDisplay !== undefined ? 'info-show flex-column' : 'info-hide'}
+                >
                   <h5>{character.name}</h5>
                   <h5>Life : {character.powerstats.durability}</h5>
                   <h5>Attack : {character.powerstats.combat}</h5>
