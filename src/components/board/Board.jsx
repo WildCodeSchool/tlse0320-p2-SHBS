@@ -60,6 +60,7 @@ const Board = props => {
   const [oponentTurn, setOponentTurn] = useState(false);
   const [areFighting, setAreFighting] = useState([]);
   const [isLoosingPoints, setIsLoosingPoints] = useState(false);
+  const [turnInterval, setTurnInterval] = useState(false);
   const [life, setLife] = useState([
     deckDur[0].powerstats.durability,
     deckDur[1].powerstats.durability,
@@ -124,14 +125,24 @@ const Board = props => {
     };
   }, [areFighting, life]);
 
-  /* Set IA turn and timing */
+  /* Set pause moment between turns */
   useEffect(() => {
-    const id = setTimeout(() => {
+    setTimeout(() => {
       if (didMount && !isLoosingPoints && !playerTurn) {
+        setTurnInterval(true);
+      }
+    }, 280);
+  }, [isLoosingPoints]);
+
+  /* Set IA turn */
+  useEffect(() => {
+    setTimeout(() => {
+      if (didMount && turnInterval) {
         setOponentTurn(!oponentTurn);
+        setTurnInterval(false);
       }
     }, 1400);
-  }, [isLoosingPoints]);
+  }, [turnInterval]);
 
   /* IA turn */
   useEffect(() => {
@@ -179,6 +190,7 @@ const Board = props => {
       selectedCard={selectedCard}
       areFighting={areFighting}
       isLoosingPoints={isLoosingPoints}
+      turnInterval={turnInterval}
     />
   );
 };

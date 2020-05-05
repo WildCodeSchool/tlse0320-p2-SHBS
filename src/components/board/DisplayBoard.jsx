@@ -12,7 +12,8 @@ const DisplayBoard = props => {
     attack,
     selectedCard,
     isLoosingPoints,
-    areFighting
+    areFighting,
+    turnInterval
   } = props;
 
   return (
@@ -32,7 +33,7 @@ const DisplayBoard = props => {
                 cardClass={
                   life[i + 3] > 0
                     ? `container-card-text${areFighting[0] === i + 3 ? ' isShaking' : ''}${
-                        areFighting[2] === i + 3 && isLoosingPoints
+                        areFighting[2] === i + 3 && isLoosingPoints && !turnInterval
                           ? ' isAttacking'
                           : ' isNotAttacking'
                       }`
@@ -57,7 +58,7 @@ const DisplayBoard = props => {
                 cardClass={
                   life[i] > 0
                     ? `container-card-text${
-                        selectedCard === i || areFighting[2] === i
+                        selectedCard === i || (areFighting[2] === i && !turnInterval)
                           ? ' isAttacking'
                           : ' isNotAttacking'
                       }${areFighting[0] === i ? ' isShaking' : ''}`
