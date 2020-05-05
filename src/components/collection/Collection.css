@@ -9,7 +9,7 @@
   width: 60vw;
   justify-content: space-around;
   align-items: center;
-  margin: 10px;
+  margin: 0.7vw;
   background-color: rgba(255, 255, 255, 0.3);
   border: solid 1px;
   flex-wrap: wrap;
@@ -17,7 +17,7 @@
 
 .collection-deck-title {
   align-self: center;
-  padding-left: 3%;
+  text-align: center;
   width: 15vw;
 }
 
@@ -25,12 +25,18 @@
   width: 7.5vw;
 }
 
+.collection-deck .collection-empty-card {
+  width: 7.5vw;
+  transform: skew(-5deg);
+  opacity: 40%;
+}
+
 .collection-valid {
   justify-content: space-around;
   align-items: center;
   width: 27vw;
   border: solid 1px;
-  margin: 10px;
+  margin: 0.7vw;
   background-color: rgba(255, 255, 255, 0.3);
 }
 
@@ -62,20 +68,21 @@
 }
 
 .collection-bottom-left {
-  width: 75vw;
-  margin: 10px;
+  width: 76vw;
+  height: 47vh;
+  margin: 0.7vw;
 }
 
 .collection-filter {
-  height: 30px;
+  display: flex;
+  align-items: center;
   text-align: right;
-  margin: 20px 100px 10px 0px;
+  margin: 0.5vh 0 3vh auto;
 }
 
 .collection-cards {
   flex-wrap: wrap;
   justify-content: center;
-  height: 400px;
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: #efc958 #d2d2d2;
@@ -86,17 +93,34 @@
 }
 
 .collection-cards .container-card-text {
-  margin: 20px 30px 20px 30px;
+  margin: 1vh 1.5vw 3vh 1.5vw;
+  align-self: flex-start;
 }
 
 /*Collection cards state*/
 
 .collection-card-is-chosen {
-  filter: grayscale(50%);
+  filter: grayscale(60%);
   opacity: 50%;
+  transition: all 0.1s ease-out;
+}
+
+.collection-card-is-chosen:hover {
+  cursor: default;
 }
 
 .collection-filter label {
   font-size: 3vh;
   margin-right: 20px;
+}
+
+.collection-deck .container-card-text {
+  animation: deckApparition 0.2s ease-out;
+}
+
+@keyframes deckApparition {
+  from {
+    transform: scale(1.2) translateY(20%);
+    opacity: 0;
+  }
 }

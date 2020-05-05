@@ -17,7 +17,7 @@ class Collection extends Component {
       characters: [],
       indexToDisplay: 0,
       search: '',
-      deckSelect: [],
+      deckSelect: ['empty', 'empty', 'empty'],
       numberOfCardsRequired: 'You need 3 more cards before fighting',
       charToDisplay: {
         name: 'Poison Ivy',
@@ -26,7 +26,11 @@ class Collection extends Component {
         },
         powerstats: {
           combat: 40,
-          durability: 40
+          durability: 40,
+          strength: 14,
+          speed: 21,
+          power: 23,
+          intelligence: 81
         },
         index: 0
       }
@@ -65,23 +69,25 @@ class Collection extends Component {
 
   handleClick = () => {
     const { deckSelect, characters, indexToDisplay } = this.state;
-    if (deckSelect.length < 3 && !deckSelect.includes(characters[indexToDisplay])) {
-      this.setState({
-        deckSelect: deckSelect.concat(characters[indexToDisplay])
-      });
-      switch (deckSelect.length) {
-        case 0:
-          this.setState({ numberOfCardsRequired: 'You need 2 more cards before fighting' });
-          break;
-        case 1:
-          this.setState({ numberOfCardsRequired: 'You need 1 more card before fighting' });
-          break;
-        case 2:
-          this.setState({ numberOfCardsRequired: 'You can fight !' });
-          break;
-        default:
-          break;
+    if (!deckSelect.includes(characters[indexToDisplay])) {
+      let tempDeck = [...deckSelect];
+      if (deckSelect[0] === 'empty') {
+        tempDeck[0] = characters[indexToDisplay];
+        this.setState({
+          deckSelect: tempDeck
+        });
+      } else if (deckSelect[1] === 'empty') {
+        tempDeck[1] = characters[indexToDisplay];
+        this.setState({
+          deckSelect: tempDeck
+        });
+      } else if (deckSelect[2] === 'empty') {
+        tempDeck[2] = characters[indexToDisplay];
+        this.setState({
+          deckSelect: tempDeck
+        });
       }
+      this.cardsRequired(tempDeck);
     }
   };
 
@@ -89,23 +95,21 @@ class Collection extends Component {
     const { deckSelect, characters, indexToDisplay } = this.state;
     let tempDeck = [...deckSelect];
     let tempIndex = tempDeck.indexOf(characters[indexToDisplay]);
-    tempDeck.splice(tempIndex, 1);
+    tempDeck.splice(tempIndex, 1, 'empty');
     this.setState({
       deckSelect: tempDeck
     });
-    switch (deckSelect.length) {
-      case 3:
-        this.setState({ numberOfCardsRequired: 'You need 1 more card before fighting' });
-        break;
-      case 2:
-        this.setState({ numberOfCardsRequired: 'You need 2 more cards before fighting' });
-        break;
-      case 1:
-        this.setState({ numberOfCardsRequired: 'You need 3 more cards before fighting' });
-        break;
-      default:
-        break;
-    }
+    this.cardsRequired(tempDeck);
+  };
+
+  cardsRequired = tempDeck => {
+    const reqCards = tempDeck.filter(card => card === 'empty');
+    const pluriel = reqCards.length > 1 ? 's' : '';
+    const nbOfCardsRequiredMsg =
+      reqCards.length !== 0
+        ? `You need ${reqCards.length} more card${pluriel} before fighting`
+        : 'You can fight !';
+    this.setState({ numberOfCardsRequired: nbOfCardsRequiredMsg });
   };
 
   handleSearch(event) {
@@ -140,7 +144,7 @@ class Collection extends Component {
             <Link
               to="Board"
               className={
-                deckSelect.length < 3
+                deckSelect.includes('empty')
                   ? 'collection-valid-no-fight button-no-splashbg'
                   : 'collection-valid-fight button-splashbg'
               }
@@ -153,7 +157,7 @@ class Collection extends Component {
           <div className="collection-bottom-left flex-column">
             <div className="collection-filter">
               {/* Modify label and input */}
-              <label htmlFor="research">Search:</label>
+              <label htmlFor="research">Search :</label>
               <input
                 id="research"
                 type="text"

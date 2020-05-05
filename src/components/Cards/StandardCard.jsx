@@ -6,14 +6,7 @@ import './StandardCard.css';
 const StandardCard = props => {
   const { combat, durability, image, handleHover, index, handleClick, cardClass } = props;
   return (
-    <div
-      role="button"
-      tabIndex={0}
-      className={cardClass}
-      onClick={() => handleClick()}
-      onMouseEnter={() => handleHover(index)}
-      onKeyPress={() => {}}
-    >
+    <div className={cardClass} onClick={handleClick} onMouseEnter={() => handleHover(index)}>
       <img
         className="standard-card"
         style={{ backgroundImage: `url('${image}')` }}
