@@ -211,6 +211,7 @@ const Board = () => {
       clearIndex={clearIndex}
       life={life}
       attack={attack}
+      indexToDisplay={indexToDisplay}
     />
   );
 };
