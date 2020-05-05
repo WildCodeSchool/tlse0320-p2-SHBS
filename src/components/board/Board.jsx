@@ -3,6 +3,54 @@ import PropTypes from 'prop-types';
 import './Board.css';
 import DisplayBoard from './DisplayBoard';
 
+const deckDur = [
+  {
+    name: 'Poison Ivy',
+    images: {
+      md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/522-poison-ivy.jpg'
+    },
+    powerstats: {
+      combat: 40,
+      durability: 40,
+      strength: 14,
+      speed: 21,
+      power: 23,
+      intelligence: 81
+    },
+    index: 0
+  },
+  {
+    name: 'Poison Ivy',
+    images: {
+      md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/522-poison-ivy.jpg'
+    },
+    powerstats: {
+      combat: 40,
+      durability: 40,
+      strength: 14,
+      speed: 21,
+      power: 23,
+      intelligence: 81
+    },
+    index: 0
+  },
+  {
+    name: 'Poison Ivy',
+    images: {
+      md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/522-poison-ivy.jpg'
+    },
+    powerstats: {
+      combat: 40,
+      durability: 40,
+      strength: 14,
+      speed: 21,
+      power: 23,
+      intelligence: 81
+    },
+    index: 0
+  }
+];
+
 const Board = props => {
   const { deck, deckOp } = props;
   const [didMount, setDidMount] = useState(false);
@@ -10,32 +58,46 @@ const Board = props => {
   const [selectedCard, setSelectedCard] = useState();
   const [playerTurn, setPlayerTurn] = useState(true);
   const [oponentTurn, setOponentTurn] = useState(false);
-  const [areFighting, setAreFighting] = useState([null, null, false, null]);
+  const [areFighting, setAreFighting] = useState([]);
   const [isLoosingPoints, setIsLoosingPoints] = useState(false);
-  const [life, setLife] = useState([]);
-  const [attack, setAttack] = useState([]);
+  const [life, setLife] = useState([
+    deckDur[0].powerstats.durability,
+    deckDur[1].powerstats.durability,
+    deckDur[2].powerstats.durability,
+    deckDur[0].powerstats.durability,
+    deckDur[1].powerstats.durability,
+    deckDur[2].powerstats.durability
+  ]);
+  const [attack, setAttack] = useState([
+    deckDur[0].powerstats.combat,
+    deckDur[1].powerstats.combat,
+    deckDur[2].powerstats.combat,
+    deckDur[0].powerstats.combat,
+    deckDur[1].powerstats.combat,
+    deckDur[2].powerstats.combat
+  ]);
 
   useEffect(() => setDidMount(true), []);
-  useEffect(() => {
-    if (deck[0]) {
-      setLife([
-        deck[0].powerstats.durability,
-        deck[1].powerstats.durability,
-        deck[2].powerstats.durability,
-        deckOp[0].powerstats.durability,
-        deckOp[1].powerstats.durability,
-        deckOp[2].powerstats.durability
-      ]);
-      setAttack([
-        deck[0].powerstats.combat,
-        deck[1].powerstats.combat,
-        deck[2].powerstats.combat,
-        deckOp[0].powerstats.combat,
-        deckOp[1].powerstats.combat,
-        deckOp[2].powerstats.combat
-      ]);
-    }
-  }, [deck, deckOp]);
+  // useEffect(() => {
+  //   if (deck[0]) {
+  //     setLife([
+  //       deck[0].powerstats.durability,
+  //       deck[1].powerstats.durability,
+  //       deck[2].powerstats.durability,
+  //       deckOp[0].powerstats.durability,
+  //       deckOp[1].powerstats.durability,
+  //       deckOp[2].powerstats.durability
+  //     ]);
+  //     setAttack([
+  //       deck[0].powerstats.combat,
+  //       deck[1].powerstats.combat,
+  //       deck[2].powerstats.combat,
+  //       deckOp[0].powerstats.combat,
+  //       deckOp[1].powerstats.combat,
+  //       deckOp[2].powerstats.combat
+  //     ]);
+  //   }
+  // }, [deck, deckOp]);
 
   const handleHover = index => {
     setIndexToDisplay(index);
@@ -53,7 +115,6 @@ const Board = props => {
         const tempLife = [...life];
         tempLife[areFighting[0]] -= 1;
         setLife(tempLife);
-        setAreFighting([areFighting[0], areFighting[1], !areFighting[2], areFighting[3]]);
       } else {
         setIsLoosingPoints(false);
       }
@@ -61,7 +122,7 @@ const Board = props => {
     return () => {
       clearInterval(id);
     };
-  }, [areFighting]);
+  }, [areFighting, life]);
 
   /* Set IA turn and timing */
   useEffect(() => {
@@ -70,9 +131,6 @@ const Board = props => {
         setOponentTurn(!oponentTurn);
       }
     }, 1400);
-    return () => {
-      clearTimeout(id);
-    };
   }, [isLoosingPoints]);
 
   /* IA turn */
@@ -88,7 +146,7 @@ const Board = props => {
       const newLife = life[randomPlayer] - attack[randomOponent];
       const diffDamage =
         attack[randomOponent] < life[randomPlayer] ? attack[randomOponent] : life[randomPlayer];
-      setAreFighting([randomPlayer, newLife, !areFighting[2], diffDamage]);
+      setAreFighting([randomPlayer, newLife, randomOponent, diffDamage]);
       setPlayerTurn(true);
       console.log(`IA n°${randomOponent} attack player n°${randomPlayer} => loose ${diffDamage}`);
     }
@@ -96,14 +154,14 @@ const Board = props => {
 
   /* User Turn */
   const handleClick = e => {
-    const index = e.currentTarget.getAttribute('index');
+    const index = Number(e.currentTarget.getAttribute('index'));
     if (index < 3 && life[index] > 0 && playerTurn && !isLoosingPoints) {
       setSelectedCard(index);
-    } else if (index >= 3 && life[index] > 0 && selectedCard) {
+    } else if (index >= 3 && life[index] > 0 && selectedCard !== undefined) {
       setPlayerTurn(false);
       const newLife = life[index] - attack[selectedCard];
       const diffDamage = attack[selectedCard] < life[index] ? attack[selectedCard] : life[index];
-      setAreFighting([index, newLife, !areFighting[2], diffDamage]);
+      setAreFighting([index, newLife, selectedCard, diffDamage]);
       setSelectedCard();
       console.log(`Player n°${selectedCard} attack IA n°${index} => loose ${diffDamage}`);
     }
@@ -111,13 +169,16 @@ const Board = props => {
 
   return (
     <DisplayBoard
-      opponentDeck={deckOp}
-      playerDeck={deck}
+      opponentDeck={deckDur}
+      playerDeck={deckDur}
       handleClick={handleClick}
       handleHover={handleHover}
       clearIndex={clearIndex}
       life={life}
       attack={attack}
+      selectedCard={selectedCard}
+      areFighting={areFighting}
+      isLoosingPoints={isLoosingPoints}
     />
   );
 };

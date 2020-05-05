@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import StandardCard from '../Cards/StandardCard';
 
 const DisplayBoard = props => {
-  const { opponentDeck, playerDeck, handleHover, handleClick, clearIndex, life, attack } = props;
+  const {
+    opponentDeck,
+    playerDeck,
+    handleHover,
+    handleClick,
+    clearIndex,
+    life,
+    attack,
+    selectedCard,
+    isLoosingPoints,
+    areFighting
+  } = props;
+
   return (
     <section className="darkcity-bg flex-row">
       <div className="board-cards flex-column">
@@ -18,7 +30,13 @@ const DisplayBoard = props => {
                 index={i + 3}
                 key={character.id}
                 cardClass={
-                  life[i + 3] > 0 ? 'container-card-text alive' : 'container-card-text dead'
+                  life[i + 3] > 0
+                    ? `container-card-text${areFighting[0] === i + 3 ? ' isShaking' : ''}${
+                        areFighting[2] === i + 3 && isLoosingPoints
+                          ? ' isAttacking'
+                          : ' isNotAttacking'
+                      }`
+                    : 'container-card-text dead'
                 }
               />
             );
@@ -36,7 +54,15 @@ const DisplayBoard = props => {
                 image={character.images.md}
                 index={i}
                 key={character.id}
-                cardClass={life[i] > 0 ? 'container-card-text alive' : 'container-card-text dead'}
+                cardClass={
+                  life[i] > 0
+                    ? `container-card-text${
+                        selectedCard === i || areFighting[2] === i
+                          ? ' isAttacking'
+                          : ' isNotAttacking'
+                      }${areFighting[0] === i ? ' isShaking' : ''}`
+                    : 'container-card-text dead'
+                }
               />
             );
           })}
