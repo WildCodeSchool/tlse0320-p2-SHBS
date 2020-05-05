@@ -67,6 +67,18 @@ class Collection extends Component {
     }
   }
 
+  componentWillUnmount() {
+    let deckOpponent = [];
+    let charactersAvailable = this.state.characters.filter(x => !this.state.deckSelect.includes(x));
+    while (deckOpponent.length < 3) {
+      deckOpponent.push(
+        charactersAvailable.splice(Math.floor(Math.random() * charactersAvailable.length), 1)[0]
+      );
+    }
+    this.props.addDeck(this.state.deckSelect);
+    this.props.addDeckOp(deckOpponent);
+  }
+
   handleClick = () => {
     const { deckSelect, characters, indexToDisplay } = this.state;
     if (!deckSelect.includes(characters[indexToDisplay])) {
