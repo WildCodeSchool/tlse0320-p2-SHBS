@@ -120,10 +120,12 @@ class Collection extends Component {
     const pluriel = reqCards.length > 1 ? 's' : '';
     const nbOfCardsRequiredMsg =
       reqCards.length !== 0
-        ? (`You need ${reqCards.length} more card${pluriel} before     fighting`,
-          this.setState({ validButtonFight: false }))
-        : ('You can fight !', this.setState({ validButtonFight: true }));
+        ? `You need ${reqCards.length} more card${pluriel} before fighting`
+        : 'You can fight !';
     this.setState({ numberOfCardsRequired: nbOfCardsRequiredMsg });
+    reqCards.length !== 0
+      ? this.setState({ validButtonFight: false })
+      : this.setState({ validButtonFight: true });
   };
 
   handleSearch(event) {
