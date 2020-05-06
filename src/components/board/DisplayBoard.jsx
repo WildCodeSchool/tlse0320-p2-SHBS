@@ -26,9 +26,9 @@ const DisplayBoard = props => {
             return (
               <div className="flex-row">
                 <div className={indexToDisplay === i + 3 ? 'info-show flex-column' : 'info-hide'}>
-                  <h5>{character.name}</h5>
-                  <h5>Life : {character.powerstats.durability}</h5>
-                  <h5>Attack : {character.powerstats.combat}</h5>
+                  <h4>{character.name}</h4>
+                  <p>Life : {character.powerstats.durability}</p>
+                  <p>Attack : {character.powerstats.combat}</p>
                 </div>
                 <StandardCard
                   handleHover={handleHover}
@@ -58,9 +58,9 @@ const DisplayBoard = props => {
             return (
               <div>
                 <div className={indexToDisplay === i ? 'info-show flex-column' : 'info-hide'}>
-                  <h5>{character.name}</h5>
-                  <h5>Life : {character.powerstats.durability}</h5>
-                  <h5>Attack : {character.powerstats.combat}</h5>
+                  <h4>{character.name}</h4>
+                  <p>Life : {character.powerstats.durability}</p>
+                  <p>Attack : {character.powerstats.combat}</p>
                 </div>
                 <StandardCard
                   handleHover={handleHover}
