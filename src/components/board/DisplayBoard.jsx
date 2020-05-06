@@ -145,9 +145,7 @@ const DisplayBoard = props => {
                               areFighting[2] === i && turnInterval && !isLoosingPoints
                                 ? ' isNotAttacking'
                                 : ''
-                            }${
-                          areFighting[0] === i && isLoosingPoints ? ' isShaking isAttacking' : ''
-                        }`
+                            }${areFighting[0] === i && isLoosingPoints ? ' isShaking' : ''}`
                       : 'container-card-text dead'
                   }
                 />
