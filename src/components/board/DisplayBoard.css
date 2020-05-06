@@ -1,14 +1,30 @@
-.info-show {
+.info-show,
+.info-hide {
   position: fixed;
-  height: 33vh;
   width: 10vw;
+  /* change here to fix the modal height */
+  height: 33vh;
   padding-top: 1vh;
   align-items: center;
-  border: solid gold;
+  /* border: solid gold; */
+  border-radius: 11px;
+}
+
+.info-show {
+  animation: modalApparition 0.5s ease-out;
 }
 
 .info-hide {
-  display: none;
+  transition: transform 0.5s;
+  transform: scale(1) translateX(100%);
+}
+
+.bg-opponent {
+  background-image: url('../../img/bgmodalred.PNG');
+}
+
+.bg-player {
+  background-image: url('../../img/bgmodalgreen.PNG');
 }
 
 .board-between-turns {
@@ -44,6 +60,44 @@
     opacity: 1;
   }
   100% {
+    opacity: 0;
+  }
+}
+.info-show h4,
+.info-hide h4 {
+  text-align: center;
+  color: #d2d2d2;
+  margin: 2vh 0 2vh 0;
+  font-size: 1.6em;
+}
+
+.info-show h5,
+.info-hide h5 {
+  text-align: center;
+  color: #d2d2d2;
+  margin: 4vh 0 0 0;
+  font-size: 1.2em;
+}
+
+.info-show h6,
+.info-hide h6 {
+  text-align: center;
+  color: #d2d2d2;
+  margin: 2vh 0 6vh 0;
+  font-size: 1em;
+}
+
+/* font-style: italic; */
+
+.info-show p,
+.info-hide p {
+  text-align: center;
+  margin: 2vh 0 0 0;
+}
+
+@keyframes modalApparition {
+  from {
+    transform: scale(1) translateX(100%);
     opacity: 0;
   }
 }

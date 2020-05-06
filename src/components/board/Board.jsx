@@ -3,54 +3,6 @@ import PropTypes from 'prop-types';
 import './Board.css';
 import DisplayBoard from './DisplayBoard';
 
-const staticDeck = [
-  {
-    name: 'Poison Ivy',
-    images: {
-      md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/522-poison-ivy.jpg'
-    },
-    powerstats: {
-      combat: 40,
-      durability: 40,
-      strength: 14,
-      speed: 21,
-      power: 23,
-      intelligence: 81
-    },
-    index: 0
-  },
-  {
-    name: 'Poison Ivy',
-    images: {
-      md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/522-poison-ivy.jpg'
-    },
-    powerstats: {
-      combat: 40,
-      durability: 40,
-      strength: 14,
-      speed: 21,
-      power: 23,
-      intelligence: 81
-    },
-    index: 0
-  },
-  {
-    name: 'Poison Ivy',
-    images: {
-      md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/522-poison-ivy.jpg'
-    },
-    powerstats: {
-      combat: 40,
-      durability: 40,
-      strength: 14,
-      speed: 21,
-      power: 23,
-      intelligence: 81
-    },
-    index: 0
-  }
-];
-
 const Board = props => {
   const { deck, deckOp } = props;
   const [didMount, setDidMount] = useState(false);
@@ -62,44 +14,30 @@ const Board = props => {
   const [isLoosingPoints, setIsLoosingPoints] = useState(false);
   const [turnInterval, setTurnInterval] = useState(false);
   const [playerTurnInterval, setPlayerTurnInterval] = useState(false);
-  const [life, setLife] = useState([
-    staticDeck[0].powerstats.durability,
-    staticDeck[1].powerstats.durability,
-    staticDeck[2].powerstats.durability,
-    staticDeck[0].powerstats.durability,
-    staticDeck[1].powerstats.durability,
-    staticDeck[2].powerstats.durability
-  ]);
-  const [attack, setAttack] = useState([
-    staticDeck[0].powerstats.combat,
-    staticDeck[1].powerstats.combat,
-    staticDeck[2].powerstats.combat,
-    staticDeck[0].powerstats.combat,
-    staticDeck[1].powerstats.combat,
-    staticDeck[2].powerstats.combat
-  ]);
+  const [life, setLife] = useState([]);
+  const [attack, setAttack] = useState([]);
 
   useEffect(() => setDidMount(true), []);
-  // useEffect(() => {
-  //   if (deck[0]) {
-  //     setLife([
-  //       deck[0].powerstats.durability,
-  //       deck[1].powerstats.durability,
-  //       deck[2].powerstats.durability,
-  //       deckOp[0].powerstats.durability,
-  //       deckOp[1].powerstats.durability,
-  //       deckOp[2].powerstats.durability
-  //     ]);
-  //     setAttack([
-  //       deck[0].powerstats.combat,
-  //       deck[1].powerstats.combat,
-  //       deck[2].powerstats.combat,
-  //       deckOp[0].powerstats.combat,
-  //       deckOp[1].powerstats.combat,
-  //       deckOp[2].powerstats.combat
-  //     ]);
-  //   }
-  // }, [deck, deckOp]);
+  useEffect(() => {
+    if (deck[0]) {
+      setLife([
+        deck[0].powerstats.durability,
+        deck[1].powerstats.durability,
+        deck[2].powerstats.durability,
+        deckOp[0].powerstats.durability,
+        deckOp[1].powerstats.durability,
+        deckOp[2].powerstats.durability
+      ]);
+      setAttack([
+        deck[0].powerstats.combat,
+        deck[1].powerstats.combat,
+        deck[2].powerstats.combat,
+        deckOp[0].powerstats.combat,
+        deckOp[1].powerstats.combat,
+        deckOp[2].powerstats.combat
+      ]);
+    }
+  }, [deck, deckOp]);
 
   const handleHover = index => {
     setIndexToDisplay(index);
@@ -185,8 +123,8 @@ const Board = props => {
 
   return (
     <DisplayBoard
-      opponentDeck={staticDeck}
-      playerDeck={staticDeck}
+      opponentDeck={deckOp}
+      playerDeck={deck}
       handleClick={handleClick}
       handleHover={handleHover}
       clearIndex={clearIndex}
