@@ -110,19 +110,15 @@ const Board = props => {
   };
 
   return (
-    <>
-      {life[0] <= 0 && life[1] <= 0 && life[2] <= 0 && <div className="end-game">Lost</div>}
-      {life[3] <= 0 && life[4] <= 0 && life[5] <= 0 && <div className="end-game">Win</div>}
-      <DisplayBoard
-        opponentDeck={deckOp}
-        playerDeck={deck}
-        handleClick={handleClick}
-        handleHover={handleHover}
-        clearIndex={clearIndex}
-        life={life}
-        attack={attack}
-      />
-    </>
+    <DisplayBoard
+      opponentDeck={deckOp}
+      playerDeck={deck}
+      handleClick={handleClick}
+      handleHover={handleHover}
+      clearIndex={clearIndex}
+      life={life}
+      attack={attack}
+    />
   );
 };
 Board.propTypes = {

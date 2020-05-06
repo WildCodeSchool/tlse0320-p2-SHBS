@@ -1,5 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import StandardCard from '../Cards/StandardCard';
+import victory from '../../img/Victory.png';
+import defeat from '../../img/Defeat.png';
+import playagaintxt from '../../img/Playagaintxt.png';
 
 const DisplayBoard = props => {
   const { opponentDeck, playerDeck, handleHover, handleClick, clearIndex, life, attack } = props;
@@ -24,6 +29,22 @@ const DisplayBoard = props => {
             );
           })}
         </div>
+        {life[0] <= 0 && life[1] <= 0 && life[2] <= 0 && (
+          <div className="end-game">
+            <img src={defeat} alt="defeat" />
+            <Link to="Collection">
+              <img src={playagaintxt} alt="Button playagaintxt" />
+            </Link>
+          </div>
+        )}
+        {life[3] <= 0 && life[4] <= 0 && life[5] <= 0 && (
+          <div className="end-game">
+            <img src={victory} alt="victory" />
+            <Link to="Collection">
+              <img src={playagaintxt} alt="Button playagaintxt" />
+            </Link>
+          </div>
+        )}
         <div className="board-cards-bottom flex-row">
           {playerDeck.map((character, i) => {
             return (
@@ -50,4 +71,13 @@ const DisplayBoard = props => {
   );
 };
 
+DisplayBoard.propTypes = {
+  opponentDeck: PropTypes.instanceOf(Array).isRequired,
+  playerDeck: PropTypes.instanceOf(Array).isRequired,
+  life: PropTypes.instanceOf(Array).isRequired,
+  attack: PropTypes.instanceOf(Array).isRequired,
+  handleHover: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
+  clearIndex: PropTypes.func.isRequired
+};
 export default DisplayBoard;

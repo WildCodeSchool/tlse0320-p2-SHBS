@@ -42,8 +42,7 @@
 
 .end-game {
   position: absolute;
-  font-size: 100px;
-  color: red;
-  top: 3.3em;
-  left: 6em;
+  /*   top: 18em;
+  left: 6em; */
+  z-index: 2;
 }
