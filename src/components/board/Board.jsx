@@ -1,109 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import './Board.css';
 import DisplayBoard from './DisplayBoard';
 
-const opponentDeck = [
-  {
-    id: 522,
-    name: 'Batman',
-    powerstats: {
-      intelligence: 81,
-      strength: 14,
-      speed: 21,
-      durability: 100,
-      power: 100,
-      combat: 30
-    },
-    index: 1,
-    images: {
-      md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/69-batman.jpg'
-    }
-  },
-  {
-    id: 523,
-    name: 'Batman',
-    powerstats: {
-      intelligence: 81,
-      strength: 14,
-      speed: 21,
-      durability: 80,
-      power: 100,
-      combat: 38
-    },
-    index: 2,
-    images: {
-      md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/69-batman.jpg'
-    }
-  },
-  {
-    id: 524,
-    name: 'Batman',
-    powerstats: {
-      intelligence: 81,
-      strength: 14,
-      speed: 21,
-      durability: 75,
-      power: 100,
-      combat: 40
-    },
-    index: 3,
-    images: {
-      md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/69-batman.jpg'
-    }
-  }
-];
-const playerDeck = [
-  {
-    id: 525,
-    name: 'Poison Ivy',
-    powerstats: {
-      intelligence: 81,
-      strength: 14,
-      speed: 21,
-      durability: 70,
-      power: 100,
-      combat: 40
-    },
-    index: 4,
-    images: {
-      md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/522-poison-ivy.jpg'
-    }
-  },
-  {
-    id: 526,
-    name: 'Poison Ivy',
-    powerstats: {
-      intelligence: 81,
-      strength: 14,
-      speed: 21,
-      durability: 90,
-      power: 100,
-      combat: 30
-    },
-    index: 5,
-    images: {
-      md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/522-poison-ivy.jpg'
-    }
-  },
-  {
-    id: 527,
-    name: 'Poison Ivy',
-    powerstats: {
-      intelligence: 81,
-      strength: 14,
-      speed: 21,
-      durability: 95,
-      power: 100,
-      combat: 50
-    },
-    index: 6,
-    images: {
-      md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/522-poison-ivy.jpg'
-    }
-  }
-];
-
-const Board = () => {
+const Board = props => {
+  const { deck, deckOp } = props;
   const [didMount, setDidMount] = useState(false);
   const [indexToDisplay, setIndexToDisplay] = useState();
   const [selectedCard, setSelectedCard] = useState();
@@ -111,24 +12,30 @@ const Board = () => {
   const [oponentTurn, setOponentTurn] = useState(false);
   const [areFighting, setAreFighting] = useState([null, null, false, null]);
   const [isLoosingPoints, setIsLoosingPoints] = useState(false);
-  const [life, setLife] = useState([
-    playerDeck[0].powerstats.durability,
-    playerDeck[1].powerstats.durability,
-    playerDeck[2].powerstats.durability,
-    opponentDeck[0].powerstats.durability,
-    opponentDeck[1].powerstats.durability,
-    opponentDeck[2].powerstats.durability
-  ]);
-  const [attack, setAttack] = useState([
-    playerDeck[0].powerstats.combat,
-    playerDeck[1].powerstats.combat,
-    playerDeck[2].powerstats.combat,
-    opponentDeck[0].powerstats.combat,
-    opponentDeck[1].powerstats.combat,
-    opponentDeck[2].powerstats.combat
-  ]);
+  const [life, setLife] = useState([]);
+  const [attack, setAttack] = useState([]);
 
   useEffect(() => setDidMount(true), []);
+  useEffect(() => {
+    if (deck[0]) {
+      setLife([
+        deck[0].powerstats.durability,
+        deck[1].powerstats.durability,
+        deck[2].powerstats.durability,
+        deckOp[0].powerstats.durability,
+        deckOp[1].powerstats.durability,
+        deckOp[2].powerstats.durability
+      ]);
+      setAttack([
+        deck[0].powerstats.combat,
+        deck[1].powerstats.combat,
+        deck[2].powerstats.combat,
+        deckOp[0].powerstats.combat,
+        deckOp[1].powerstats.combat,
+        deckOp[2].powerstats.combat
+      ]);
+    }
+  }, [deck, deckOp]);
 
   const handleHover = index => {
     setIndexToDisplay(index);
@@ -204,8 +111,8 @@ const Board = () => {
 
   return (
     <DisplayBoard
-      opponentDeck={opponentDeck}
-      playerDeck={playerDeck}
+      opponentDeck={deckOp}
+      playerDeck={deck}
       handleClick={handleClick}
       handleHover={handleHover}
       clearIndex={clearIndex}
@@ -215,5 +122,8 @@ const Board = () => {
     />
   );
 };
-
+Board.propTypes = {
+  deckOp: PropTypes.instanceOf(Array).isRequired,
+  deck: PropTypes.instanceOf(Array).isRequired
+};
 export default Board;
