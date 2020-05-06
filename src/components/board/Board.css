@@ -1,10 +1,12 @@
 .board-cards {
-  align-self: flex-end;
-  margin: 0 auto 4vh auto;
+  justify-content: space-around;
+  margin: 0 0 15vh 0;
+  width: 60vw;
 }
 
+.board-cards-top,
 .board-cards-bottom {
-  margin-top: 18vh;
+  justify-content: space-around;
 }
 
 /* Cards */
@@ -14,7 +16,8 @@
 }
 
 .board-cards .container-card-text {
-  margin: 0 3vw 0 3vw;
+  position: fixed;
+  margin: 0 0 0 10vw;
 }
 
 .board-cards .container-card-text p {

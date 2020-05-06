@@ -129,6 +129,7 @@ const Board = props => {
       areFighting={areFighting}
       isLoosingPoints={isLoosingPoints}
       turnInterval={turnInterval}
+      indexToDisplay={indexToDisplay}
     />
   );
 };
