@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import CombatLog from './CombatLog';
 import StandardCard from '../Cards/StandardCard';
 import './DisplayBoard.css';
 
@@ -15,7 +16,8 @@ const DisplayBoard = props => {
     isLoosingPoints,
     areFighting,
     turnInterval,
-    indexToDisplay
+    indexToDisplay,
+    logConsole
   } = props;
 
   return (
@@ -86,10 +88,7 @@ const DisplayBoard = props => {
           })}
         </div>
       </div>
-      <div className="board-log-text flex-column">
-        <h2>Combat log</h2>
-        <div className="board-game-history" />
-      </div>
+      <CombatLog logConsole={logConsole} />
     </section>
   );
 };
