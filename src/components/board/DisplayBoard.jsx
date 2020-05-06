@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import StandardCard from '../Cards/StandardCard';
+import victory from '../../img/Victory.png';
+import defeat from '../../img/Defeat.png';
+import playagaintxt from '../../img/Playagaintxt.png';
 import './DisplayBoard.css';
 
 const DisplayBoard = props => {
@@ -20,6 +25,30 @@ const DisplayBoard = props => {
 
   return (
     <section className="darkcity-bg flex-row">
+      {life[0] <= 0 && life[1] <= 0 && life[2] <= 0 && (
+        <div className="displayboard-end-game">
+          <img src={defeat} alt="defeat" className="displayboard-v-d-text" />
+          <Link to="Collection" className="button-splashbg">
+            <img
+              src={playagaintxt}
+              alt="Button playagaintxt"
+              className="displayboard-splash-play-again"
+            />
+          </Link>
+        </div>
+      )}
+      {life[3] <= 0 && life[4] <= 0 && life[5] <= 0 && (
+        <div className="displayboard-end-game">
+          <img src={victory} alt="victory" className="displayboard-v-d-text" />
+          <Link to="Collection" className="button-splashbg">
+            <img
+              src={playagaintxt}
+              alt="Button playagaintxt"
+              className="displayboard-splash-play-again"
+            />
+          </Link>
+        </div>
+      )}
       <div className="board-cards flex-column">
         <div className="board-cards-top flex-row">
           {opponentDeck.map((character, i) => {
@@ -27,8 +56,14 @@ const DisplayBoard = props => {
               <div className="flex-row">
                 <div className={indexToDisplay === i + 3 ? 'info-show flex-column' : 'info-hide'}>
                   <h5>{character.name}</h5>
-                  <h5>Life : {character.powerstats.durability}</h5>
-                  <h5>Attack : {character.powerstats.combat}</h5>
+                  <h5>
+                    {'Life : '}
+                    {character.powerstats.durability}
+                  </h5>
+                  <h5>
+                    {'Attack : '}
+                    {character.powerstats.combat}
+                  </h5>
                 </div>
                 <StandardCard
                   handleHover={handleHover}
@@ -59,8 +94,14 @@ const DisplayBoard = props => {
               <div>
                 <div className={indexToDisplay === i ? 'info-show flex-column' : 'info-hide'}>
                   <h5>{character.name}</h5>
-                  <h5>Life : {character.powerstats.durability}</h5>
-                  <h5>Attack : {character.powerstats.combat}</h5>
+                  <h5>
+                    {'Life : '}
+                    {character.powerstats.durability}
+                  </h5>
+                  <h5>
+                    {'Attack : '}
+                    {character.powerstats.combat}
+                  </h5>
                 </div>
                 <StandardCard
                   handleHover={handleHover}
@@ -94,4 +135,18 @@ const DisplayBoard = props => {
   );
 };
 
+DisplayBoard.propTypes = {
+  opponentDeck: PropTypes.instanceOf(Array).isRequired,
+  playerDeck: PropTypes.instanceOf(Array).isRequired,
+  life: PropTypes.instanceOf(Array).isRequired,
+  attack: PropTypes.instanceOf(Array).isRequired,
+  handleHover: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
+  clearIndex: PropTypes.func.isRequired,
+  selectedCard: PropTypes.number.isRequired,
+  isLoosingPoints: PropTypes.bool.isRequired,
+  areFighting: PropTypes.instanceOf(Array).isRequired,
+  turnInterval: PropTypes.bool.isRequired,
+  indexToDisplay: PropTypes.number.isRequired
+};
 export default DisplayBoard;
