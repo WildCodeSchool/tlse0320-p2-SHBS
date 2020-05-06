@@ -32,17 +32,26 @@
   text-align: center;
   color: #d2d2d2;
   margin: 2vh 0 2vh 0;
-  font-size: 1.5em;
+  font-size: 1.6em;
 }
 
 .info-show h5,
 .info-hide h5 {
   text-align: center;
   color: #d2d2d2;
-  margin: 2vh 0 4vh 0;
-  font-size: 1em;
-  font-style: italic;
+  margin: 4vh 0 0 0;
+  font-size: 1.2em;
 }
+
+.info-show h6,
+.info-hide h6 {
+  text-align: center;
+  color: #d2d2d2;
+  margin: 2vh 0 6vh 0;
+  font-size: 1em;
+}
+
+/* font-style: italic; */
 
 .info-show p,
 .info-hide p {
