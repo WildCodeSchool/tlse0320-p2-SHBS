@@ -10,8 +10,9 @@ const Board = props => {
   const [selectedCard, setSelectedCard] = useState();
   const [playerTurn, setPlayerTurn] = useState(true);
   const [oponentTurn, setOponentTurn] = useState(false);
-  const [areFighting, setAreFighting] = useState([null, null, false, null]);
+  const [areFighting, setAreFighting] = useState([]);
   const [isLoosingPoints, setIsLoosingPoints] = useState(false);
+  const [turnInterval, setTurnInterval] = useState(false);
   const [life, setLife] = useState([]);
   const [attack, setAttack] = useState([]);
 
@@ -53,7 +54,6 @@ const Board = props => {
         const tempLife = [...life];
         tempLife[areFighting[0]] -= 1;
         setLife(tempLife);
-        setAreFighting([areFighting[0], areFighting[1], !areFighting[2], areFighting[3]]);
       } else {
         setIsLoosingPoints(false);
       }
@@ -61,19 +61,26 @@ const Board = props => {
     return () => {
       clearInterval(id);
     };
-  }, [areFighting]);
+  }, [areFighting, life]);
 
-  /* Set IA turn and timing */
+  /* Set pause moment between turns */
   useEffect(() => {
-    const id = setTimeout(() => {
+    setTimeout(() => {
       if (didMount && !isLoosingPoints && !playerTurn) {
+        setTurnInterval(true);
+      }
+    }, 280);
+  }, [isLoosingPoints]);
+
+  /* Set IA turn */
+  useEffect(() => {
+    setTimeout(() => {
+      if (didMount && turnInterval) {
         setOponentTurn(!oponentTurn);
+        setTurnInterval(false);
       }
     }, 1400);
-    return () => {
-      clearTimeout(id);
-    };
-  }, [isLoosingPoints]);
+  }, [turnInterval]);
 
   /* IA turn */
   useEffect(() => {
@@ -88,7 +95,7 @@ const Board = props => {
       const newLife = life[randomPlayer] - attack[randomOponent];
       const diffDamage =
         attack[randomOponent] < life[randomPlayer] ? attack[randomOponent] : life[randomPlayer];
-      setAreFighting([randomPlayer, newLife, !areFighting[2], diffDamage]);
+      setAreFighting([randomPlayer, newLife, randomOponent, diffDamage]);
       setPlayerTurn(true);
       console.log(`IA n°${randomOponent} attack player n°${randomPlayer} => loose ${diffDamage}`);
     }
@@ -96,14 +103,14 @@ const Board = props => {
 
   /* User Turn */
   const handleClick = e => {
-    const index = e.currentTarget.getAttribute('index');
+    const index = Number(e.currentTarget.getAttribute('index'));
     if (index < 3 && life[index] > 0 && playerTurn && !isLoosingPoints) {
       setSelectedCard(index);
-    } else if (index >= 3 && life[index] > 0 && selectedCard) {
+    } else if (index >= 3 && life[index] > 0 && selectedCard !== undefined) {
       setPlayerTurn(false);
       const newLife = life[index] - attack[selectedCard];
       const diffDamage = attack[selectedCard] < life[index] ? attack[selectedCard] : life[index];
-      setAreFighting([index, newLife, !areFighting[2], diffDamage]);
+      setAreFighting([index, newLife, selectedCard, diffDamage]);
       setSelectedCard();
       console.log(`Player n°${selectedCard} attack IA n°${index} => loose ${diffDamage}`);
     }
@@ -118,6 +125,11 @@ const Board = props => {
       clearIndex={clearIndex}
       life={life}
       attack={attack}
+      selectedCard={selectedCard}
+      areFighting={areFighting}
+      isLoosingPoints={isLoosingPoints}
+      turnInterval={turnInterval}
+      indexToDisplay={indexToDisplay}
     />
   );
 };

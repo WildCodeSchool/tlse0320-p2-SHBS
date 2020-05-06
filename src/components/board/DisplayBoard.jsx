@@ -5,9 +5,24 @@ import StandardCard from '../Cards/StandardCard';
 import victory from '../../img/Victory.png';
 import defeat from '../../img/Defeat.png';
 import playagaintxt from '../../img/Playagaintxt.png';
+import './DisplayBoard.css';
 
 const DisplayBoard = props => {
-  const { opponentDeck, playerDeck, handleHover, handleClick, clearIndex, life, attack } = props;
+  const {
+    opponentDeck,
+    playerDeck,
+    handleHover,
+    handleClick,
+    clearIndex,
+    life,
+    attack,
+    selectedCard,
+    isLoosingPoints,
+    areFighting,
+    turnInterval,
+    indexToDisplay
+  } = props;
+
   return (
     <section className="darkcity-bg flex-row">
       {life[0] <= 0 && life[1] <= 0 && life[2] <= 0 && (
@@ -38,35 +53,76 @@ const DisplayBoard = props => {
         <div className="board-cards-top flex-row">
           {opponentDeck.map((character, i) => {
             return (
-              <StandardCard
-                handleHover={handleHover}
-                handleClick={handleClick}
-                combat={attack[i + 3]}
-                durability={life[i + 3]}
-                image={character.images.md}
-                index={i + 3}
-                key={character.id}
-                cardClass={
-                  life[i + 3] > 0 ? 'container-card-text alive' : 'container-card-text dead'
-                }
-              />
+              <div className="flex-row">
+                <div className={indexToDisplay === i + 3 ? 'info-show flex-column' : 'info-hide'}>
+                  <h5>{character.name}</h5>
+                  <h5>
+                    {'Life : '}
+                    {character.powerstats.durability}
+                  </h5>
+                  <h5>
+                    {'Attack : '}
+                    {character.powerstats.combat}
+                  </h5>
+                </div>
+                <StandardCard
+                  handleHover={handleHover}
+                  handleClick={handleClick}
+                  clearIndex={clearIndex}
+                  combat={attack[i + 3]}
+                  durability={life[i + 3]}
+                  image={character.images.md}
+                  index={i + 3}
+                  key={character.id}
+                  cardClass={
+                    life[i + 3] > 0
+                      ? `container-card-text${areFighting[0] === i + 3 ? ' isShaking' : ''}${
+                          areFighting[2] === i + 3 && isLoosingPoints && !turnInterval
+                            ? ' isAttacking'
+                            : ' isNotAttacking'
+                        }`
+                      : 'container-card-text dead'
+                  }
+                />
+              </div>
             );
           })}
         </div>
         <div className="board-cards-bottom flex-row">
           {playerDeck.map((character, i) => {
             return (
-              <StandardCard
-                handleHover={handleHover}
-                handleClick={handleClick}
-                clearIndex={clearIndex}
-                combat={attack[i]}
-                durability={life[i]}
-                image={character.images.md}
-                index={i}
-                key={character.id}
-                cardClass={life[i] > 0 ? 'container-card-text alive' : 'container-card-text dead'}
-              />
+              <div>
+                <div className={indexToDisplay === i ? 'info-show flex-column' : 'info-hide'}>
+                  <h5>{character.name}</h5>
+                  <h5>
+                    {'Life : '}
+                    {character.powerstats.durability}
+                  </h5>
+                  <h5>
+                    {'Attack : '}
+                    {character.powerstats.combat}
+                  </h5>
+                </div>
+                <StandardCard
+                  handleHover={handleHover}
+                  handleClick={handleClick}
+                  clearIndex={clearIndex}
+                  combat={attack[i]}
+                  durability={life[i]}
+                  image={character.images.md}
+                  index={i}
+                  key={character.id}
+                  cardClass={
+                    life[i] > 0
+                      ? `container-card-text${
+                          selectedCard === i || (areFighting[2] === i && !turnInterval)
+                            ? ' isAttacking'
+                            : ' isNotAttacking'
+                        }${areFighting[0] === i ? ' isShaking' : ''}`
+                      : 'container-card-text dead'
+                  }
+                />
+              </div>
             );
           })}
         </div>
@@ -86,6 +142,11 @@ DisplayBoard.propTypes = {
   attack: PropTypes.instanceOf(Array).isRequired,
   handleHover: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
-  clearIndex: PropTypes.func.isRequired
+  clearIndex: PropTypes.func.isRequired,
+  selectedCard: PropTypes.number.isRequired,
+  isLoosingPoints: PropTypes.bool.isRequired,
+  areFighting: PropTypes.instanceOf(Array).isRequired,
+  turnInterval: PropTypes.bool.isRequired,
+  indexToDisplay: PropTypes.number.isRequired
 };
 export default DisplayBoard;
