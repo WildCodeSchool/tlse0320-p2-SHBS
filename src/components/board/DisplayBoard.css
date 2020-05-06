@@ -10,3 +10,40 @@
 .info-hide {
   display: none;
 }
+
+.board-between-turns {
+  position: absolute;
+  width: 100vw;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.466);
+  height: 100vh;
+  animation: popBetweenTurns 2s ease;
+  display: flex;
+}
+
+.board-between-turns img {
+  margin: auto;
+}
+
+.board-between-turns .opponents-turn {
+  width: 50%;
+}
+
+.board-between-turns .player-turn {
+  width: 30%;
+}
+
+@keyframes popBetweenTurns {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

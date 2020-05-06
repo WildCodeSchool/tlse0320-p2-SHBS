@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import StandardCard from '../Cards/StandardCard';
+import yourTurn from '../../img/yourturn.png';
+import opponentTurn from '../../img/opponentsturn.png';
 import './DisplayBoard.css';
 
 const DisplayBoard = props => {
@@ -15,11 +17,23 @@ const DisplayBoard = props => {
     isLoosingPoints,
     areFighting,
     turnInterval,
-    indexToDisplay
+    indexToDisplay,
+    playerTurnInterval
   } = props;
 
   return (
     <section className="darkcity-bg flex-row">
+      {turnInterval && (
+        <div className="board-between-turns">
+          <img src={opponentTurn} alt="Opponent's turn" className="opponents-turn" />
+        </div>
+      )}
+      {playerTurnInterval && (
+        <div className="board-between-turns">
+          <img src={yourTurn} alt="Your turn" className="player-turn" />
+        </div>
+      )}
+
       <div className="board-cards flex-column">
         <div className="board-cards-top flex-row">
           {opponentDeck.map((character, i) => {

@@ -3,6 +3,54 @@ import PropTypes from 'prop-types';
 import './Board.css';
 import DisplayBoard from './DisplayBoard';
 
+const staticDeck = [
+  {
+    name: 'Poison Ivy',
+    images: {
+      md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/522-poison-ivy.jpg'
+    },
+    powerstats: {
+      combat: 40,
+      durability: 40,
+      strength: 14,
+      speed: 21,
+      power: 23,
+      intelligence: 81
+    },
+    index: 0
+  },
+  {
+    name: 'Poison Ivy',
+    images: {
+      md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/522-poison-ivy.jpg'
+    },
+    powerstats: {
+      combat: 40,
+      durability: 40,
+      strength: 14,
+      speed: 21,
+      power: 23,
+      intelligence: 81
+    },
+    index: 0
+  },
+  {
+    name: 'Poison Ivy',
+    images: {
+      md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/522-poison-ivy.jpg'
+    },
+    powerstats: {
+      combat: 40,
+      durability: 40,
+      strength: 14,
+      speed: 21,
+      power: 23,
+      intelligence: 81
+    },
+    index: 0
+  }
+];
+
 const Board = props => {
   const { deck, deckOp } = props;
   const [didMount, setDidMount] = useState(false);
@@ -13,30 +61,45 @@ const Board = props => {
   const [areFighting, setAreFighting] = useState([]);
   const [isLoosingPoints, setIsLoosingPoints] = useState(false);
   const [turnInterval, setTurnInterval] = useState(false);
-  const [life, setLife] = useState([]);
-  const [attack, setAttack] = useState([]);
+  const [playerTurnInterval, setPlayerTurnInterval] = useState(false);
+  const [life, setLife] = useState([
+    staticDeck[0].powerstats.durability,
+    staticDeck[1].powerstats.durability,
+    staticDeck[2].powerstats.durability,
+    staticDeck[0].powerstats.durability,
+    staticDeck[1].powerstats.durability,
+    staticDeck[2].powerstats.durability
+  ]);
+  const [attack, setAttack] = useState([
+    staticDeck[0].powerstats.combat,
+    staticDeck[1].powerstats.combat,
+    staticDeck[2].powerstats.combat,
+    staticDeck[0].powerstats.combat,
+    staticDeck[1].powerstats.combat,
+    staticDeck[2].powerstats.combat
+  ]);
 
   useEffect(() => setDidMount(true), []);
-  useEffect(() => {
-    if (deck[0]) {
-      setLife([
-        deck[0].powerstats.durability,
-        deck[1].powerstats.durability,
-        deck[2].powerstats.durability,
-        deckOp[0].powerstats.durability,
-        deckOp[1].powerstats.durability,
-        deckOp[2].powerstats.durability
-      ]);
-      setAttack([
-        deck[0].powerstats.combat,
-        deck[1].powerstats.combat,
-        deck[2].powerstats.combat,
-        deckOp[0].powerstats.combat,
-        deckOp[1].powerstats.combat,
-        deckOp[2].powerstats.combat
-      ]);
-    }
-  }, [deck, deckOp]);
+  // useEffect(() => {
+  //   if (deck[0]) {
+  //     setLife([
+  //       deck[0].powerstats.durability,
+  //       deck[1].powerstats.durability,
+  //       deck[2].powerstats.durability,
+  //       deckOp[0].powerstats.durability,
+  //       deckOp[1].powerstats.durability,
+  //       deckOp[2].powerstats.durability
+  //     ]);
+  //     setAttack([
+  //       deck[0].powerstats.combat,
+  //       deck[1].powerstats.combat,
+  //       deck[2].powerstats.combat,
+  //       deckOp[0].powerstats.combat,
+  //       deckOp[1].powerstats.combat,
+  //       deckOp[2].powerstats.combat
+  //     ]);
+  //   }
+  // }, [deck, deckOp]);
 
   const handleHover = index => {
     setIndexToDisplay(index);
@@ -68,8 +131,10 @@ const Board = props => {
     setTimeout(() => {
       if (didMount && !isLoosingPoints && !playerTurn) {
         setTurnInterval(true);
+      } else if (didMount && !isLoosingPoints && playerTurn) {
+        setPlayerTurnInterval(true);
       }
-    }, 280);
+    }, 500);
   }, [isLoosingPoints]);
 
   /* Set IA turn */
@@ -78,9 +143,11 @@ const Board = props => {
       if (didMount && turnInterval) {
         setOponentTurn(!oponentTurn);
         setTurnInterval(false);
+      } else if (didMount && playerTurnInterval) {
+        setPlayerTurnInterval(false);
       }
-    }, 1400);
-  }, [turnInterval]);
+    }, 2000);
+  }, [turnInterval, playerTurnInterval]);
 
   /* IA turn */
   useEffect(() => {
@@ -118,8 +185,8 @@ const Board = props => {
 
   return (
     <DisplayBoard
-      opponentDeck={deckOp}
-      playerDeck={deck}
+      opponentDeck={staticDeck}
+      playerDeck={staticDeck}
       handleClick={handleClick}
       handleHover={handleHover}
       clearIndex={clearIndex}
@@ -130,6 +197,7 @@ const Board = props => {
       isLoosingPoints={isLoosingPoints}
       turnInterval={turnInterval}
       indexToDisplay={indexToDisplay}
+      playerTurnInterval={playerTurnInterval}
     />
   );
 };
