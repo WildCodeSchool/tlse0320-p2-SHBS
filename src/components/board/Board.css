@@ -40,9 +40,28 @@
   border: 1px solid black;
 }
 
-.end-game {
+.displayboard-end-game {
   position: absolute;
-  /*   top: 18em;
-  left: 6em; */
-  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100vh;
+  width: 100vw;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.displayboard-v-d-text {
+  margin-top: 20vh;
+  width: 60vw;
+}
+
+.displayboard-end-game .displayboard-splash-play-again {
+  height: 20vh;
+  transition: transform 0.2s;
+}
+
+.displayboard-splash-play-again:hover {
+  transform: scale(1.4) rotate(-3deg);
 }

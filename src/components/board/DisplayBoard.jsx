@@ -10,6 +10,30 @@ const DisplayBoard = props => {
   const { opponentDeck, playerDeck, handleHover, handleClick, clearIndex, life, attack } = props;
   return (
     <section className="darkcity-bg flex-row">
+      {life[0] <= 0 && life[1] <= 0 && life[2] <= 0 && (
+        <div className="displayboard-end-game">
+          <img src={defeat} alt="defeat" className="displayboard-v-d-text" />
+          <Link to="Collection" className="button-splashbg">
+            <img
+              src={playagaintxt}
+              alt="Button playagaintxt"
+              className="displayboard-splash-play-again"
+            />
+          </Link>
+        </div>
+      )}
+      {life[3] <= 0 && life[4] <= 0 && life[5] <= 0 && (
+        <div className="displayboard-end-game">
+          <img src={victory} alt="victory" className="displayboard-v-d-text" />
+          <Link to="Collection" className="button-splashbg">
+            <img
+              src={playagaintxt}
+              alt="Button playagaintxt"
+              className="displayboard-splash-play-again"
+            />
+          </Link>
+        </div>
+      )}
       <div className="board-cards flex-column">
         <div className="board-cards-top flex-row">
           {opponentDeck.map((character, i) => {
@@ -29,22 +53,6 @@ const DisplayBoard = props => {
             );
           })}
         </div>
-        {life[0] <= 0 && life[1] <= 0 && life[2] <= 0 && (
-          <div className="end-game">
-            <img src={defeat} alt="defeat" />
-            <Link to="Collection">
-              <img src={playagaintxt} alt="Button playagaintxt" />
-            </Link>
-          </div>
-        )}
-        {life[3] <= 0 && life[4] <= 0 && life[5] <= 0 && (
-          <div className="end-game">
-            <img src={victory} alt="victory" />
-            <Link to="Collection">
-              <img src={playagaintxt} alt="Button playagaintxt" />
-            </Link>
-          </div>
-        )}
         <div className="board-cards-bottom flex-row">
           {playerDeck.map((character, i) => {
             return (
