@@ -2,7 +2,8 @@
 .info-hide {
   position: fixed;
   width: 10vw;
-  height: inherit;
+  /* change here to fix the modal height */
+  height: 33vh;
   padding-top: 1vh;
   align-items: center;
   /* border: solid gold; */
@@ -30,14 +31,23 @@
 .info-hide h4 {
   text-align: center;
   color: #d2d2d2;
-  margin: 2vh 0 5vh 0;
+  margin: 2vh 0 2vh 0;
   font-size: 1.5em;
+}
+
+.info-show h5,
+.info-hide h5 {
+  text-align: center;
+  color: #d2d2d2;
+  margin: 2vh 0 4vh 0;
+  font-size: 1em;
+  font-style: italic;
 }
 
 .info-show p,
 .info-hide p {
   text-align: center;
-  margin: 0 0 2vh 0;
+  margin: 2vh 0 0 0;
 }
 
 @keyframes modalApparition {
@@ -45,4 +55,13 @@
     transform: scale(1) translateX(100%);
     opacity: 0;
   }
+}
+
+.test {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
 }

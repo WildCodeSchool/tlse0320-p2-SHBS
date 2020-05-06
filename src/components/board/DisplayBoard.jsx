@@ -31,6 +31,7 @@ const DisplayBoard = props => {
                   }
                 >
                   <h4>{character.name}</h4>
+                  <h5>{character.biography.fullName}</h5>
                   <p>Life : {character.powerstats.durability}</p>
                   <p>Attack : {character.powerstats.combat}</p>
                 </div>
@@ -65,6 +66,7 @@ const DisplayBoard = props => {
                   className={indexToDisplay === i ? 'info-show bg-player' : 'info-hide bg-player'}
                 >
                   <h4>{character.name}</h4>
+                  <h5>{character.biography.fullName}</h5>
                   <p>Life : {character.powerstats.durability}</p>
                   <p>Attack : {character.powerstats.combat}</p>
                 </div>
