@@ -1,6 +1,6 @@
 .board-cards {
-  justify-content: space-between;
-  margin: 10vh 5vw 2vh 10vw;
+  justify-content: space-around;
+  margin: 0 0 15vh 0;
   width: 60vw;
 }
 
@@ -16,7 +16,8 @@
 }
 
 .board-cards .container-card-text {
-  margin: 0 3vw 0 3vw;
+  position: fixed;
+  margin: 0 0 0 10vw;
 }
 
 .board-cards .container-card-text p {

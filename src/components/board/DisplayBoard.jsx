@@ -20,7 +20,12 @@ const DisplayBoard = props => {
         <div className="board-cards-top flex-row">
           {opponentDeck.map((character, i) => {
             return (
-              <div>
+              <div className="flex-row">
+                <div className={indexToDisplay === i + 3 ? 'info-show flex-column' : 'info-hide'}>
+                  <h5>{character.name}</h5>
+                  <h5>Life : {character.powerstats.durability}</h5>
+                  <h5>Attack : {character.powerstats.combat}</h5>
+                </div>
                 <StandardCard
                   handleHover={handleHover}
                   handleClick={handleClick}
@@ -34,13 +39,6 @@ const DisplayBoard = props => {
                     life[i + 3] > 0 ? 'container-card-text alive' : 'container-card-text dead'
                   }
                 />
-                <div
-                  className={indexToDisplay !== undefined ? 'info-show flex-column' : 'info-hide'}
-                >
-                  <h5>{character.name}</h5>
-                  <h5>Life : {character.powerstats.durability}</h5>
-                  <h5>Attack : {character.powerstats.combat}</h5>
-                </div>
               </div>
             );
           })}
@@ -49,9 +47,7 @@ const DisplayBoard = props => {
           {playerDeck.map((character, i) => {
             return (
               <div>
-                <div
-                  className={indexToDisplay !== undefined ? 'info-show flex-column' : 'info-hide'}
-                >
+                <div className={indexToDisplay === i ? 'info-show flex-column' : 'info-hide'}>
                   <h5>{character.name}</h5>
                   <h5>Life : {character.powerstats.durability}</h5>
                   <h5>Attack : {character.powerstats.combat}</h5>
