@@ -25,7 +25,11 @@ const DisplayBoard = props => {
           {opponentDeck.map((character, i) => {
             return (
               <div className="flex-row">
-                <div className={indexToDisplay === i + 3 ? 'info-show flex-column' : 'info-hide'}>
+                <div
+                  className={
+                    indexToDisplay === i + 3 ? 'info-show bg-opponent' : 'info-hide bg-opponent'
+                  }
+                >
                   <h4>{character.name}</h4>
                   <p>Life : {character.powerstats.durability}</p>
                   <p>Attack : {character.powerstats.combat}</p>
@@ -57,7 +61,9 @@ const DisplayBoard = props => {
           {playerDeck.map((character, i) => {
             return (
               <div>
-                <div className={indexToDisplay === i ? 'info-show flex-column' : 'info-hide'}>
+                <div
+                  className={indexToDisplay === i ? 'info-show bg-player' : 'info-hide bg-player'}
+                >
                   <h4>{character.name}</h4>
                   <p>Life : {character.powerstats.durability}</p>
                   <p>Attack : {character.powerstats.combat}</p>
