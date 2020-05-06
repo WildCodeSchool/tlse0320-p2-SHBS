@@ -2,7 +2,7 @@ import React from 'react';
 import StandardCard from '../Cards/StandardCard';
 import './Board.css';
 
-const deckEnDur = [
+const staticDeck = [
   {
     name: 'Poison Ivy',
     images: {
@@ -55,11 +55,9 @@ const Board = () => {
     <section className="darkcity-bg flex-row">
       <div className="board-cards flex-column">
         <div className="board-cards-top flex-row">
-          {deckEnDur.map(card => {
+          {staticDeck.map(card => {
             return (
               <StandardCard
-                handleHover={() => {}}
-                handleClick={() => {}}
                 combat={card.powerstats.combat}
                 durability={card.powerstats.durability}
                 image={card.images.md}
@@ -71,11 +69,9 @@ const Board = () => {
           })}
         </div>
         <div className="board-cards-bottom flex-row">
-          {deckEnDur.map(card => {
+          {staticDeck.map(card => {
             return (
               <StandardCard
-                handleHover={() => {}}
-                handleClick={() => {}}
                 combat={card.powerstats.combat}
                 durability={card.powerstats.durability}
                 image={card.images.md}
