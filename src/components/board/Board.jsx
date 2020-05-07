@@ -9,15 +9,18 @@ const Board = props => {
   const [indexToDisplay, setIndexToDisplay] = useState();
   const [selectedCard, setSelectedCard] = useState();
   const [playerTurn, setPlayerTurn] = useState(true);
-  const [oponentTurn, setOponentTurn] = useState(false);
-  const [combatData, setCombatData] = useState([]);
+  const [opponentTurn, setOpponentTurn] = useState(false);
+  const [combatData, setCombatData] = useState({});
   const [isLoosingPoints, setIsLoosingPoints] = useState(false);
   const [opponentIsWating, setOpponentIsWating] = useState(false);
   const [playerIsWating, setPlayerIsWating] = useState(false);
   const [life, setLife] = useState([]);
   const [attack, setAttack] = useState([]);
 
+  // set a boolean state to true after mounting //
   useEffect(() => setDidMount(true), []);
+
+  // load the life & attack props in the state //
   useEffect(() => {
     if (deck[0]) {
       setLife([
@@ -47,78 +50,87 @@ const Board = props => {
     setIndexToDisplay();
   };
 
-  /* Losing points one by one */
+  // Losing points one by one //
   useEffect(() => {
-    const id = setInterval(() => {
-      if (didMount && life[combatData[0]] > combatData[1]) {
+    const oneByOne = setInterval(() => {
+      /* Loses -1 while it's greater than calculated new life */
+      if (didMount && life[combatData.cardToAttack] > combatData.newLife) {
         setIsLoosingPoints(true);
         const tempLife = [...life];
-        tempLife[combatData[0]] -= 1;
+        tempLife[combatData.cardToAttack] -= 1;
         setLife(tempLife);
       } else {
         setIsLoosingPoints(false);
       }
-    }, 500 / life[combatData[0]]);
+    }, 600 / life[combatData.cardToAttack]);
     return () => {
-      clearInterval(id);
+      clearInterval(oneByOne);
     };
   }, [combatData, life]);
 
-  /* Set pause moment between turns */
+  // Set pause moment after the attack (depends on turn) //
   useEffect(() => {
     setTimeout(() => {
       if (didMount && !isLoosingPoints && !playerTurn) {
         setOpponentIsWating(true);
+        setCombatData({});
       } else if (didMount && !isLoosingPoints && playerTurn) {
         setPlayerIsWating(true);
+        setCombatData({});
       }
-    }, 500);
+    }, 300);
   }, [isLoosingPoints]);
 
-  /* Set IA turn */
+  // Set moment to pop-up the indication //
   useEffect(() => {
     setTimeout(() => {
       if (didMount && opponentIsWating) {
-        setOponentTurn(!oponentTurn);
         setOpponentIsWating(false);
+        /* Trigger the IA-turn use-effect */
+        setOpponentTurn(!opponentTurn);
       } else if (didMount && playerIsWating) {
         setPlayerIsWating(false);
       }
     }, 2000);
   }, [opponentIsWating, playerIsWating]);
 
-  /* IA turn */
+  // IA turn //
   useEffect(() => {
     if (didMount) {
       /* Random IA choice */
       const aliveSort = [...life].map((card, i) => (card > 0 ? i : 'dead'));
       const oponentSort = [...aliveSort].splice(3).filter(card => card !== 'dead');
       const playerSort = [...aliveSort].splice(0, 3).filter(card => card !== 'dead');
-      const randomOponent = oponentSort[Math.floor(Math.random() * oponentSort.length)];
-      const randomPlayer = playerSort[Math.floor(Math.random() * playerSort.length)];
+      const randomAttacker = oponentSort[Math.floor(Math.random() * oponentSort.length)];
+      const randomTarget = playerSort[Math.floor(Math.random() * playerSort.length)];
       /* Apply attack */
       const newLife =
-        life[randomPlayer] - attack[randomOponent] > 0
-          ? life[randomPlayer] - attack[randomOponent]
+        life[randomTarget] - attack[randomAttacker] > 0
+          ? life[randomTarget] - attack[randomAttacker]
           : 0;
-      setCombatData([randomPlayer, newLife, randomOponent]);
+      /* Load combat data to trigger the use-effect */
+      setCombatData({ cardToAttack: randomTarget, cardAttacker: randomAttacker, newLife });
       setPlayerTurn(true);
-      console.log(`IA n°${randomOponent} attack player n°${randomPlayer}`);
+      console.log(`IA n°${randomAttacker} inflige ${attack[randomAttacker]} à n°${randomTarget}`);
     }
-  }, [oponentTurn]);
+  }, [opponentTurn]);
 
-  /* User Turn */
+  // User Turn //
   const handleClick = e => {
     const index = Number(e.currentTarget.getAttribute('index'));
+    /* Select attacker */
     if (index < 3 && life[index] > 0 && playerTurn && !isLoosingPoints) {
       setSelectedCard(index);
+      /* Select target */
     } else if (index >= 3 && life[index] > 0 && selectedCard !== undefined) {
-      setPlayerTurn(false);
+      /* Apply attack */
       const newLife =
         life[index] - attack[selectedCard] > 0 ? life[index] - attack[selectedCard] : 0;
-      setCombatData(index, newLife, selectedCard);
+      /* Load combat data to trigger the use effect */
+      setCombatData({ cardToAttack: index, cardAttacker: selectedCard, newLife });
       setSelectedCard();
-      console.log(`Player n°${selectedCard} attack IA n°${index}`);
+      setPlayerTurn(false);
+      console.log(`Player n°${selectedCard} inflige ${attack[selectedCard]} IA n°${index}`);
     }
   };
 
@@ -133,7 +145,6 @@ const Board = props => {
       attack={attack}
       selectedCard={selectedCard}
       combatData={combatData}
-      isLoosingPoints={isLoosingPoints}
       opponentIsWating={opponentIsWating}
       indexToDisplay={indexToDisplay}
       playerIsWating={playerIsWating}

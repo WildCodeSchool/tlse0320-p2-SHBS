@@ -20,10 +20,10 @@ const ModalCard = props => {
 };
 
 ModalCard.propTypes = {
-  indexToDisplay: PropTypes.number.isRequired,
+  indexToDisplay: PropTypes.number,
   id: PropTypes.number.isRequired,
   background: PropTypes.string.isRequired,
-  character: PropTypes.instanceOf(object).isRequired
+  character: PropTypes.instanceOf(Object).isRequired
 };
 
 export default ModalCard;

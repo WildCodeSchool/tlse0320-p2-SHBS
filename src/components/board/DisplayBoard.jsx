@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DispayTurnIndication from './DisplayTurnIndication';
+import DisplayTurnIndication from './DisplayTurnIndication';
 import StandardCard from '../Cards/StandardCard';
 import ModalCard from './ModalCard';
 import './DisplayBoard.css';
@@ -14,17 +14,16 @@ const DisplayBoard = props => {
     clearIndex,
     life,
     attack,
-    selectedCard,
-    isLoosingPoints,
-    combatData,
     opponentIsWating,
     indexToDisplay,
-    playerIsWating
+    playerIsWating,
+    selectedCard,
+    combatData
   } = props;
 
   return (
     <section className="darkcity-bg flex-row">
-      <DispayTurnIndication
+      <DisplayTurnIndication
         life={life}
         playerIsWating={playerIsWating}
         opponentIsWating={opponentIsWating}
@@ -51,17 +50,10 @@ const DisplayBoard = props => {
                   key={character.id}
                   cardClass={
                     life[i + 3] > 0
-                      ? `container-card-text${
-                          combatData[0] === i + 3 && isLoosingPoints ? ' isShaking' : ''
-                        }${
-                          combatData[2] === i + 3 && isLoosingPoints && !opponentIsWating
-                            ? ' isAttacking'
-                            : ''
-                        }${
-                          !(combatData[2] === i + 3 && isLoosingPoints && !opponentIsWating)
-                            ? ' isNotAttacking'
-                            : ''
-                        }`
+                      ? `container-card-text ${
+                          combatData.cardAttacker === i + 3 ? ' isAttacking' : ' isNotAttacking'
+                        }
+                      ${combatData.cardToAttack === i + 3 ? ' isShaking' : ''}`
                       : 'container-card-text dead'
                   }
                 />
@@ -91,15 +83,10 @@ const DisplayBoard = props => {
                   cardClass={
                     life[i] > 0
                       ? `container-card-text${
-                          selectedCard === i || (combatData[2] === i && !opponentIsWating)
+                          selectedCard === i || combatData.cardAttacker === i
                             ? ' isAttacking'
-                            : ''
-                        }
-                            ${
-                              combatData[2] === i && opponentIsWating && !isLoosingPoints
-                                ? ' isNotAttacking'
-                                : ''
-                            }${combatData[0] === i && isLoosingPoints ? ' isShaking' : ''}`
+                            : ' isNotAttacking'
+                        }${combatData.cardToAttack === i ? ' isShaking' : ''}`
                       : 'container-card-text dead'
                   }
                 />
@@ -121,14 +108,13 @@ DisplayBoard.propTypes = {
   playerDeck: PropTypes.instanceOf(Array).isRequired,
   life: PropTypes.instanceOf(Array).isRequired,
   attack: PropTypes.instanceOf(Array).isRequired,
+  combatData: PropTypes.instanceOf(Object).isRequired,
   handleHover: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
   clearIndex: PropTypes.func.isRequired,
-  selectedCard: PropTypes.number.isRequired,
-  isLoosingPoints: PropTypes.bool.isRequired,
-  combatData: PropTypes.instanceOf(Array).isRequired,
   opponentIsWating: PropTypes.bool.isRequired,
-  indexToDisplay: PropTypes.number.isRequired,
-  playerIsWating: PropTypes.bool.isRequired
+  indexToDisplay: PropTypes.number,
+  playerIsWating: PropTypes.bool.isRequired,
+  selectedCard: PropTypes.number
 };
 export default DisplayBoard;
