@@ -16,18 +16,18 @@ const DisplayBoard = props => {
     attack,
     selectedCard,
     isLoosingPoints,
-    areFighting,
-    turnInterval,
+    combatData,
+    opponentIsWating,
     indexToDisplay,
-    playerTurnInterval
+    playerIsWating
   } = props;
 
   return (
     <section className="darkcity-bg flex-row">
       <DispayTurnIndication
         life={life}
-        playerTurnInterval={playerTurnInterval}
-        turnInterval={turnInterval}
+        playerIsWating={playerIsWating}
+        opponentIsWating={opponentIsWating}
       />
       <div className="board-cards flex-column">
         <div className="board-cards-top flex-row">
@@ -52,13 +52,13 @@ const DisplayBoard = props => {
                   cardClass={
                     life[i + 3] > 0
                       ? `container-card-text${
-                          areFighting[0] === i + 3 && isLoosingPoints ? ' isShaking' : ''
+                          combatData[0] === i + 3 && isLoosingPoints ? ' isShaking' : ''
                         }${
-                          areFighting[2] === i + 3 && isLoosingPoints && !turnInterval
+                          combatData[2] === i + 3 && isLoosingPoints && !opponentIsWating
                             ? ' isAttacking'
                             : ''
                         }${
-                          !(areFighting[2] === i + 3 && isLoosingPoints && !turnInterval)
+                          !(combatData[2] === i + 3 && isLoosingPoints && !opponentIsWating)
                             ? ' isNotAttacking'
                             : ''
                         }`
@@ -91,15 +91,15 @@ const DisplayBoard = props => {
                   cardClass={
                     life[i] > 0
                       ? `container-card-text${
-                          selectedCard === i || (areFighting[2] === i && !turnInterval)
+                          selectedCard === i || (combatData[2] === i && !opponentIsWating)
                             ? ' isAttacking'
                             : ''
                         }
                             ${
-                              areFighting[2] === i && turnInterval && !isLoosingPoints
+                              combatData[2] === i && opponentIsWating && !isLoosingPoints
                                 ? ' isNotAttacking'
                                 : ''
-                            }${areFighting[0] === i && isLoosingPoints ? ' isShaking' : ''}`
+                            }${combatData[0] === i && isLoosingPoints ? ' isShaking' : ''}`
                       : 'container-card-text dead'
                   }
                 />
@@ -126,9 +126,9 @@ DisplayBoard.propTypes = {
   clearIndex: PropTypes.func.isRequired,
   selectedCard: PropTypes.number.isRequired,
   isLoosingPoints: PropTypes.bool.isRequired,
-  areFighting: PropTypes.instanceOf(Array).isRequired,
-  turnInterval: PropTypes.bool.isRequired,
+  combatData: PropTypes.instanceOf(Array).isRequired,
+  opponentIsWating: PropTypes.bool.isRequired,
   indexToDisplay: PropTypes.number.isRequired,
-  playerTurnInterval: PropTypes.bool.isRequired
+  playerIsWating: PropTypes.bool.isRequired
 };
 export default DisplayBoard;

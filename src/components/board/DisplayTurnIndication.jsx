@@ -8,15 +8,15 @@ import defeat from '../../img/Defeat.png';
 import playagaintxt from '../../img/Playagaintxt.png';
 
 const DisplayTurnIndication = props => {
-  const { turnInterval, playerTurnInterval, life } = props;
+  const { opponentIsWating, playerIsWating, life } = props;
   return (
     <>
-      {turnInterval && (
+      {opponentIsWating && (
         <div className="board-between-turns">
           <img src={opponentTurn} alt="Opponent's turn" className="opponents-turn" />
         </div>
       )}
-      {playerTurnInterval && (
+      {playerIsWating && (
         <div className="board-between-turns">
           <img src={yourTurn} alt="Your turn" className="player-turn" />
         </div>
@@ -52,8 +52,8 @@ const DisplayTurnIndication = props => {
 
 DisplayTurnIndication.propTypes = {
   life: PropTypes.instanceOf(Array).isRequired,
-  turnInterval: PropTypes.bool.isRequired,
-  playerTurnInterval: PropTypes.bool.isRequired
+  opponentIsWating: PropTypes.bool.isRequired,
+  playerIsWating: PropTypes.bool.isRequired
 };
 
 export default DisplayTurnIndication;
