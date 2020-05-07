@@ -1,12 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import DispayTurnIndication from './DisplayTurnIndication';
 import StandardCard from '../Cards/StandardCard';
-import yourTurn from '../../img/yourturn.png';
-import opponentTurn from '../../img/opponentsturn.png';
-import victory from '../../img/Victory.png';
-import defeat from '../../img/Defeat.png';
-import playagaintxt from '../../img/Playagaintxt.png';
+import ModalCard from './ModalCard';
 import './DisplayBoard.css';
 
 const DisplayBoard = props => {
@@ -28,58 +24,22 @@ const DisplayBoard = props => {
 
   return (
     <section className="darkcity-bg flex-row">
-      {turnInterval && (
-        <div className="board-between-turns">
-          <img src={opponentTurn} alt="Opponent's turn" className="opponents-turn" />
-        </div>
-      )}
-      {playerTurnInterval && (
-        <div className="board-between-turns">
-          <img src={yourTurn} alt="Your turn" className="player-turn" />
-        </div>
-      )}
-
-      {life[0] <= 0 && life[1] <= 0 && life[2] <= 0 && (
-        <div className="displayboard-end-game">
-          <img src={defeat} alt="defeat" className="displayboard-v-d-text" />
-          <Link to="Collection" className="button-splashbg">
-            <img
-              src={playagaintxt}
-              alt="Button playagaintxt"
-              className="displayboard-splash-play-again"
-            />
-          </Link>
-        </div>
-      )}
-      {life[3] <= 0 && life[4] <= 0 && life[5] <= 0 && (
-        <div className="displayboard-end-game">
-          <img src={victory} alt="victory" className="displayboard-v-d-text" />
-          <Link to="Collection" className="button-splashbg">
-            <img
-              src={playagaintxt}
-              alt="Button playagaintxt"
-              className="displayboard-splash-play-again"
-            />
-          </Link>
-        </div>
-      )}
+      <DispayTurnIndication
+        life={life}
+        playerTurnInterval={playerTurnInterval}
+        turnInterval={turnInterval}
+      />
       <div className="board-cards flex-column">
         <div className="board-cards-top flex-row">
           {opponentDeck.map((character, i) => {
             return (
               <div className="flex-row">
-                <div className={indexToDisplay === i + 3 ? 'info-show bg-opponent' : 'info-hide'}>
-                  <h4>{character.name}</h4>
-                  <h6>{character.biography.fullName}</h6>
-                  <h5>
-                    {'Life : '}
-                    {character.powerstats.durability}
-                  </h5>
-                  <h5>
-                    {'Attack : '}
-                    {character.powerstats.combat}
-                  </h5>
-                </div>
+                <ModalCard
+                  indexToDisplay={indexToDisplay}
+                  character={character}
+                  id={i + 3}
+                  background=" bg-opponent"
+                />
                 <StandardCard
                   handleHover={handleHover}
                   handleClick={handleClick}
@@ -113,18 +73,12 @@ const DisplayBoard = props => {
           {playerDeck.map((character, i) => {
             return (
               <div>
-                <div className={indexToDisplay === i ? 'info-show bg-player' : 'info-hide'}>
-                  <h4>{character.name}</h4>
-                  <h6>{character.biography.fullName}</h6>
-                  <h5>
-                    {'Life : '}
-                    {character.powerstats.durability}
-                  </h5>
-                  <h5>
-                    {'Attack : '}
-                    {character.powerstats.combat}
-                  </h5>
-                </div>
+                <ModalCard
+                  indexToDisplay={indexToDisplay}
+                  character={character}
+                  id={i}
+                  background=" bg-player"
+                />
                 <StandardCard
                   handleHover={handleHover}
                   handleClick={handleClick}
@@ -174,6 +128,7 @@ DisplayBoard.propTypes = {
   isLoosingPoints: PropTypes.bool.isRequired,
   areFighting: PropTypes.instanceOf(Array).isRequired,
   turnInterval: PropTypes.bool.isRequired,
-  indexToDisplay: PropTypes.number.isRequired
+  indexToDisplay: PropTypes.number.isRequired,
+  playerTurnInterval: PropTypes.bool.isRequired
 };
 export default DisplayBoard;
