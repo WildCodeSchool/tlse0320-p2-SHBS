@@ -53,7 +53,7 @@ const Board = props => {
   // Losing points one by one //
   useEffect(() => {
     const oneByOne = setInterval(() => {
-      /* Loses -1 while it's greater than calculated new life */
+      /* Loses -1 while life is greater than calculated new life */
       if (didMount && life[combatData.cardToAttack] > combatData.newLife) {
         setIsLoosingPoints(true);
         const tempLife = [...life];
@@ -62,7 +62,8 @@ const Board = props => {
       } else {
         setIsLoosingPoints(false);
       }
-    }, 600 / life[combatData.cardToAttack]);
+      /* exponential slowdown */
+    }, 400 / (life[combatData.cardToAttack] - combatData.newLife));
     return () => {
       clearInterval(oneByOne);
     };
