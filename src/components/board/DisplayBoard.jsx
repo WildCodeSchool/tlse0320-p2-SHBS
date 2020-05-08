@@ -1,6 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CombatLog from './CombatLog';
+import DisplayTurnIndication from './DisplayTurnIndication';
 import StandardCard from '../Cards/StandardCard';
+import ModalCard from './ModalCard';
 import './DisplayBoard.css';
 
 const DisplayBoard = props => {
@@ -12,26 +15,32 @@ const DisplayBoard = props => {
     clearIndex,
     life,
     attack,
-    selectedCard,
-    isLoosingPoints,
-    areFighting,
-    turnInterval,
+    opponentIsWating,
     indexToDisplay,
-    logConsole
+    playerIsWating,
+    selectedCard,
+    logConsole,
+    combatData
   } = props;
 
   return (
     <section className="darkcity-bg flex-row">
+      <DisplayTurnIndication
+        life={life}
+        playerIsWating={playerIsWating}
+        opponentIsWating={opponentIsWating}
+      />
       <div className="board-cards flex-column">
         <div className="board-cards-top flex-row">
           {opponentDeck.map((character, i) => {
             return (
               <div className="flex-row">
-                <div className={indexToDisplay === i + 3 ? 'info-show flex-column' : 'info-hide'}>
-                  <h5>{character.name}</h5>
-                  <h5>Life : {character.powerstats.durability}</h5>
-                  <h5>Attack : {character.powerstats.combat}</h5>
-                </div>
+                <ModalCard
+                  indexToDisplay={indexToDisplay}
+                  character={character}
+                  id={i + 3}
+                  background=" bg-opponent"
+                />
                 <StandardCard
                   handleHover={handleHover}
                   handleClick={handleClick}
@@ -43,11 +52,10 @@ const DisplayBoard = props => {
                   key={character.id}
                   cardClass={
                     life[i + 3] > 0
-                      ? `container-card-text${areFighting[0] === i + 3 ? ' isShaking' : ''}${
-                          areFighting[2] === i + 3 && isLoosingPoints && !turnInterval
-                            ? ' isAttacking'
-                            : ' isNotAttacking'
-                        }`
+                      ? `container-card-text ${
+                          combatData.cardAttacker === i + 3 ? ' isAttacking' : ' isNotAttacking'
+                        }
+                      ${combatData.cardToAttack === i + 3 ? ' isShaking' : ''}`
                       : 'container-card-text dead'
                   }
                 />
@@ -59,11 +67,12 @@ const DisplayBoard = props => {
           {playerDeck.map((character, i) => {
             return (
               <div>
-                <div className={indexToDisplay === i ? 'info-show flex-column' : 'info-hide'}>
-                  <h5>{character.name}</h5>
-                  <h5>Life : {character.powerstats.durability}</h5>
-                  <h5>Attack : {character.powerstats.combat}</h5>
-                </div>
+                <ModalCard
+                  indexToDisplay={indexToDisplay}
+                  character={character}
+                  id={i}
+                  background=" bg-player"
+                />
                 <StandardCard
                   handleHover={handleHover}
                   handleClick={handleClick}
@@ -76,10 +85,10 @@ const DisplayBoard = props => {
                   cardClass={
                     life[i] > 0
                       ? `container-card-text${
-                          selectedCard === i || (areFighting[2] === i && !turnInterval)
+                          selectedCard === i || combatData.cardAttacker === i
                             ? ' isAttacking'
                             : ' isNotAttacking'
-                        }${areFighting[0] === i ? ' isShaking' : ''}`
+                        }${combatData.cardToAttack === i ? ' isShaking' : ''}`
                       : 'container-card-text dead'
                   }
                 />
@@ -93,4 +102,18 @@ const DisplayBoard = props => {
   );
 };
 
+DisplayBoard.propTypes = {
+  opponentDeck: PropTypes.instanceOf(Array).isRequired,
+  playerDeck: PropTypes.instanceOf(Array).isRequired,
+  life: PropTypes.instanceOf(Array).isRequired,
+  attack: PropTypes.instanceOf(Array).isRequired,
+  combatData: PropTypes.instanceOf(Object).isRequired,
+  handleHover: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
+  clearIndex: PropTypes.func.isRequired,
+  opponentIsWating: PropTypes.bool.isRequired,
+  indexToDisplay: PropTypes.number,
+  playerIsWating: PropTypes.bool.isRequired,
+  selectedCard: PropTypes.number
+};
 export default DisplayBoard;
