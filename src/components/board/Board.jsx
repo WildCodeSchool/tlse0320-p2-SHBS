@@ -10,12 +10,12 @@ const Board = props => {
   const [selectedCard, setSelectedCard] = useState();
   const [playerTurn, setPlayerTurn] = useState(true);
   const [opponentTurn, setOpponentTurn] = useState(false);
-  const [combatData, setCombatData] = useState({});
   const [isLoosingPoints, setIsLoosingPoints] = useState(false);
   const [opponentIsWating, setOpponentIsWating] = useState(false);
   const [playerIsWating, setPlayerIsWating] = useState(false);
   const [life, setLife] = useState([]);
   const [attack, setAttack] = useState([]);
+  const [damages, setDamages] = useState([[0, 10], [0, 10], false]);
 
   // set a boolean state to true after mounting //
   useEffect(() => setDidMount(true), []);
@@ -50,36 +50,15 @@ const Board = props => {
     setIndexToDisplay();
   };
 
-  // Losing points one by one //
-  // useEffect(() => {
-  //   const oneByOne = setInterval(() => {
-  //     /* Loses -1 while life is greater than calculated new life */
-  //     if (didMount && life[combatData.cardToAttack] > combatData.newLife) {
-  //       setIsLoosingPoints(true);
-  //       const tempLife = [...life];
-  //       tempLife[combatData.cardToAttack] -= 1;
-  //       setLife(tempLife);
-  //     } else {
-  //       setIsLoosingPoints(false);
-  //     }
-  //     /* exponential slowdown */
-  //   }, 400 / (life[combatData.cardToAttack] - combatData.newLife));
-  //   return () => {
-  //     clearInterval(oneByOne);
-  //   };
-  // }, [combatData, life]);
-
   // Set pause moment after the attack (depends on turn) //
   useEffect(() => {
     setTimeout(() => {
       if (didMount && !isLoosingPoints && !playerTurn) {
         setOpponentIsWating(true);
-        setCombatData({});
       } else if (didMount && !isLoosingPoints && playerTurn) {
         setPlayerIsWating(true);
-        setCombatData({});
       }
-    }, 300);
+    }, 1000);
   }, [life]);
 
   // Set moment to pop-up the indication //
@@ -87,10 +66,12 @@ const Board = props => {
     setTimeout(() => {
       if (didMount && opponentIsWating) {
         setOpponentIsWating(false);
+        setDamages([[0, 10], [0, 10], false]);
         /* Trigger the IA-turn use-effect */
         setOpponentTurn(!opponentTurn);
       } else if (didMount && playerIsWating) {
         setPlayerIsWating(false);
+        setDamages([[0, 10], [0, 10], false]);
       }
     }, 2000);
   }, [opponentIsWating, playerIsWating]);
@@ -117,6 +98,13 @@ const Board = props => {
       const tempLife = [...life];
       tempLife[randomTarget] = newLife;
       tempLife[randomAttacker] = newLifeReturn;
+      setDamages([
+        [attack[randomAttacker], randomTarget],
+        [attack[randomTarget], randomAttacker],
+        false
+      ]);
+      console.log(damages);
+
       setLife(tempLife);
       setPlayerTurn(true);
       console.log(`IA n°${randomAttacker} inflige ${attack[randomAttacker]} à n°${randomTarget}`);
@@ -140,7 +128,8 @@ const Board = props => {
       const tempLife = [...life];
       tempLife[index] = newLife;
       tempLife[selectedCard] = newLifeReturn;
-      console.log(tempLife);
+      setDamages([[attack[index], selectedCard], [attack[selectedCard], index], true]);
+      console.log(damages);
 
       setLife(tempLife);
       setSelectedCard();
@@ -159,10 +148,10 @@ const Board = props => {
       life={life}
       attack={attack}
       selectedCard={selectedCard}
-      combatData={combatData}
       opponentIsWating={opponentIsWating}
       indexToDisplay={indexToDisplay}
       playerIsWating={playerIsWating}
+      damages={damages}
     />
   );
 };

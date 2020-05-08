@@ -18,7 +18,9 @@ const DisplayBoard = props => {
     indexToDisplay,
     playerIsWating,
     selectedCard,
-    combatData
+    damages,
+    playerTurn,
+    OpponentTurn
   } = props;
 
   return (
@@ -48,12 +50,15 @@ const DisplayBoard = props => {
                   image={character.images.md}
                   index={i + 3}
                   key={character.id}
+                  damages={damages[1]}
                   cardClass={
                     life[i + 3] > 0
                       ? `container-card-text ${
-                          combatData.cardAttacker === i + 3 ? ' isAttacking' : ' isNotAttacking'
+                          damages[1][1] === i + 3 && !damages[2]
+                            ? ' isAttacking'
+                            : ' isNotAttacking'
                         }
-                      ${combatData.cardToAttack === i + 3 ? ' isShaking' : ''}`
+                      ${damages[1][1] === i + 3 && damages[2] ? ' isShaking' : ''}`
                       : 'container-card-text dead'
                   }
                 />
@@ -80,13 +85,14 @@ const DisplayBoard = props => {
                   image={character.images.md}
                   index={i}
                   key={character.id}
+                  damages={damages[0]}
                   cardClass={
                     life[i] > 0
                       ? `container-card-text${
-                          selectedCard === i || combatData.cardAttacker === i
+                          selectedCard === i || damages[1][1] === i
                             ? ' isAttacking'
                             : ' isNotAttacking'
-                        }${combatData.cardToAttack === i ? ' isShaking' : ''}`
+                        }${damages[0][1] === i && OpponentTurn ? ' isShaking' : ''}`
                       : 'container-card-text dead'
                   }
                 />
@@ -108,7 +114,6 @@ DisplayBoard.propTypes = {
   playerDeck: PropTypes.instanceOf(Array).isRequired,
   life: PropTypes.instanceOf(Array).isRequired,
   attack: PropTypes.instanceOf(Array).isRequired,
-  combatData: PropTypes.instanceOf(Object).isRequired,
   handleHover: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
   clearIndex: PropTypes.func.isRequired,
