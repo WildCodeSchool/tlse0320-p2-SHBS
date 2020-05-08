@@ -113,7 +113,11 @@ const Board = props => {
       /* Load combat data to trigger the use-effect */
       setCombatData({ cardToAttack: randomTarget, cardAttacker: randomAttacker, newLife });
       setPlayerTurn(true);
-      setLogConsole(`IA n°${randomAttacker} inflige ${attack[randomAttacker]} à n°${randomTarget}`);
+      setLogConsole(
+        `${deckOp[randomAttacker - 3].name} inflige ${attack[randomAttacker]} à ${
+          deck[randomTarget].name
+        }`
+      );
       console.log(`IA n°${randomAttacker} inflige ${attack[randomAttacker]} à n°${randomTarget}`);
     }
   }, [opponentTurn]);
@@ -132,9 +136,10 @@ const Board = props => {
       /* Load combat data to trigger the use effect */
       setCombatData({ cardToAttack: index, cardAttacker: selectedCard, newLife });
       setSelectedCard();
-      setLogConsole(`Player n°${selectedCard} inflige ${attack[selectedCard]} IA n°${index}`);
+      setLogConsole(
+        `${deck[selectedCard].name} inflige ${attack[selectedCard]} à ${deckOp[index - 3].name}`
+      );
       setPlayerTurn(false);
-      console.log(`Player n°${selectedCard} inflige ${attack[selectedCard]} IA n°${index}`);
     }
   };
 

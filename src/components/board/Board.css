@@ -106,12 +106,32 @@
 
 .board-log-text h2 {
   text-align: center;
+  margin: 1vh;
 }
 
 .board-game-history {
-  height: 60vh;
+  height: 40vh;
   background-color: rgba(255, 255, 255, 0.3);
   border: 1px solid black;
+  overflow: hidden;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: flex-end; */
+}
+
+.board-game-history p {
+  text-align: end;
+  margin-right: 1vw;
+}
+
+.console-cursor {
+  animation: blinker 0.8s step-start infinite;
+}
+
+@keyframes blinker {
+  55% {
+    opacity: 0;
+  }
 }
 
 .displayboard-end-game {
