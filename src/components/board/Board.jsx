@@ -51,23 +51,23 @@ const Board = props => {
   };
 
   // Losing points one by one //
-  useEffect(() => {
-    const oneByOne = setInterval(() => {
-      /* Loses -1 while life is greater than calculated new life */
-      if (didMount && life[combatData.cardToAttack] > combatData.newLife) {
-        setIsLoosingPoints(true);
-        const tempLife = [...life];
-        tempLife[combatData.cardToAttack] -= 1;
-        setLife(tempLife);
-      } else {
-        setIsLoosingPoints(false);
-      }
-      /* exponential slowdown */
-    }, 400 / (life[combatData.cardToAttack] - combatData.newLife));
-    return () => {
-      clearInterval(oneByOne);
-    };
-  }, [combatData, life]);
+  // useEffect(() => {
+  //   const oneByOne = setInterval(() => {
+  //     /* Loses -1 while life is greater than calculated new life */
+  //     if (didMount && life[combatData.cardToAttack] > combatData.newLife) {
+  //       setIsLoosingPoints(true);
+  //       const tempLife = [...life];
+  //       tempLife[combatData.cardToAttack] -= 1;
+  //       setLife(tempLife);
+  //     } else {
+  //       setIsLoosingPoints(false);
+  //     }
+  //     /* exponential slowdown */
+  //   }, 400 / (life[combatData.cardToAttack] - combatData.newLife));
+  //   return () => {
+  //     clearInterval(oneByOne);
+  //   };
+  // }, [combatData, life]);
 
   // Set pause moment after the attack (depends on turn) //
   useEffect(() => {
@@ -80,7 +80,7 @@ const Board = props => {
         setCombatData({});
       }
     }, 300);
-  }, [isLoosingPoints]);
+  }, [life]);
 
   // Set moment to pop-up the indication //
   useEffect(() => {
@@ -109,8 +109,15 @@ const Board = props => {
         life[randomTarget] - attack[randomAttacker] > 0
           ? life[randomTarget] - attack[randomAttacker]
           : 0;
-      /* Load combat data to trigger the use-effect */
-      setCombatData({ cardToAttack: randomTarget, cardAttacker: randomAttacker, newLife });
+      const newLifeReturn =
+        life[randomAttacker] - attack[randomTarget] > 0
+          ? life[randomAttacker] - attack[randomTarget]
+          : 0;
+      /* Setting new lives counts */
+      const tempLife = [...life];
+      tempLife[randomTarget] = newLife;
+      tempLife[randomAttacker] = newLifeReturn;
+      setLife(tempLife);
       setPlayerTurn(true);
       console.log(`IA n°${randomAttacker} inflige ${attack[randomAttacker]} à n°${randomTarget}`);
     }
@@ -127,8 +134,15 @@ const Board = props => {
       /* Apply attack */
       const newLife =
         life[index] - attack[selectedCard] > 0 ? life[index] - attack[selectedCard] : 0;
-      /* Load combat data to trigger the use effect */
-      setCombatData({ cardToAttack: index, cardAttacker: selectedCard, newLife });
+      const newLifeReturn =
+        life[selectedCard] - attack[index] > 0 ? life[selectedCard] - attack[index] : 0;
+      /* Setting new lives counts */
+      const tempLife = [...life];
+      tempLife[index] = newLife;
+      tempLife[selectedCard] = newLifeReturn;
+      console.log(tempLife);
+
+      setLife(tempLife);
       setSelectedCard();
       setPlayerTurn(false);
       console.log(`Player n°${selectedCard} inflige ${attack[selectedCard]} IA n°${index}`);
