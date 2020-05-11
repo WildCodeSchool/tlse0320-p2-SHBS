@@ -29,7 +29,8 @@ li {
 
 /* h2 font size and color */
 
-h2 {
+h2,
+label {
   font-size: 4.5vh;
   color: #d2d2d2;
   text-shadow: 5px 5px #333;
@@ -59,11 +60,16 @@ h2 {
 
 /* Slash background for animated buttons */
 
-.button-splashbg {
+.button-splashbg,
+.button-no-splashbg {
   background-image: url('./img/splashbackground.png');
   background-size: cover;
   background-repeat: no-repeat;
   height: auto;
+}
+
+.button-no-splashbg {
+  filter: grayscale(90%);
 }
 
 /* Big titles on pages */
