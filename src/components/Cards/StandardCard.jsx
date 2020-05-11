@@ -12,7 +12,8 @@ const StandardCard = props => {
     index,
     handleClick,
     cardClass,
-    clearIndex
+    clearIndex,
+    damages
   } = props;
   return (
     <div
@@ -30,6 +31,11 @@ const StandardCard = props => {
       />
       <p className="attack">{combat}</p>
       <p className="life">{durability}</p>
+      {damages ? (
+        <div className={damages[1] === index ? 'damages-splash' : 'damages-splash-hidden'}>
+          <p>{`-${damages[0]}`}</p>
+        </div>
+      ) : null}
     </div>
   );
 };
