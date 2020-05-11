@@ -88,7 +88,7 @@ const DisplayBoard = props => {
                   cardClass={
                     life[i] > 0
                       ? `container-card-text${
-                          selectedCard === i || damages[1][1] === i
+                          selectedCard === i || damages[0][1] === i
                             ? ' isAttacking'
                             : ' isNotAttacking'
                         }${damages[0][1] === i && opponentTurn ? ' isShaking' : ''}`
