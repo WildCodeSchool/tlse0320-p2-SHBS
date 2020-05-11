@@ -11,8 +11,6 @@ const Board = ({ deckOp, deck }) => {
           {deckOp.map(card => {
             return (
               <StandardCard
-                handleHover={() => {}}
-                handleClick={() => {}}
                 combat={card.powerstats.combat}
                 durability={card.powerstats.durability}
                 image={card.images.md}
@@ -27,8 +25,6 @@ const Board = ({ deckOp, deck }) => {
           {deck.map(card => {
             return (
               <StandardCard
-                handleHover={() => {}}
-                handleClick={() => {}}
                 combat={card.powerstats.combat}
                 durability={card.powerstats.durability}
                 image={card.images.md}
