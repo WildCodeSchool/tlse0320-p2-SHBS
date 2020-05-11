@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CombatLog from './CombatLog';
 import DisplayTurnIndication from './DisplayTurnIndication';
 import StandardCard from '../Cards/StandardCard';
 import ModalCard from './ModalCard';
@@ -19,7 +20,8 @@ const DisplayBoard = props => {
     playerIsWating,
     selectedCard,
     damages,
-    opponentTurn
+    opponentTurn,
+    logConsole
   } = props;
 
   return (
@@ -100,10 +102,7 @@ const DisplayBoard = props => {
           })}
         </div>
       </div>
-      <div className="board-log-text flex-column">
-        <h2>Combat log</h2>
-        <div className="board-game-history" />
-      </div>
+      <CombatLog logConsole={logConsole} />
     </section>
   );
 };
@@ -121,6 +120,7 @@ DisplayBoard.propTypes = {
   playerIsWating: PropTypes.bool.isRequired,
   selectedCard: PropTypes.number,
   damages: PropTypes.number,
-  opponentTurn: PropTypes.bool.isRequired
+  opponentTurn: PropTypes.bool.isRequired,
+  logConsole: PropTypes.string
 };
 export default DisplayBoard;

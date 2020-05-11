@@ -11,11 +11,12 @@ const Board = props => {
   const [playerTurn, setPlayerTurn] = useState(true);
   const [opponentTurn, setOpponentTurn] = useState(false);
   const [isLoosingPoints, setIsLoosingPoints] = useState(false);
-  const [opponentIsWating, setOpponentIsWating] = useState(false);
-  const [playerIsWating, setPlayerIsWating] = useState(false);
+  const [logConsole, setLogConsole] = useState();
   const [life, setLife] = useState([]);
   const [attack, setAttack] = useState([]);
   const [damages, setDamages] = useState([[0, 10], [0, 10], false]);
+  const [opponentIsWating, setOpponentIsWating] = useState(false);
+  const [playerIsWating, setPlayerIsWating] = useState(false);
 
   // set a boolean state to true after mounting //
   useEffect(() => setDidMount(true), []);
@@ -122,18 +123,18 @@ const Board = props => {
         life[randomAttacker] - attack[randomTarget] > 0
           ? life[randomAttacker] - attack[randomTarget]
           : 0;
-      /* Setting new lives counts */
-      // const tempLife = [...life];
-      // tempLife[randomTarget] = newLife;
-      // tempLife[randomAttacker] = newLifeReturn;
       setDamages([
-        /* Nbr dégats, index de celui qui reçoit, nouvelle vie*/
         [attack[randomAttacker], randomTarget, newLife],
         [attack[randomTarget], randomAttacker, newLifeReturn],
         false
       ]);
       // setLife(tempLife);
       setIsLoosingPoints(true);
+      setLogConsole(
+        `${deckOp[randomAttacker - 3].name} inflige ${attack[randomAttacker]} a ${
+          deck[randomTarget].name
+        }`
+      );
       setPlayerTurn(true);
     }
   }, [opponentTurn]);
@@ -151,18 +152,16 @@ const Board = props => {
         life[index] - attack[selectedCard] > 0 ? life[index] - attack[selectedCard] : 0;
       const newLifeReturn =
         life[selectedCard] - attack[index] > 0 ? life[selectedCard] - attack[index] : 0;
-      /* Setting new lives counts */
-      // const tempLife = [...life];
-      // tempLife[index] = newLife;
-      // tempLife[selectedCard] = newLifeReturn;
       setDamages([
         [attack[index], selectedCard, newLifeReturn],
         [attack[selectedCard], index, newLife],
         true
       ]);
-      // setLife(tempLife);
       setSelectedCard();
       setIsLoosingPoints(true);
+      setLogConsole(
+        `${deck[selectedCard].name} inflige ${attack[selectedCard]} a ${deckOp[index - 3].name}`
+      );
       setPlayerTurn(false);
     }
   };
@@ -179,6 +178,7 @@ const Board = props => {
       selectedCard={selectedCard}
       opponentIsWating={opponentIsWating}
       indexToDisplay={indexToDisplay}
+      logConsole={logConsole}
       playerIsWating={playerIsWating}
       damages={damages}
       opponentTurn={opponentTurn}
