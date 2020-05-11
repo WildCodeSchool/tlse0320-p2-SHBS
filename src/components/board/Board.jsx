@@ -16,6 +16,19 @@ const Board = props => {
   const [playerIsWating, setPlayerIsWating] = useState(false);
   const [life, setLife] = useState([]);
   const [attack, setAttack] = useState([]);
+  // Nico testing local storage //
+  const [victory, setVictory] = useState(false);
+  const [defeat, setDefeat] = useState(false);
+  const [victoryCount, setVictoryCount] = useState(
+    window.localStorage.getItem('myVictories')
+      ? parseInt(window.localStorage.getItem('myVictories'))
+      : 0
+  );
+  const [defeatCount, setDefeatCount] = useState(
+    window.localStorage.getItem('myDefeats')
+      ? parseInt(window.localStorage.getItem('myDefeats'))
+      : 0
+  );
 
   // set a boolean state to true after mounting //
   useEffect(() => setDidMount(true), []);
@@ -97,7 +110,7 @@ const Board = props => {
 
   // IA turn //
   useEffect(() => {
-    if (didMount) {
+    if (didMount && victory === false) {
       /* Random IA choice */
       const aliveSort = [...life].map((card, i) => (card > 0 ? i : 'dead'));
       const oponentSort = [...aliveSort].splice(3).filter(card => card !== 'dead');
@@ -134,6 +147,31 @@ const Board = props => {
       console.log(`Player n°${selectedCard} inflige ${attack[selectedCard]} IA n°${index}`);
     }
   };
+
+  // Nico testing local storage //
+  useEffect(() => {
+    if (life[3] <= 0 && life[4] <= 0 && life[5] <= 0) {
+      setVictory(true);
+    }
+  }, [life]);
+
+  useEffect(() => {
+    if (life[0] <= 0 && life[1] <= 0 && life[2] <= 0) {
+      setDefeat(true);
+    }
+  }, [life]);
+
+  useEffect(() => {
+    setVictoryCount(victoryCount + 1);
+    const result = JSON.stringify(victoryCount);
+    window.localStorage.setItem('myVictories', result);
+  }, [victory]);
+
+  useEffect(() => {
+    setDefeatCount(defeatCount + 1);
+    const result = JSON.stringify(defeatCount);
+    window.localStorage.setItem('myDefeats', result);
+  }, [defeat]);
 
   return (
     <DisplayBoard
