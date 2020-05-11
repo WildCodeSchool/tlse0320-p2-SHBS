@@ -100,7 +100,7 @@
 .board-log-text {
   position: absolute;
   right: 0;
-  width: 18vw;
+  width: 22vw;
   margin: 20vh 1vw 0 0;
 }
 
@@ -114,14 +114,14 @@
   background-color: rgba(255, 255, 255, 0.3);
   border: 1px solid black;
   overflow: hidden;
-  /* display: flex;
+  display: flex;
   flex-direction: column;
-  justify-content: flex-end; */
+  justify-content: flex-end;
+  padding: 1.5em;
 }
 
 .board-game-history p {
-  text-align: end;
-  margin-right: 1vw;
+  text-align: start;
 }
 
 .console-cursor {
