@@ -17,9 +17,20 @@ const Board = props => {
   const [damages, setDamages] = useState([[0, 10], [0, 10], false]);
   const [opponentIsWating, setOpponentIsWating] = useState(false);
   const [playerIsWating, setPlayerIsWating] = useState(false);
+  const [gameStatus, setGameStatus] = useState('onGoing');
 
   // set a boolean state to true after mounting //
-  useEffect(() => setDidMount(true), []);
+  useEffect(() => {
+    if (!didMount) {
+      const randomStart = Math.floor(Math.random() * 100);
+      if (randomStart > 50) {
+        setOpponentIsWating(true);
+      } else {
+        setPlayerIsWating(true);
+      }
+    }
+    setDidMount(true);
+  }, []);
 
   // load the life & attack props in the state //
   useEffect(() => {
@@ -74,7 +85,7 @@ const Board = props => {
           setIsLoosingPoints(false);
           setDamages([[0, 10], [0, 10], false]);
         }
-      }, 20);
+      }, 10);
       return () => {
         clearInterval(oneByOne);
       };
@@ -84,7 +95,25 @@ const Board = props => {
   // Set pause moment after the attack (depends on turn) //
   useEffect(() => {
     setTimeout(() => {
-      if (didMount && !isLoosingPoints && !playerTurn) {
+      if (
+        (life[0] <= 0 && life[1] <= 0 && life[2] <= 0) ||
+        (life[3] <= 0 && life[4] <= 0 && life[5] <= 0 && !isLoosingPoints)
+      ) {
+        if (
+          life[0] <= 0 &&
+          life[1] <= 0 &&
+          life[2] <= 0 &&
+          life[3] <= 0 &&
+          life[4] <= 0 &&
+          life[5] <= 0
+        ) {
+          setGameStatus('draw');
+        } else if (life[0] <= 0 && life[1] <= 0 && life[2] <= 0) {
+          setGameStatus('defeat');
+        } else {
+          setGameStatus('victory');
+        }
+      } else if (didMount && !isLoosingPoints && !playerTurn) {
         setOpponentIsWating(true);
       } else if (didMount && !isLoosingPoints && playerTurn) {
         setPlayerIsWating(true);
@@ -130,11 +159,13 @@ const Board = props => {
       ]);
       // setLife(tempLife);
       setIsLoosingPoints(true);
-      setLogConsole(
-        `${deckOp[randomAttacker - 3].name} inflige ${attack[randomAttacker]} a ${
-          deck[randomTarget].name
-        }`
-      );
+      if (randomAttacker) {
+        setLogConsole(
+          `${deckOp[randomAttacker - 3].name} inflige ${attack[randomAttacker]} a ${
+            deck[randomTarget].name
+          }`
+        );
+      }
       setPlayerTurn(true);
     }
   }, [opponentTurn]);
@@ -181,7 +212,7 @@ const Board = props => {
       logConsole={logConsole}
       playerIsWating={playerIsWating}
       damages={damages}
-      opponentTurn={opponentTurn}
+      gameStatus={gameStatus}
     />
   );
 };

@@ -41,13 +41,20 @@ const StandardCard = props => {
 };
 
 StandardCard.propTypes = {
-  combat: PropTypes.number.isRequired,
-  durability: PropTypes.number.isRequired,
+  damages: PropTypes.instanceOf(Array).isRequired,
+  clearIndex: PropTypes.func.isRequired,
+  combat: PropTypes.number,
+  durability: PropTypes.number,
   image: PropTypes.string.isRequired,
   handleHover: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
   cardClass: PropTypes.string.isRequired,
   handleClick: PropTypes.func.isRequired
+};
+
+StandardCard.defaultProps = {
+  combat: 0,
+  durability: 0
 };
 
 export default StandardCard;
