@@ -8,7 +8,7 @@ import defeat from '../../img/Defeat.png';
 import playagaintxt from '../../img/Playagaintxt.png';
 
 const DisplayTurnIndication = props => {
-  const { opponentIsWating, playerIsWating, life } = props;
+  const { opponentIsWating, playerIsWating, gameStatus } = props;
   return (
     <>
       {opponentIsWating && (
@@ -22,7 +22,7 @@ const DisplayTurnIndication = props => {
         </div>
       )}
 
-      {life[0] <= 0 && life[1] <= 0 && life[2] <= 0 && (
+      {gameStatus === 'defeat' && (
         <div className="displayboard-end-game">
           <img src={defeat} alt="defeat" className="displayboard-v-d-text" />
           <Link to="Collection" className="button-splashbg">
@@ -34,7 +34,7 @@ const DisplayTurnIndication = props => {
           </Link>
         </div>
       )}
-      {life[3] <= 0 && life[4] <= 0 && life[5] <= 0 && (
+      {gameStatus === 'victory' && (
         <div className="displayboard-end-game">
           <img src={victory} alt="victory" className="displayboard-v-d-text" />
           <Link to="Collection" className="button-splashbg">
@@ -46,12 +46,25 @@ const DisplayTurnIndication = props => {
           </Link>
         </div>
       )}
+      {gameStatus === 'draw' && (
+        <div className="displayboard-end-game">
+          {/* <img src={victory} alt="victory" className="displayboard-v-d-text" /> */}
+          <Link to="Collection" className="button-splashbg">
+            <img
+              src={playagaintxt}
+              alt="Button playagaintxt"
+              className="displayboard-splash-play-again"
+            />
+            <h1>Drawn</h1>
+          </Link>
+        </div>
+      )}
     </>
   );
 };
 
 DisplayTurnIndication.propTypes = {
-  life: PropTypes.instanceOf(Array).isRequired,
+  gameStatus: PropTypes.string.isRequired,
   opponentIsWating: PropTypes.bool.isRequired,
   playerIsWating: PropTypes.bool.isRequired
 };

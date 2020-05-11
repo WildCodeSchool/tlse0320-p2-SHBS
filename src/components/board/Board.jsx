@@ -10,16 +10,27 @@ const Board = props => {
   const [selectedCard, setSelectedCard] = useState();
   const [playerTurn, setPlayerTurn] = useState(true);
   const [opponentTurn, setOpponentTurn] = useState(false);
-  const [combatData, setCombatData] = useState({});
   const [isLoosingPoints, setIsLoosingPoints] = useState(false);
   const [logConsole, setLogConsole] = useState();
   const [life, setLife] = useState([]);
   const [attack, setAttack] = useState([]);
+  const [damages, setDamages] = useState([[0, 10], [0, 10], false]);
   const [opponentIsWating, setOpponentIsWating] = useState(false);
   const [playerIsWating, setPlayerIsWating] = useState(false);
+  const [gameStatus, setGameStatus] = useState('onGoing');
 
   // set a boolean state to true after mounting //
-  useEffect(() => setDidMount(true), []);
+  useEffect(() => {
+    if (!didMount) {
+      const randomStart = Math.floor(Math.random() * 100);
+      if (randomStart > 50) {
+        setOpponentIsWating(true);
+      } else {
+        setPlayerIsWating(true);
+      }
+    }
+    setDidMount(true);
+  }, []);
 
   // load the life & attack props in the state //
   useEffect(() => {
@@ -53,32 +64,59 @@ const Board = props => {
 
   // Losing points one by one //
   useEffect(() => {
-    const oneByOne = setInterval(() => {
-      /* Loses -1 while life is greater than calculated new life */
-      if (didMount && life[combatData.cardToAttack] > combatData.newLife) {
-        setIsLoosingPoints(true);
+    if (didMount && isLoosingPoints) {
+      const oneByOne = setInterval(() => {
+        /* Loses -1 while life is greater than calculated new life */
         const tempLife = [...life];
-        tempLife[combatData.cardToAttack] -= 1;
-        setLife(tempLife);
-      } else {
-        setIsLoosingPoints(false);
-      }
-      /* exponential slowdown */
-    }, 400 / (life[combatData.cardToAttack] - combatData.newLife));
-    return () => {
-      clearInterval(oneByOne);
-    };
-  }, [combatData, life]);
+        if (life[damages[0][1]] > damages[0][2] && life[damages[1][1]] > damages[1][2]) {
+          setIsLoosingPoints(true);
+          tempLife[damages[0][1]] -= 1;
+          tempLife[damages[1][1]] -= 1;
+          setLife(tempLife);
+        } else if (life[damages[0][1]] > damages[0][2]) {
+          setIsLoosingPoints(true);
+          tempLife[damages[0][1]] -= 1;
+          setLife(tempLife);
+        } else if (life[damages[1][1]] > damages[1][2]) {
+          setIsLoosingPoints(true);
+          tempLife[damages[1][1]] -= 1;
+          setLife(tempLife);
+        } else {
+          setIsLoosingPoints(false);
+          setDamages([[0, 10], [0, 10], false]);
+        }
+      }, 10);
+      return () => {
+        clearInterval(oneByOne);
+      };
+    }
+  }, [isLoosingPoints, life]);
 
   // Set pause moment after the attack (depends on turn) //
   useEffect(() => {
     setTimeout(() => {
-      if (didMount && !isLoosingPoints && !playerTurn) {
+      if (
+        (life[0] <= 0 && life[1] <= 0 && life[2] <= 0) ||
+        (life[3] <= 0 && life[4] <= 0 && life[5] <= 0 && !isLoosingPoints)
+      ) {
+        if (
+          life[0] <= 0 &&
+          life[1] <= 0 &&
+          life[2] <= 0 &&
+          life[3] <= 0 &&
+          life[4] <= 0 &&
+          life[5] <= 0
+        ) {
+          setGameStatus('draw');
+        } else if (life[0] <= 0 && life[1] <= 0 && life[2] <= 0) {
+          setGameStatus('defeat');
+        } else {
+          setGameStatus('victory');
+        }
+      } else if (didMount && !isLoosingPoints && !playerTurn) {
         setOpponentIsWating(true);
-        setCombatData({});
       } else if (didMount && !isLoosingPoints && playerTurn) {
         setPlayerIsWating(true);
-        setCombatData({});
       }
     }, 300);
   }, [isLoosingPoints]);
@@ -110,15 +148,25 @@ const Board = props => {
         life[randomTarget] - attack[randomAttacker] > 0
           ? life[randomTarget] - attack[randomAttacker]
           : 0;
-      /* Load combat data to trigger the use-effect */
-      setCombatData({ cardToAttack: randomTarget, cardAttacker: randomAttacker, newLife });
+      const newLifeReturn =
+        life[randomAttacker] - attack[randomTarget] > 0
+          ? life[randomAttacker] - attack[randomTarget]
+          : 0;
+      setDamages([
+        [attack[randomAttacker], randomTarget, newLife],
+        [attack[randomTarget], randomAttacker, newLifeReturn],
+        false
+      ]);
+      // setLife(tempLife);
+      setIsLoosingPoints(true);
+      if (randomAttacker) {
+        setLogConsole(
+          `${deckOp[randomAttacker - 3].name} inflige ${attack[randomAttacker]} a ${
+            deck[randomTarget].name
+          }`
+        );
+      }
       setPlayerTurn(true);
-      setLogConsole(
-        `${deckOp[randomAttacker - 3].name} inflige ${attack[randomAttacker]} à ${
-          deck[randomTarget].name
-        }`
-      );
-      console.log(`IA n°${randomAttacker} inflige ${attack[randomAttacker]} à n°${randomTarget}`);
     }
   }, [opponentTurn]);
 
@@ -133,11 +181,17 @@ const Board = props => {
       /* Apply attack */
       const newLife =
         life[index] - attack[selectedCard] > 0 ? life[index] - attack[selectedCard] : 0;
-      /* Load combat data to trigger the use effect */
-      setCombatData({ cardToAttack: index, cardAttacker: selectedCard, newLife });
+      const newLifeReturn =
+        life[selectedCard] - attack[index] > 0 ? life[selectedCard] - attack[index] : 0;
+      setDamages([
+        [attack[index], selectedCard, newLifeReturn],
+        [attack[selectedCard], index, newLife],
+        true
+      ]);
       setSelectedCard();
+      setIsLoosingPoints(true);
       setLogConsole(
-        `${deck[selectedCard].name} inflige ${attack[selectedCard]} à ${deckOp[index - 3].name}`
+        `${deck[selectedCard].name} inflige ${attack[selectedCard]} a ${deckOp[index - 3].name}`
       );
       setPlayerTurn(false);
     }
@@ -153,11 +207,12 @@ const Board = props => {
       life={life}
       attack={attack}
       selectedCard={selectedCard}
-      combatData={combatData}
       opponentIsWating={opponentIsWating}
       indexToDisplay={indexToDisplay}
       logConsole={logConsole}
       playerIsWating={playerIsWating}
+      damages={damages}
+      gameStatus={gameStatus}
     />
   );
 };

@@ -12,7 +12,8 @@ const StandardCard = props => {
     index,
     handleClick,
     cardClass,
-    clearIndex
+    clearIndex,
+    damages
   } = props;
   return (
     <div
@@ -30,18 +31,30 @@ const StandardCard = props => {
       />
       <p className="attack">{combat}</p>
       <p className="life">{durability}</p>
+      {damages ? (
+        <div className={damages[1] === index ? 'damages-splash' : 'damages-splash-hidden'}>
+          <p>{`-${damages[0]}`}</p>
+        </div>
+      ) : null}
     </div>
   );
 };
 
 StandardCard.propTypes = {
-  combat: PropTypes.number.isRequired,
-  durability: PropTypes.number.isRequired,
+  damages: PropTypes.instanceOf(Array).isRequired,
+  clearIndex: PropTypes.func.isRequired,
+  combat: PropTypes.number,
+  durability: PropTypes.number,
   image: PropTypes.string.isRequired,
   handleHover: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
   cardClass: PropTypes.string.isRequired,
   handleClick: PropTypes.func.isRequired
+};
+
+StandardCard.defaultProps = {
+  combat: 0,
+  durability: 0
 };
 
 export default StandardCard;
