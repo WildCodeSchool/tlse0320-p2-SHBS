@@ -1,61 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import StandardCard from '../Cards/StandardCard';
 import './Board.css';
 
-const staticDeck = [
-  {
-    name: 'Poison Ivy',
-    images: {
-      md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/522-poison-ivy.jpg'
-    },
-    powerstats: {
-      combat: 40,
-      durability: 40,
-      strength: 14,
-      speed: 21,
-      power: 23,
-      intelligence: 81
-    },
-    index: 0
-  },
-  {
-    name: 'Poison Ivy',
-    images: {
-      md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/522-poison-ivy.jpg'
-    },
-    powerstats: {
-      combat: 40,
-      durability: 40,
-      strength: 14,
-      speed: 21,
-      power: 23,
-      intelligence: 81
-    },
-    index: 0
-  },
-  {
-    name: 'Poison Ivy',
-    images: {
-      md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/522-poison-ivy.jpg'
-    },
-    powerstats: {
-      combat: 40,
-      durability: 40,
-      strength: 14,
-      speed: 21,
-      power: 23,
-      intelligence: 81
-    },
-    index: 0
-  }
-];
-
-const Board = () => {
+const Board = ({ deckOp, deck }) => {
   return (
     <section className="darkcity-bg flex-row">
       <div className="board-cards flex-column">
         <div className="board-cards-top flex-row">
-          {staticDeck.map(card => {
+          {deckOp.map(card => {
             return (
               <StandardCard
                 combat={card.powerstats.combat}
@@ -69,7 +22,7 @@ const Board = () => {
           })}
         </div>
         <div className="board-cards-bottom flex-row">
-          {staticDeck.map(card => {
+          {deck.map(card => {
             return (
               <StandardCard
                 combat={card.powerstats.combat}
@@ -90,5 +43,8 @@ const Board = () => {
     </section>
   );
 };
-
+Board.propTypes = {
+  deckOp: PropTypes.instanceOf(Array).isRequired,
+  deck: PropTypes.instanceOf(Array).isRequired
+};
 export default Board;
