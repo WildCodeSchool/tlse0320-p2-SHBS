@@ -19,8 +19,7 @@ const DisplayBoard = props => {
     playerIsWating,
     selectedCard,
     damages,
-    playerTurn,
-    OpponentTurn
+    opponentTurn
   } = props;
 
   return (
@@ -92,7 +91,7 @@ const DisplayBoard = props => {
                           selectedCard === i || damages[1][1] === i
                             ? ' isAttacking'
                             : ' isNotAttacking'
-                        }${damages[0][1] === i && OpponentTurn ? ' isShaking' : ''}`
+                        }${damages[0][1] === i && opponentTurn ? ' isShaking' : ''}`
                       : 'container-card-text dead'
                   }
                 />
@@ -120,6 +119,8 @@ DisplayBoard.propTypes = {
   opponentIsWating: PropTypes.bool.isRequired,
   indexToDisplay: PropTypes.number,
   playerIsWating: PropTypes.bool.isRequired,
-  selectedCard: PropTypes.number
+  selectedCard: PropTypes.number,
+  damages: PropTypes.number,
+  opponentTurn: PropTypes.bool.isRequired
 };
 export default DisplayBoard;

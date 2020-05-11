@@ -103,8 +103,6 @@ const Board = props => {
         [attack[randomTarget], randomAttacker],
         false
       ]);
-      console.log(damages);
-
       setLife(tempLife);
       setPlayerTurn(true);
       console.log(`IA n°${randomAttacker} inflige ${attack[randomAttacker]} à n°${randomTarget}`);
@@ -129,8 +127,6 @@ const Board = props => {
       tempLife[index] = newLife;
       tempLife[selectedCard] = newLifeReturn;
       setDamages([[attack[index], selectedCard], [attack[selectedCard], index], true]);
-      console.log(damages);
-
       setLife(tempLife);
       setSelectedCard();
       setPlayerTurn(false);
@@ -152,6 +148,7 @@ const Board = props => {
       indexToDisplay={indexToDisplay}
       playerIsWating={playerIsWating}
       damages={damages}
+      opponentTurn={opponentTurn}
     />
   );
 };
