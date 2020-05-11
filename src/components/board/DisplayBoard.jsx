@@ -22,12 +22,13 @@ const DisplayBoard = props => {
     selectedCard,
     damages,
     logConsole,
-    gameStatus
+    gameStatus,
+    selectAttackRef
   } = props;
 
   return (
     <section className="darkcity-bg flex-row">
-      <MusicAndSounds />
+      <MusicAndSounds selectAttackRef={selectAttackRef} />
       <DisplayTurnIndication
         gameStatus={gameStatus}
         playerIsWating={playerIsWating}
@@ -35,7 +36,7 @@ const DisplayBoard = props => {
       />
       <div className="board-cards flex-column">
         <div className="board-cards-top flex-row">
-          {opponentDeck &&
+          {opponentDeck[0] &&
             opponentDeck.map((character, i) => {
               return (
                 <div className="flex-row">
@@ -71,7 +72,7 @@ const DisplayBoard = props => {
             })}
         </div>
         <div className="board-cards-bottom flex-row">
-          {playerDeck &&
+          {playerDeck[0] &&
             playerDeck.map((character, i) => {
               return (
                 <div>

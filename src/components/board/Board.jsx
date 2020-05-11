@@ -18,6 +18,7 @@ const Board = props => {
   const [opponentIsWating, setOpponentIsWating] = useState(false);
   const [playerIsWating, setPlayerIsWating] = useState(false);
   const [gameStatus, setGameStatus] = useState('onGoing');
+  const selectAttackRef = React.createRef();
 
   // set a boolean state to true after mounting //
   useEffect(() => {
@@ -175,6 +176,7 @@ const Board = props => {
     const index = Number(e.currentTarget.getAttribute('index'));
     /* Select attacker */
     if (index < 3 && life[index] > 0 && playerTurn && !isLoosingPoints) {
+      selectAttackRef.current.play();
       setSelectedCard(index);
       /* Select target */
     } else if (index >= 3 && life[index] > 0 && selectedCard !== undefined) {
@@ -213,6 +215,7 @@ const Board = props => {
       playerIsWating={playerIsWating}
       damages={damages}
       gameStatus={gameStatus}
+      selectAttackRef={selectAttackRef}
     />
   );
 };
