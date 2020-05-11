@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CombatLog from './CombatLog';
+import MusicAndSounds from './MusicAndSounds';
 import DisplayTurnIndication from './DisplayTurnIndication';
 import StandardCard from '../Cards/StandardCard';
 import ModalCard from './ModalCard';
@@ -25,6 +26,7 @@ const DisplayBoard = props => {
 
   return (
     <section className="darkcity-bg flex-row">
+      <MusicAndSounds />
       <DisplayTurnIndication
         life={life}
         playerIsWating={playerIsWating}
