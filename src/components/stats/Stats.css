@@ -1,0 +1,61 @@
+.stats-body {
+  align-items: center;
+  justify-content: space-around;
+  padding: 0px 7vw 0 7vw;
+  height: 100vh;
+}
+
+.stats-body section {
+  width: 100%;
+}
+
+.stats-games ul,
+.stats-level div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1em;
+}
+
+/* Games section */
+
+.stats-games ul {
+  list-style: none;
+  margin: 0 22% 0 6em;
+}
+
+/* Level section */
+
+.stats-bar-wrapper {
+  margin: 0 22% 0 6em !important;
+}
+
+.stats-level p {
+  text-align: center;
+  width: 150px;
+}
+
+.stats-level p:last-child {
+  margin: 0;
+}
+
+.stats-loading-bar {
+  width: 30vw;
+  margin: 0 1em 0 1em;
+}
+
+/* Most played section */
+
+.stats-played > div {
+  display: flex;
+  justify-content: space-around;
+  padding: 2em 3em 0 3em;
+}
+
+.stats-played p {
+  text-align: center;
+}
+
+.stats-played img {
+  width: 150px;
+}

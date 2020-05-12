@@ -1,0 +1,31 @@
+.container-card-text {
+  display: inline-block;
+  position: relative;
+}
+
+.container-card-text .standard-card {
+  display: block;
+  background-size: cover;
+  background-position: center;
+  border-radius: 4.5%;
+  box-shadow: 5px 5px 5px black;
+}
+
+.container-card-text p {
+  position: absolute;
+  text-shadow: none;
+}
+
+.container-card-text .attack {
+  top: 86%;
+  left: 8%;
+}
+
+.container-card-text .life {
+  top: 86%;
+  right: 8%;
+}
+
+.container-card-text:hover {
+  cursor: pointer;
+}

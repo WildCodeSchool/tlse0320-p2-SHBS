@@ -1,22 +1,81 @@
-.App {
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+/* Font for the website */
+
+body {
+  font-family: BADABB;
+}
+
+/* Classic font size and color for p and li */
+
+p,
+li {
+  color: #efc958;
+  text-shadow: 3px 3px #333;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
+/* For subtitles */
+
+.bigger-P-Li {
+  font-size: 3vh;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* h2 font size and color */
+
+h2,
+label {
+  font-size: 4.5vh;
+  color: #d2d2d2;
+  text-shadow: 5px 5px #333;
+}
+
+/* Background for most of the pages */
+
+.darkcity-bg {
+  background-image: url('./img/Dark Scene Wall 004.jpg');
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Flex containers */
+
+.flex-column {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #09d3ac;
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Slash background for animated buttons */
+
+.button-splashbg,
+.button-no-splashbg {
+  background-image: url('./img/splashbackground.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: auto;
+}
+
+.button-no-splashbg {
+  filter: grayscale(90%);
+}
+
+/* Big titles on pages */
+
+.page-title {
+  height: 10vh;
+  align-self: center;
+  margin-top: 12vh;
 }

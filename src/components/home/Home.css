@@ -1,0 +1,126 @@
+.home-first-bg {
+  background-image: url('../../img/venomvsspiderman.jpg');
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.home-assets {
+  width: 100%;
+  height: 55vh;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.home-shbs-title {
+  width: 80%;
+  height: auto;
+}
+
+.home-shbs-title {
+  margin-bottom: 25px;
+}
+
+.home-playnow-button {
+  width: 15vw;
+}
+
+.home-playnow-button img {
+  height: inherit;
+  width: inherit;
+  transition: transform 0.2s;
+}
+
+.home-playnow-button img:hover {
+  transform: scale(1.4) rotate(-3deg);
+}
+
+.home-arrow-link {
+  height: 75px;
+  margin-top: auto;
+  margin-bottom: 20px;
+}
+
+.home-arrows {
+  height: 75px;
+  margin-top: auto;
+  margin-bottom: 20px;
+  -webkit-animation-name: bounce;
+  animation-name: bounce;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes bounce {
+  0%,
+  100% {
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -moz-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+}
+@keyframes bounce {
+  0%,
+  100% {
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -moz-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+}
+
+/* Second part and rules*/
+
+.home-second-page {
+  justify-content: space-evenly;
+}
+
+.home-second-page article {
+  justify-content: center;
+  align-content: center;
+  margin: 0 20%;
+  height: 250px;
+}
+
+.home-second-page article:first-child {
+  margin-top: 200px;
+}
+
+.home-second-page article:last-child {
+  flex-direction: row-reverse;
+}
+
+.home-second-page img {
+  height: inherit;
+  width: auto;
+}
+
+.home-main p {
+  text-align: justify;
+  margin: auto 0 auto 10%;
+}
+
+.home-second-page article:last-child p {
+  margin: auto 10% auto 0;
+}

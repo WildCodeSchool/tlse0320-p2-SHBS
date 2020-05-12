@@ -1,0 +1,126 @@
+/* Top part (deck + validation) */
+
+.collection-top {
+  height: 30vh;
+}
+
+.collection-deck {
+  display: flex;
+  width: 60vw;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0.7vw;
+  background-color: rgba(255, 255, 255, 0.3);
+  border: solid 1px;
+  flex-wrap: wrap;
+}
+
+.collection-deck-title {
+  align-self: center;
+  text-align: center;
+  width: 15vw;
+}
+
+.collection-deck .standard-card {
+  width: 7.5vw;
+}
+
+.collection-deck .collection-empty-card {
+  width: 7.5vw;
+  transform: skew(-5deg);
+  opacity: 40%;
+}
+
+.collection-valid {
+  justify-content: space-around;
+  align-items: center;
+  width: 27vw;
+  border: solid 1px;
+  margin: 0.7vw;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.collection-valid-fight,
+.collection-valid-no-fight {
+  width: 10vw;
+}
+
+.collection-valid-fight img {
+  height: inherit;
+  width: inherit;
+  transition: transform 0.2s;
+}
+
+.collection-valid-no-fight img {
+  height: inherit;
+  width: inherit;
+  filter: grayscale(90%);
+}
+
+.collection-valid-fight img:hover {
+  transform: scale(1.4) rotate(-3deg);
+}
+
+/* Bottom part (card mozaik + card detail) */
+
+.collection-bottom {
+  height: 50vh;
+}
+
+.collection-bottom-left {
+  width: 76vw;
+  height: 47vh;
+  margin: 0.7vw;
+}
+
+.collection-filter {
+  display: flex;
+  align-items: center;
+  text-align: right;
+  margin: 0.5vh 0 3vh auto;
+}
+
+.collection-cards {
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #efc958 #d2d2d2;
+}
+
+.collection-cards .standard-card {
+  width: 7vw;
+}
+
+.collection-cards .container-card-text {
+  margin: 1vh 1.5vw 3vh 1.5vw;
+  align-self: flex-start;
+}
+
+/*Collection cards state*/
+
+.collection-card-is-chosen {
+  filter: grayscale(60%);
+  opacity: 50%;
+  transition: all 0.1s ease-out;
+}
+
+.collection-card-is-chosen:hover {
+  cursor: default;
+}
+
+.collection-filter label {
+  font-size: 3vh;
+  margin-right: 20px;
+}
+
+.collection-deck .container-card-text {
+  animation: deckApparition 0.2s ease-out;
+}
+
+@keyframes deckApparition {
+  from {
+    transform: scale(1.2) translateY(20%);
+    opacity: 0;
+  }
+}

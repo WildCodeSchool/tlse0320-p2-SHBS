@@ -1,0 +1,13 @@
+.contact-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact-page h1 {
+  margin: 1.5em;
+}
+
+.contact-page form {
+  margin: 3em;
+}
