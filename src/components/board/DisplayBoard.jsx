@@ -36,75 +36,73 @@ const DisplayBoard = props => {
       />
       <div className="board-cards flex-column">
         <div className="board-cards-top flex-row">
-          {opponentDeck[0] &&
-            opponentDeck.map((character, i) => {
-              return (
-                <div className="flex-row">
-                  <ModalCard
-                    indexToDisplay={indexToDisplay}
-                    character={character}
-                    id={i + 3}
-                    background=" bg-opponent"
-                  />
-                  <StandardCard
-                    handleHover={handleHover}
-                    handleClick={handleClick}
-                    clearIndex={clearIndex}
-                    combat={attack[i + 3]}
-                    durability={life[i + 3]}
-                    image={character.images.md}
-                    index={i + 3}
-                    key={character.id}
-                    damages={damages[1]}
-                    cardClass={
-                      life[i + 3] > 0
-                        ? `container-card-text ${
-                            damages[1][1] === i + 3 && !damages[2]
-                              ? ' isAttacking'
-                              : ' isNotAttacking'
-                          }
+          {opponentDeck.map((character, i) => {
+            return (
+              <div className="flex-row">
+                <ModalCard
+                  indexToDisplay={indexToDisplay}
+                  character={character}
+                  id={i + 3}
+                  background=" bg-opponent"
+                />
+                <StandardCard
+                  handleHover={handleHover}
+                  handleClick={handleClick}
+                  clearIndex={clearIndex}
+                  combat={attack[i + 3]}
+                  durability={life[i + 3]}
+                  image={character.images.md}
+                  index={i + 3}
+                  key={character.id}
+                  damages={damages[1]}
+                  cardClass={
+                    life[i + 3] > 0
+                      ? `container-card-text ${
+                          damages[1][1] === i + 3 && !damages[2]
+                            ? ' isAttacking'
+                            : ' isNotAttacking'
+                        }
                       ${damages[1][1] === i + 3 && damages[2] ? ' isShaking' : ''}`
-                        : 'container-card-text dead'
-                    }
-                  />
-                </div>
-              );
-            })}
+                      : 'container-card-text dead'
+                  }
+                />
+              </div>
+            );
+          })}
         </div>
         <div className="board-cards-bottom flex-row">
-          {playerDeck[0] &&
-            playerDeck.map((character, i) => {
-              return (
-                <div>
-                  <ModalCard
-                    indexToDisplay={indexToDisplay}
-                    character={character}
-                    id={i}
-                    background=" bg-player"
-                  />
-                  <StandardCard
-                    handleHover={handleHover}
-                    handleClick={handleClick}
-                    clearIndex={clearIndex}
-                    combat={attack[i]}
-                    durability={life[i]}
-                    image={character.images.md}
-                    index={i}
-                    key={character.id}
-                    damages={damages[0]}
-                    cardClass={
-                      life[i] > 0
-                        ? `container-card-text${
-                            selectedCard === i || damages[0][1] === i
-                              ? ' isAttacking'
-                              : ' isNotAttacking'
-                          }${damages[0][1] === i && !damages[2] ? ' isShaking' : ''}`
-                        : 'container-card-text dead'
-                    }
-                  />
-                </div>
-              );
-            })}
+          {playerDeck.map((character, i) => {
+            return (
+              <div>
+                <ModalCard
+                  indexToDisplay={indexToDisplay}
+                  character={character}
+                  id={i}
+                  background=" bg-player"
+                />
+                <StandardCard
+                  handleHover={handleHover}
+                  handleClick={handleClick}
+                  clearIndex={clearIndex}
+                  combat={attack[i]}
+                  durability={life[i]}
+                  image={character.images.md}
+                  index={i}
+                  key={character.id}
+                  damages={damages[0]}
+                  cardClass={
+                    life[i] > 0
+                      ? `container-card-text${
+                          selectedCard === i || damages[0][1] === i
+                            ? ' isAttacking'
+                            : ' isNotAttacking'
+                        }${damages[0][1] === i && !damages[2] ? ' isShaking' : ''}`
+                      : 'container-card-text dead'
+                  }
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
       <CombatLog logConsole={logConsole} />

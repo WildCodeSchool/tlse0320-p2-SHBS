@@ -22,13 +22,11 @@ const Board = props => {
 
   // set a boolean state to true after mounting //
   useEffect(() => {
-    if (!didMount) {
-      const randomStart = Math.floor(Math.random() * 100);
-      if (randomStart > 50) {
-        setOpponentIsWating(true);
-      } else {
-        setPlayerIsWating(true);
-      }
+    const randomStart = Math.floor(Math.random() * 100);
+    if (randomStart > 50) {
+      setOpponentIsWating(true);
+    } else {
+      setPlayerIsWating(true);
     }
     setDidMount(true);
   }, []);
@@ -65,9 +63,9 @@ const Board = props => {
 
   // Losing points one by one //
   useEffect(() => {
-    if (didMount && isLoosingPoints) {
-      const oneByOne = setInterval(() => {
-        /* Loses -1 while life is greater than calculated new life */
+    const oneByOne = setInterval(() => {
+      /* Loses -1 while life is greater than calculated new life */
+      if (didMount && isLoosingPoints) {
         const tempLife = [...life];
         if (life[damages[0][1]] > damages[0][2] && life[damages[1][1]] > damages[1][2]) {
           setIsLoosingPoints(true);
@@ -86,40 +84,42 @@ const Board = props => {
           setIsLoosingPoints(false);
           setDamages([[0, 10], [0, 10], false]);
         }
-      }, 10);
-      return () => {
-        clearInterval(oneByOne);
-      };
-    }
+      }
+    }, 10);
+    return () => {
+      clearInterval(oneByOne);
+    };
   }, [isLoosingPoints, life]);
 
   // Set pause moment after the attack (depends on turn) //
   useEffect(() => {
-    setTimeout(() => {
-      if (
-        (life[0] <= 0 && life[1] <= 0 && life[2] <= 0) ||
-        (life[3] <= 0 && life[4] <= 0 && life[5] <= 0 && !isLoosingPoints)
-      ) {
+    if (didMount && !isLoosingPoints) {
+      setTimeout(() => {
         if (
-          life[0] <= 0 &&
-          life[1] <= 0 &&
-          life[2] <= 0 &&
-          life[3] <= 0 &&
-          life[4] <= 0 &&
-          life[5] <= 0
+          (life[0] <= 0 && life[1] <= 0 && life[2] <= 0) ||
+          (life[3] <= 0 && life[4] <= 0 && life[5] <= 0)
         ) {
-          setGameStatus('draw');
-        } else if (life[0] <= 0 && life[1] <= 0 && life[2] <= 0) {
-          setGameStatus('defeat');
-        } else {
-          setGameStatus('victory');
+          if (
+            life[0] <= 0 &&
+            life[1] <= 0 &&
+            life[2] <= 0 &&
+            life[3] <= 0 &&
+            life[4] <= 0 &&
+            life[5] <= 0
+          ) {
+            setGameStatus('draw');
+          } else if (life[0] <= 0 && life[1] <= 0 && life[2] <= 0) {
+            setGameStatus('defeat');
+          } else {
+            setGameStatus('victory');
+          }
+        } else if (!playerTurn) {
+          setOpponentIsWating(true);
+        } else if (playerTurn) {
+          setPlayerIsWating(true);
         }
-      } else if (didMount && !isLoosingPoints && !playerTurn) {
-        setOpponentIsWating(true);
-      } else if (didMount && !isLoosingPoints && playerTurn) {
-        setPlayerIsWating(true);
-      }
-    }, 300);
+      }, 300);
+    }
   }, [isLoosingPoints]);
 
   // Set moment to pop-up the indication //
@@ -196,27 +196,37 @@ const Board = props => {
         `${deck[selectedCard].name} inflige ${attack[selectedCard]} a ${deckOp[index - 3].name}`
       );
       setPlayerTurn(false);
+
+      if (reqCards.length !== 0) {
+        this.setState({ validButtonFight: false });
+      } else {
+        this.setState({ validButtonFight: true });
+      }
     }
   };
 
   return (
-    <DisplayBoard
-      opponentDeck={deckOp}
-      playerDeck={deck}
-      handleClick={handleClick}
-      handleHover={handleHover}
-      clearIndex={clearIndex}
-      life={life}
-      attack={attack}
-      selectedCard={selectedCard}
-      opponentIsWating={opponentIsWating}
-      indexToDisplay={indexToDisplay}
-      logConsole={logConsole}
-      playerIsWating={playerIsWating}
-      damages={damages}
-      gameStatus={gameStatus}
-      selectAttackRef={selectAttackRef}
-    />
+    <>
+      {didMount && (
+        <DisplayBoard
+          opponentDeck={deckOp}
+          playerDeck={deck}
+          handleClick={handleClick}
+          handleHover={handleHover}
+          clearIndex={clearIndex}
+          life={life}
+          attack={attack}
+          selectedCard={selectedCard}
+          opponentIsWating={opponentIsWating}
+          indexToDisplay={indexToDisplay}
+          logConsole={logConsole}
+          playerIsWating={playerIsWating}
+          damages={damages}
+          gameStatus={gameStatus}
+          selectAttackRef={selectAttackRef}
+        />
+      )}
+    </>
   );
 };
 Board.propTypes = {
