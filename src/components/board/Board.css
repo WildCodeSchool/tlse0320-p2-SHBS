@@ -162,9 +162,16 @@
 
 /* Sound button */
 
-.active-sound {
-  position: absolute;
-  width: 4vw;
+.music-and-sounds {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.active-sound,
+.active-music {
+  width: 3vw;
   margin: 1vw;
   cursor: pointer;
+  filter: drop-shadow(4px 3px #333);
 }

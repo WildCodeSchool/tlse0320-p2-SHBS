@@ -22,9 +22,10 @@ const Board = props => {
   const selectAttackRef = useRef();
   const attackTargetRef = useRef();
   const youLoseRef = useRef();
-  const IAattackRef = useRef();
+  const opponentAttackRef = useRef();
   const youWinRef = useRef();
   const drawRef = useRef();
+  const [stopMusic, setStopMusic] = useState(false);
 
   // set a boolean state to true after mounting //
   useEffect(() => {
@@ -130,10 +131,13 @@ const Board = props => {
 
   useEffect(() => {
     if (gameStatus === 'victory') {
+      setStopMusic(true);
       youWinRef.current.play();
     } else if (gameStatus === 'defeat') {
+      setStopMusic(true);
       youLoseRef.current.play();
     } else if (gameStatus === 'draw') {
+      setStopMusic(true);
       drawRef.current.play();
     }
   }, [gameStatus]);
@@ -176,7 +180,7 @@ const Board = props => {
           [attack[randomTarget], randomAttacker, newLifeReturn],
           false
         ]);
-        IAattackRef.current.play();
+        opponentAttackRef.current.play();
         // setLife(tempLife);
         setIsLoosingPoints(true);
         if (randomAttacker) {
@@ -241,9 +245,10 @@ const Board = props => {
           selectAttackRef={selectAttackRef}
           attackTargetRef={attackTargetRef}
           youLoseRef={youLoseRef}
-          IAattackRef={IAattackRef}
+          opponentAttackRef={opponentAttackRef}
           drawRef={drawRef}
           youWinRef={youWinRef}
+          stopMusic={stopMusic}
         />
       )}
     </>

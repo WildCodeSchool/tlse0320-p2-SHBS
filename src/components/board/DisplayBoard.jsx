@@ -26,9 +26,10 @@ const DisplayBoard = props => {
     selectAttackRef,
     attackTargetRef,
     youLoseRef,
-    IAattackRef,
+    opponentAttackRef,
     drawRef,
-    youWinRef
+    youWinRef,
+    stopMusic
   } = props;
 
   return (
@@ -37,9 +38,10 @@ const DisplayBoard = props => {
         selectAttackRef={selectAttackRef}
         attackTargetRef={attackTargetRef}
         youLoseRef={youLoseRef}
-        IAattackRef={IAattackRef}
+        opponentAttackRef={opponentAttackRef}
         drawRef={drawRef}
         youWinRef={youWinRef}
+        stopMusic={stopMusic}
       />
       <DisplayTurnIndication
         gameStatus={gameStatus}
@@ -75,7 +77,7 @@ const DisplayBoard = props => {
                             : ' isNotAttacking'
                         }
                       ${damages[1][1] === i + 3 && damages[2] ? ' isShaking' : ''}`
-                      : 'container-card-text dead'
+                      : 'container-card-text dead isNotAttacking'
                   }
                 />
               </div>
@@ -109,7 +111,7 @@ const DisplayBoard = props => {
                             ? ' isAttacking'
                             : ' isNotAttacking'
                         }${damages[0][1] === i && !damages[2] ? ' isShaking' : ''}`
-                      : 'container-card-text dead'
+                      : 'container-card-text dead isNotAttacking'
                   }
                 />
               </div>
@@ -136,7 +138,14 @@ DisplayBoard.propTypes = {
   playerIsWating: PropTypes.bool.isRequired,
   selectedCard: PropTypes.number,
   logConsole: PropTypes.string,
-  gameStatus: PropTypes.string.isRequired
+  gameStatus: PropTypes.string.isRequired,
+  stopMusic: PropTypes.bool.isRequired,
+  selectAttackRef: PropTypes.func.isRequired,
+  attackTargetRef: PropTypes.func.isRequired,
+  youLoseRef: PropTypes.func.isRequired,
+  opponentAttackRef: PropTypes.func.isRequired,
+  drawRef: PropTypes.func.isRequired,
+  youWinRef: PropTypes.func.isRequired
 };
 
 DisplayBoard.defaultProps = {
