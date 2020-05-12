@@ -8,7 +8,7 @@ const Board = props => {
   const [didMount, setDidMount] = useState(false);
   const [indexToDisplay, setIndexToDisplay] = useState();
   const [selectedCard, setSelectedCard] = useState();
-  const [playerTurn, setPlayerTurn] = useState(true);
+  const [playerTurn, setPlayerTurn] = useState(false);
   const [opponentTurn, setOpponentTurn] = useState(false);
   const [isLoosingPoints, setIsLoosingPoints] = useState(false);
   const [logConsole, setLogConsole] = useState();
@@ -18,9 +18,13 @@ const Board = props => {
   const [opponentIsWating, setOpponentIsWating] = useState(false);
   const [playerIsWating, setPlayerIsWating] = useState(false);
   const [gameStatus, setGameStatus] = useState('onGoing');
+  /* audio */
   const selectAttackRef = useRef();
-  const areFightingRef = useRef();
+  const attackTargetRef = useRef();
   const youLoseRef = useRef();
+  const IAattackRef = useRef();
+  const youWinRef = useRef();
+  const drawRef = useRef();
 
   // set a boolean state to true after mounting //
   useEffect(() => {
@@ -120,17 +124,17 @@ const Board = props => {
         } else if (playerTurn) {
           setPlayerIsWating(true);
         }
-      }, 300);
+      }, 400);
     }
   }, [isLoosingPoints]);
 
   useEffect(() => {
     if (gameStatus === 'victory') {
-      youLoseRef.current.play();
+      youWinRef.current.play();
     } else if (gameStatus === 'defeat') {
       youLoseRef.current.play();
     } else if (gameStatus === 'draw') {
-      youLoseRef.current.play();
+      drawRef.current.play();
     }
   }, [gameStatus]);
 
@@ -143,6 +147,7 @@ const Board = props => {
         setOpponentTurn(!opponentTurn);
       } else if (didMount && playerIsWating) {
         setPlayerIsWating(false);
+        setPlayerTurn(true);
       }
     }, 2000);
   }, [opponentIsWating, playerIsWating]);
@@ -171,6 +176,7 @@ const Board = props => {
           [attack[randomTarget], randomAttacker, newLifeReturn],
           false
         ]);
+        IAattackRef.current.play();
         // setLife(tempLife);
         setIsLoosingPoints(true);
         if (randomAttacker) {
@@ -180,9 +186,8 @@ const Board = props => {
             }`
           );
         }
-        areFightingRef.current.play();
         setPlayerTurn(true);
-      }, 250);
+      }, 400);
     }
   }, [opponentTurn]);
 
@@ -205,7 +210,7 @@ const Board = props => {
         [attack[selectedCard], index, newLife],
         true
       ]);
-      areFightingRef.current.play();
+      attackTargetRef.current.play();
       setSelectedCard();
       setIsLoosingPoints(true);
       setLogConsole(
@@ -234,8 +239,11 @@ const Board = props => {
           damages={damages}
           gameStatus={gameStatus}
           selectAttackRef={selectAttackRef}
-          areFightingRef={areFightingRef}
+          attackTargetRef={attackTargetRef}
           youLoseRef={youLoseRef}
+          IAattackRef={IAattackRef}
+          drawRef={drawRef}
+          youWinRef={youWinRef}
         />
       )}
     </>
