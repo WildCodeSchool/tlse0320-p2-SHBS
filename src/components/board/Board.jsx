@@ -211,6 +211,12 @@ const Board = props => {
         : 0;
       const result = JSON.stringify(defeatCount + 1);
       window.localStorage.setItem('myDefeats', result);
+    } else if (gameStatus === 'draw') {
+      const drawCount = window.localStorage.getItem('myDraws')
+        ? parseInt(window.localStorage.getItem('myDraws'))
+        : 0;
+      const result = JSON.stringify(drawCount + 1);
+      window.localStorage.setItem('myDraws', result);
     }
   }, [gameStatus]);
 

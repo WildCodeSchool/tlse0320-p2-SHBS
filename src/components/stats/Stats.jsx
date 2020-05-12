@@ -1,12 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import StandardCard from '../Cards/StandardCard';
-import loadingbar from '../../img/loadingbar.png';
 import statsTitle from '../../img/stats.png';
 import './Stats.css';
 
 const Stats = () => {
-  const victory = JSON.parse(window.localStorage.getItem('myVictories'));
-  const defeat = JSON.parse(window.localStorage.getItem('myDefeats'));
+  const victories = JSON.parse(window.localStorage.getItem('myVictories'));
+  const defeats = JSON.parse(window.localStorage.getItem('myDefeats'));
+  const draws = window.localStorage.getItem('myDraws')
+    ? JSON.parse(window.localStorage.getItem('myDraws'))
+    : 0;
+  const totalXp = victories * 300 + draws * 100;
+  const lvl = Math.floor(totalXp / 1000) + 1;
+  const currentXp = totalXp - (lvl - 1) * 1000;
+  const visualCurrentXp = currentXp / 10;
 
   return (
     <div className="stats-page">
@@ -17,15 +23,23 @@ const Stats = () => {
           <ul>
             <li className="bigger-P-Li">
               {'Played : '}
-              {victory + defeat}
+              {victories + defeats + draws}
             </li>
             <li className="bigger-P-Li">
               {'Victories : '}
-              {victory}
+              {victories}
             </li>
             <li className="bigger-P-Li">
-              {'Ratio V/D : '}
-              {Math.round((victory / (victory + defeat)) * 100)}
+              {'Defeats : '}
+              {defeats}
+            </li>
+            <li className="bigger-P-Li">
+              {'Draws : '}
+              {draws}
+            </li>
+            <li className="bigger-P-Li">
+              {'Ratio Victory : '}
+              {Math.round((victories / (victories + defeats + draws)) * 100)}
               {' %'}
             </li>
           </ul>
@@ -33,14 +47,20 @@ const Stats = () => {
         <section className="stats-level">
           <h2>Your level</h2>
           <div>
-            <p className="bigger-P-Li">Lvl 7</p>
+            <p className="bigger-P-Li">
+              {'Lvl : '}
+              {lvl}
+            </p>
             <div className="stats-bar-wrapper">
               <p className="bigger-P-Li">
-                {victory * 500}
+                {currentXp}
                 {' xp'}
               </p>
-              <img className="stats-loading-bar" src={loadingbar} alt="xp-bar" />
-              <p className="bigger-P-Li">1200 xp</p>
+              {/* <img className="stats-loading-bar" src={loadingbar} alt="xp-bar" /> */}
+              <div className="container-xp-bar">
+                <div className="xp-bar" style={{ width: `${visualCurrentXp}%` }} />
+              </div>
+              <p className="bigger-P-Li">1000 xp</p>
             </div>
           </div>
         </section>
