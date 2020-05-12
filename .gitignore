@@ -24,4 +24,4 @@ yarn-error.log*
 
 ./src/package-lock.json
 #dedugger vscode
-/.vscode
+.vscode/
