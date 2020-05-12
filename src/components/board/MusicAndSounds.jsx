@@ -4,10 +4,13 @@
 import React, { useState } from 'react';
 import music from '../../audio/music.mp3';
 import selectAttack from '../../audio/Whip 01.wav';
+import areFighting from '../../audio/Swirl 01.wav';
+import youLose from '../../audio/Wild Laughs Male 01.wav';
 import musicOn from '../../img/musicOn.png';
 import musicOff from '../../img/musicOff.png';
 
-const MusicAndSounds = ({ selectAttackRef }) => {
+const MusicAndSounds = props => {
+  const { selectAttackRef, areFightingRef, youLoseRef } = props;
   const [soundActive, setSoundActive] = useState(false);
 
   return (
@@ -34,6 +37,8 @@ const MusicAndSounds = ({ selectAttackRef }) => {
         </>
       )}
       <audio ref={selectAttackRef} src={selectAttack} />
+      <audio ref={areFightingRef} src={areFighting} />
+      <audio ref={youLoseRef} src={youLose} />
     </div>
   );
 };

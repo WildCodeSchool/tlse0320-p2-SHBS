@@ -23,12 +23,18 @@ const DisplayBoard = props => {
     damages,
     logConsole,
     gameStatus,
-    selectAttackRef
+    selectAttackRef,
+    areFightingRef,
+    youLoseRef
   } = props;
 
   return (
     <section className="darkcity-bg flex-row">
-      <MusicAndSounds selectAttackRef={selectAttackRef} />
+      <MusicAndSounds
+        selectAttackRef={selectAttackRef}
+        areFightingRef={areFightingRef}
+        youLoseRef={youLoseRef}
+      />
       <DisplayTurnIndication
         gameStatus={gameStatus}
         playerIsWating={playerIsWating}

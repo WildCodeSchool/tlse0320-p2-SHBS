@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import DisplayBoard from './DisplayBoard';
 import './Board.css';
@@ -18,7 +18,9 @@ const Board = props => {
   const [opponentIsWating, setOpponentIsWating] = useState(false);
   const [playerIsWating, setPlayerIsWating] = useState(false);
   const [gameStatus, setGameStatus] = useState('onGoing');
-  const selectAttackRef = React.createRef();
+  const selectAttackRef = useRef();
+  const areFightingRef = useRef();
+  const youLoseRef = useRef();
 
   // set a boolean state to true after mounting //
   useEffect(() => {
@@ -33,7 +35,7 @@ const Board = props => {
 
   // load the life & attack props in the state //
   useEffect(() => {
-    if (deck[0]) {
+    if (didMount && deck[0]) {
       setLife([
         deck[0].powerstats.durability,
         deck[1].powerstats.durability,
@@ -122,6 +124,16 @@ const Board = props => {
     }
   }, [isLoosingPoints]);
 
+  useEffect(() => {
+    if (gameStatus === 'victory') {
+      youLoseRef.current.play();
+    } else if (gameStatus === 'defeat') {
+      youLoseRef.current.play();
+    } else if (gameStatus === 'draw') {
+      youLoseRef.current.play();
+    }
+  }, [gameStatus]);
+
   // Set moment to pop-up the indication //
   useEffect(() => {
     setTimeout(() => {
@@ -153,21 +165,24 @@ const Board = props => {
         life[randomAttacker] - attack[randomTarget] > 0
           ? life[randomAttacker] - attack[randomTarget]
           : 0;
-      setDamages([
-        [attack[randomAttacker], randomTarget, newLife],
-        [attack[randomTarget], randomAttacker, newLifeReturn],
-        false
-      ]);
-      // setLife(tempLife);
-      setIsLoosingPoints(true);
-      if (randomAttacker) {
-        setLogConsole(
-          `${deckOp[randomAttacker - 3].name} inflige ${attack[randomAttacker]} a ${
-            deck[randomTarget].name
-          }`
-        );
-      }
-      setPlayerTurn(true);
+      setTimeout(() => {
+        setDamages([
+          [attack[randomAttacker], randomTarget, newLife],
+          [attack[randomTarget], randomAttacker, newLifeReturn],
+          false
+        ]);
+        // setLife(tempLife);
+        setIsLoosingPoints(true);
+        if (randomAttacker) {
+          setLogConsole(
+            `${deckOp[randomAttacker - 3].name} inflige ${attack[randomAttacker]} a ${
+              deck[randomTarget].name
+            }`
+          );
+        }
+        areFightingRef.current.play();
+        setPlayerTurn(true);
+      }, 250);
     }
   }, [opponentTurn]);
 
@@ -190,18 +205,13 @@ const Board = props => {
         [attack[selectedCard], index, newLife],
         true
       ]);
+      areFightingRef.current.play();
       setSelectedCard();
       setIsLoosingPoints(true);
       setLogConsole(
         `${deck[selectedCard].name} inflige ${attack[selectedCard]} a ${deckOp[index - 3].name}`
       );
       setPlayerTurn(false);
-
-      if (reqCards.length !== 0) {
-        this.setState({ validButtonFight: false });
-      } else {
-        this.setState({ validButtonFight: true });
-      }
     }
   };
 
@@ -224,6 +234,8 @@ const Board = props => {
           damages={damages}
           gameStatus={gameStatus}
           selectAttackRef={selectAttackRef}
+          areFightingRef={areFightingRef}
+          youLoseRef={youLoseRef}
         />
       )}
     </>
