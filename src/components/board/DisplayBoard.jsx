@@ -140,12 +140,12 @@ DisplayBoard.propTypes = {
   logConsole: PropTypes.string,
   gameStatus: PropTypes.string.isRequired,
   stopMusic: PropTypes.bool.isRequired,
-  selectAttackRef: PropTypes.func.isRequired,
-  attackTargetRef: PropTypes.func.isRequired,
-  youLoseRef: PropTypes.func.isRequired,
-  opponentAttackRef: PropTypes.func.isRequired,
-  drawRef: PropTypes.func.isRequired,
-  youWinRef: PropTypes.func.isRequired
+  selectAttackRef: PropTypes.instanceOf(Object).isRequired,
+  attackTargetRef: PropTypes.instanceOf(Object).isRequired,
+  youLoseRef: PropTypes.instanceOf(Object).isRequired,
+  opponentAttackRef: PropTypes.instanceOf(Object).isRequired,
+  drawRef: PropTypes.instanceOf(Object).isRequired,
+  youWinRef: PropTypes.instanceOf(Object).isRequired
 };
 
 DisplayBoard.defaultProps = {
