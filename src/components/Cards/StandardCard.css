@@ -3,6 +3,11 @@
   position: relative;
 }
 
+.dead {
+  filter: grayscale(100%);
+  opacity: 0.6;
+}
+
 .container-card-text .standard-card {
   display: block;
   background-size: cover;
