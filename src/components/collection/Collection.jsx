@@ -123,9 +123,11 @@ class Collection extends Component {
         ? `You need ${reqCards.length} more card${pluriel} before fighting`
         : 'You can fight !';
     this.setState({ numberOfCardsRequired: nbOfCardsRequiredMsg });
-    reqCards.length !== 0
-      ? this.setState({ validButtonFight: false })
-      : this.setState({ validButtonFight: true });
+    if (reqCards.length !== 0) {
+      this.setState({ validButtonFight: false });
+    } else {
+      this.setState({ validButtonFight: true });
+    }
   };
 
   handleSearch(event) {
