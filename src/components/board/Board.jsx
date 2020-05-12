@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import './Board.css';
 import DisplayBoard from './DisplayBoard';
+import './Board.css';
 
 const Board = props => {
   const { deck, deckOp } = props;
@@ -9,13 +9,30 @@ const Board = props => {
   const [indexToDisplay, setIndexToDisplay] = useState();
   const [selectedCard, setSelectedCard] = useState();
   const [playerTurn, setPlayerTurn] = useState(true);
-  const [oponentTurn, setOponentTurn] = useState(false);
-  const [areFighting, setAreFighting] = useState([null, null, false, null]);
+  const [opponentTurn, setOpponentTurn] = useState(false);
   const [isLoosingPoints, setIsLoosingPoints] = useState(false);
+  const [logConsole, setLogConsole] = useState();
   const [life, setLife] = useState([]);
   const [attack, setAttack] = useState([]);
+  const [damages, setDamages] = useState([[0, 10], [0, 10], false]);
+  const [opponentIsWating, setOpponentIsWating] = useState(false);
+  const [playerIsWating, setPlayerIsWating] = useState(false);
+  const [gameStatus, setGameStatus] = useState('onGoing');
 
-  useEffect(() => setDidMount(true), []);
+  // set a boolean state to true after mounting //
+  useEffect(() => {
+    if (!didMount) {
+      const randomStart = Math.floor(Math.random() * 100);
+      if (randomStart > 50) {
+        setOpponentIsWating(true);
+      } else {
+        setPlayerIsWating(true);
+      }
+    }
+    setDidMount(true);
+  }, []);
+
+  // load the life & attack props in the state //
   useEffect(() => {
     if (deck[0]) {
       setLife([
@@ -45,67 +62,138 @@ const Board = props => {
     setIndexToDisplay();
   };
 
-  /* Losing points one by one */
+  // Losing points one by one //
   useEffect(() => {
-    const id = setInterval(() => {
-      if (didMount && life[areFighting[0]] > areFighting[1] && life[areFighting[0]] > 0) {
-        setIsLoosingPoints(true);
+    if (didMount && isLoosingPoints) {
+      const oneByOne = setInterval(() => {
+        /* Loses -1 while life is greater than calculated new life */
         const tempLife = [...life];
-        tempLife[areFighting[0]] -= 1;
-        setLife(tempLife);
-        setAreFighting([areFighting[0], areFighting[1], !areFighting[2], areFighting[3]]);
-      } else {
-        setIsLoosingPoints(false);
-      }
-    }, 1000 / areFighting[3]);
-    return () => {
-      clearInterval(id);
-    };
-  }, [areFighting]);
+        if (life[damages[0][1]] > damages[0][2] && life[damages[1][1]] > damages[1][2]) {
+          setIsLoosingPoints(true);
+          tempLife[damages[0][1]] -= 1;
+          tempLife[damages[1][1]] -= 1;
+          setLife(tempLife);
+        } else if (life[damages[0][1]] > damages[0][2]) {
+          setIsLoosingPoints(true);
+          tempLife[damages[0][1]] -= 1;
+          setLife(tempLife);
+        } else if (life[damages[1][1]] > damages[1][2]) {
+          setIsLoosingPoints(true);
+          tempLife[damages[1][1]] -= 1;
+          setLife(tempLife);
+        } else {
+          setIsLoosingPoints(false);
+          setDamages([[0, 10], [0, 10], false]);
+        }
+      }, 10);
+      return () => {
+        clearInterval(oneByOne);
+      };
+    }
+  }, [isLoosingPoints, life]);
 
-  /* Set IA turn and timing */
+  // Set pause moment after the attack (depends on turn) //
   useEffect(() => {
-    const id = setTimeout(() => {
-      if (didMount && !isLoosingPoints && !playerTurn) {
-        setOponentTurn(!oponentTurn);
+    setTimeout(() => {
+      if (
+        (life[0] <= 0 && life[1] <= 0 && life[2] <= 0) ||
+        (life[3] <= 0 && life[4] <= 0 && life[5] <= 0 && !isLoosingPoints)
+      ) {
+        if (
+          life[0] <= 0 &&
+          life[1] <= 0 &&
+          life[2] <= 0 &&
+          life[3] <= 0 &&
+          life[4] <= 0 &&
+          life[5] <= 0
+        ) {
+          setGameStatus('draw');
+        } else if (life[0] <= 0 && life[1] <= 0 && life[2] <= 0) {
+          setGameStatus('defeat');
+        } else {
+          setGameStatus('victory');
+        }
+      } else if (didMount && !isLoosingPoints && !playerTurn) {
+        setOpponentIsWating(true);
+      } else if (didMount && !isLoosingPoints && playerTurn) {
+        setPlayerIsWating(true);
       }
-    }, 1400);
-    return () => {
-      clearTimeout(id);
-    };
+    }, 300);
   }, [isLoosingPoints]);
 
-  /* IA turn */
+  // Set moment to pop-up the indication //
+  useEffect(() => {
+    setTimeout(() => {
+      if (didMount && opponentIsWating) {
+        setOpponentIsWating(false);
+        /* Trigger the IA-turn use-effect */
+        setOpponentTurn(!opponentTurn);
+      } else if (didMount && playerIsWating) {
+        setPlayerIsWating(false);
+      }
+    }, 2000);
+  }, [opponentIsWating, playerIsWating]);
+
+  // IA turn //
   useEffect(() => {
     if (didMount) {
       /* Random IA choice */
       const aliveSort = [...life].map((card, i) => (card > 0 ? i : 'dead'));
       const oponentSort = [...aliveSort].splice(3).filter(card => card !== 'dead');
       const playerSort = [...aliveSort].splice(0, 3).filter(card => card !== 'dead');
-      const randomOponent = oponentSort[Math.floor(Math.random() * oponentSort.length)];
-      const randomPlayer = playerSort[Math.floor(Math.random() * playerSort.length)];
+      const randomAttacker = oponentSort[Math.floor(Math.random() * oponentSort.length)];
+      const randomTarget = playerSort[Math.floor(Math.random() * playerSort.length)];
       /* Apply attack */
-      const newLife = life[randomPlayer] - attack[randomOponent];
-      const diffDamage =
-        attack[randomOponent] < life[randomPlayer] ? attack[randomOponent] : life[randomPlayer];
-      setAreFighting([randomPlayer, newLife, !areFighting[2], diffDamage]);
+      const newLife =
+        life[randomTarget] - attack[randomAttacker] > 0
+          ? life[randomTarget] - attack[randomAttacker]
+          : 0;
+      const newLifeReturn =
+        life[randomAttacker] - attack[randomTarget] > 0
+          ? life[randomAttacker] - attack[randomTarget]
+          : 0;
+      setDamages([
+        [attack[randomAttacker], randomTarget, newLife],
+        [attack[randomTarget], randomAttacker, newLifeReturn],
+        false
+      ]);
+      // setLife(tempLife);
+      setIsLoosingPoints(true);
+      if (randomAttacker) {
+        setLogConsole(
+          `${deckOp[randomAttacker - 3].name} inflige ${attack[randomAttacker]} a ${
+            deck[randomTarget].name
+          }`
+        );
+      }
       setPlayerTurn(true);
-      console.log(`IA n°${randomOponent} attack player n°${randomPlayer} => loose ${diffDamage}`);
     }
-  }, [oponentTurn]);
+  }, [opponentTurn]);
 
-  /* User Turn */
+  // User Turn //
   const handleClick = e => {
-    const index = e.currentTarget.getAttribute('index');
+    const index = Number(e.currentTarget.getAttribute('index'));
+    /* Select attacker */
     if (index < 3 && life[index] > 0 && playerTurn && !isLoosingPoints) {
       setSelectedCard(index);
-    } else if (index >= 3 && life[index] > 0 && selectedCard) {
-      setPlayerTurn(false);
-      const newLife = life[index] - attack[selectedCard];
-      const diffDamage = attack[selectedCard] < life[index] ? attack[selectedCard] : life[index];
-      setAreFighting([index, newLife, !areFighting[2], diffDamage]);
+      /* Select target */
+    } else if (index >= 3 && life[index] > 0 && selectedCard !== undefined) {
+      /* Apply attack */
+      const newLife =
+        life[index] - attack[selectedCard] > 0 ? life[index] - attack[selectedCard] : 0;
+      const newLifeReturn =
+        life[selectedCard] - attack[index] > 0 ? life[selectedCard] - attack[index] : 0;
+      setDamages([
+        [attack[index], selectedCard, newLifeReturn],
+        [attack[selectedCard], index, newLife],
+        true
+      ]);
       setSelectedCard();
-      console.log(`Player n°${selectedCard} attack IA n°${index} => loose ${diffDamage}`);
+      setIsLoosingPoints(true);
+      setLogConsole(
+        `${deck[selectedCard].name} inflige ${attack[selectedCard]} a ${deckOp[index - 3].name}`
+      );
+      setPlayerTurn(false);
     }
   };
 
@@ -118,6 +206,13 @@ const Board = props => {
       clearIndex={clearIndex}
       life={life}
       attack={attack}
+      selectedCard={selectedCard}
+      opponentIsWating={opponentIsWating}
+      indexToDisplay={indexToDisplay}
+      logConsole={logConsole}
+      playerIsWating={playerIsWating}
+      damages={damages}
+      gameStatus={gameStatus}
     />
   );
 };
