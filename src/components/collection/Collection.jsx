@@ -26,8 +26,8 @@ class Collection extends Component {
           md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/522-poison-ivy.jpg'
         },
         powerstats: {
-          combat: 40,
-          durability: 40,
+          combat: 90,
+          durability: 110,
           strength: 14,
           speed: 21,
           power: 23,
@@ -56,6 +56,12 @@ class Collection extends Component {
           function(...res) {
             const allChars = res.map(result => result.data);
             allChars.forEach((chars, i) => (chars['index'] = i));
+            console.log(Object.keys(charsDatas));
+            const keys = Object.keys(charsDatas);
+            allChars.forEach((chars, i) => (chars.powerstats.combat = charsDatas[keys[i]].combat));
+            allChars.forEach(
+              (chars, i) => (chars.powerstats.durability = charsDatas[keys[i]].durability)
+            );
             this.setState({ characters: allChars });
           }.bind(this)
         )
