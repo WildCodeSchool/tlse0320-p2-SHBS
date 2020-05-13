@@ -142,6 +142,7 @@
 
 .board-game-history p {
   text-align: start;
+  margin: 3px 0 3px 0;
 }
 
 .console-cursor {

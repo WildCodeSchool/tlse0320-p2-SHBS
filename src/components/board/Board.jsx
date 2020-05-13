@@ -186,9 +186,9 @@ const Board = props => {
         setIsLoosingPoints(true);
         if (randomAttacker) {
           setLogConsole(
-            `${deckOp[randomAttacker - 3].name} inflige ${attack[randomAttacker]} a ${
+            `${deckOp[randomAttacker - 3].name} deals ${attack[randomAttacker]} to ${
               deck[randomTarget].name
-            } qui lui rend ${attack[randomTarget]}`
+            } who counterattacks ${attack[randomTarget]}`
           );
         }
         setPlayerTurn(true);
@@ -219,9 +219,9 @@ const Board = props => {
       setSelectedCard();
       setIsLoosingPoints(true);
       setLogConsole(
-        `${deck[selectedCard].name} inflige ${attack[selectedCard]} a ${
+        `${deck[selectedCard].name} deals ${attack[selectedCard]} to ${
           deckOp[index - 3].name
-        } qui lui rend ${attack[index]}`
+        } who counterattacks for ${attack[index]}`
       );
       setPlayerTurn(false);
     }
