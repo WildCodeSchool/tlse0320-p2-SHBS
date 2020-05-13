@@ -124,3 +124,7 @@
 .home-second-page article:last-child p {
   margin: auto 10% auto 0;
 }
+
+.second-page-p {
+  font-size: 1.5em;
+}
