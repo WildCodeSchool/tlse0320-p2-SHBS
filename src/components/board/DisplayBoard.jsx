@@ -5,6 +5,7 @@ import MusicAndSounds from './MusicAndSounds';
 import DisplayTurnIndication from './DisplayTurnIndication';
 import StandardCard from '../Cards/StandardCard';
 import ModalCard from './ModalCard';
+import lineRed from '../../img/lineRed.PNG';
 
 const DisplayBoard = props => {
   const {
@@ -79,6 +80,7 @@ const DisplayBoard = props => {
               );
             })}
           </div>
+          <img src={lineRed} alt="red line" className="red-line" />
           <div className="board-cards-bottom flex-row">
             {playerDeck.map((character, i) => {
               return (
