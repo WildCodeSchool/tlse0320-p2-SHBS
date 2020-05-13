@@ -33,7 +33,7 @@
   z-index: 100;
   background-color: rgba(0, 0, 0, 0.466);
   height: 100vh;
-  animation: popBetweenTurns 2s ease;
+  animation: popBetweenTurns 2.1s ease;
   display: flex;
 }
 
