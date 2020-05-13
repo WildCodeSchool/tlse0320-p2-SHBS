@@ -25,13 +25,13 @@ class Collection extends Component {
         images: {
           md: 'https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/522-poison-ivy.jpg'
         },
-        powerstats: {
-          combat: 40,
-          durability: 40,
-          strength: 14,
-          speed: 21,
-          power: 23,
-          intelligence: 81
+        biography: {
+          fullName: 'Pamela Isley',
+          alignment: 'bad'
+        },
+        appearance: {
+          height: ['0', '168cm'],
+          weight: ['0', '50kg']
         },
         index: 0
       }
@@ -214,12 +214,10 @@ class Collection extends Component {
           <LargeCard
             name={charToDisplay.name}
             image={charToDisplay.images.md}
-            intelligence={charToDisplay.powerstats.intelligence}
-            strength={charToDisplay.powerstats.strength}
-            speed={charToDisplay.powerstats.speed}
-            durability={charToDisplay.powerstats.durability}
-            power={charToDisplay.powerstats.power}
-            combat={charToDisplay.powerstats.combat}
+            fullName={charToDisplay.biography.fullName}
+            alignment={charToDisplay.biography.alignment}
+            height={charToDisplay.appearance.height[1]}
+            weight={charToDisplay.appearance.weight[1]}
           />
         </div>
       </div>
