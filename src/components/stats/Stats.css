@@ -57,7 +57,7 @@
 }
 
 .stats-played img {
-  width: 150px;
+  width: 20vh;
 }
 
 .container-xp-bar {
@@ -65,10 +65,13 @@
   height: 3vh;
   background-color: #d2d2d2;
   border-radius: 15px;
+  box-shadow: 4px 4px 4px black;
+  /* box-shadow: 3px 3px #333; */
 }
 
 .xp-bar {
   height: 100%;
   background-color: #6cf436;
   border-radius: 15px;
+  box-shadow: 2px 2px 2px black;
 }

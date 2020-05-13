@@ -219,14 +219,16 @@ const Board = props => {
         const result = JSON.stringify(drawCount + 1);
         window.localStorage.setItem('myDraws', result);
       }
-      const allUsed = window.localStorage.getItem('myAllUsed')
-        ? JSON.parse(window.localStorage.getItem('myAllUsed'))
-        : [];
-      allUsed.push(deck[0]);
-      allUsed.push(deck[1]);
-      allUsed.push(deck[2]);
-      const all = JSON.stringify(allUsed);
-      window.localStorage.setItem('myAllUsed', all);
+      const playedCount = window.localStorage.getItem('myPlayedCount')
+        ? JSON.parse(window.localStorage.getItem('myPlayedCount'))
+        : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+      playedCount[deck[0].index] += 1;
+      playedCount[deck[1].index] += 1;
+      playedCount[deck[2].index] += 1;
+
+      const all = JSON.stringify(playedCount);
+      window.localStorage.setItem('myPlayedCount', all);
     }
   }, [gameStatus]);
 
