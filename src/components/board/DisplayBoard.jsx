@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CombatLog from './CombatLog';
+import MusicAndSounds from './MusicAndSounds';
 import DisplayTurnIndication from './DisplayTurnIndication';
 import StandardCard from '../Cards/StandardCard';
 import ModalCard from './ModalCard';
-import './DisplayBoard.css';
+import lineRed from '../../img/lineRed.PNG';
 
 const DisplayBoard = props => {
   const {
@@ -21,28 +22,39 @@ const DisplayBoard = props => {
     selectedCard,
     damages,
     logConsole,
-    gameStatus
+    gameStatus,
+    selectAttackRef,
+    attackTargetRef,
+    youLoseRef,
+    opponentAttackRef,
+    drawRef,
+    youWinRef,
+    stopMusic
   } = props;
 
   return (
-    <section className="darkcity-bg flex-row">
+    <section className="darkcity-bg">
       <DisplayTurnIndication
         gameStatus={gameStatus}
         playerIsWating={playerIsWating}
         opponentIsWating={opponentIsWating}
       />
-      <div className="board-cards flex-column">
-        <div className="board-cards-top flex-row">
-          {opponentDeck &&
-            opponentDeck.map((character, i) => {
+      <div className="flex-row board-page">
+        <MusicAndSounds
+          selectAttackRef={selectAttackRef}
+          attackTargetRef={attackTargetRef}
+          youLoseRef={youLoseRef}
+          opponentAttackRef={opponentAttackRef}
+          drawRef={drawRef}
+          youWinRef={youWinRef}
+          stopMusic={stopMusic}
+        />
+        <div className="board-cards flex-column">
+          <div className="board-cards-top flex-row">
+            {opponentDeck.map((character, i) => {
               return (
                 <div className="flex-row">
-                  <ModalCard
-                    indexToDisplay={indexToDisplay}
-                    character={character}
-                    id={i + 3}
-                    background=" bg-opponent"
-                  />
+                  <ModalCard indexToDisplay={indexToDisplay} character={character} id={i + 3} />
                   <StandardCard
                     handleHover={handleHover}
                     handleClick={handleClick}
@@ -61,24 +73,19 @@ const DisplayBoard = props => {
                               : ' isNotAttacking'
                           }
                       ${damages[1][1] === i + 3 && damages[2] ? ' isShaking' : ''}`
-                        : 'container-card-text dead'
+                        : 'container-card-text dead isNotAttacking'
                     }
                   />
                 </div>
               );
             })}
-        </div>
-        <div className="board-cards-bottom flex-row">
-          {playerDeck &&
-            playerDeck.map((character, i) => {
+          </div>
+          <img src={lineRed} alt="red line" className="red-line" />
+          <div className="board-cards-bottom flex-row">
+            {playerDeck.map((character, i) => {
               return (
                 <div>
-                  <ModalCard
-                    indexToDisplay={indexToDisplay}
-                    character={character}
-                    id={i}
-                    background=" bg-player"
-                  />
+                  <ModalCard indexToDisplay={indexToDisplay} character={character} id={i} />
                   <StandardCard
                     handleHover={handleHover}
                     handleClick={handleClick}
@@ -96,15 +103,16 @@ const DisplayBoard = props => {
                               ? ' isAttacking'
                               : ' isNotAttacking'
                           }${damages[0][1] === i && !damages[2] ? ' isShaking' : ''}`
-                        : 'container-card-text dead'
+                        : 'container-card-text dead isNotAttacking'
                     }
                   />
                 </div>
               );
             })}
+          </div>
         </div>
+        <CombatLog logConsole={logConsole} />
       </div>
-      <CombatLog logConsole={logConsole} />
     </section>
   );
 };
@@ -123,7 +131,14 @@ DisplayBoard.propTypes = {
   playerIsWating: PropTypes.bool.isRequired,
   selectedCard: PropTypes.number,
   logConsole: PropTypes.string,
-  gameStatus: PropTypes.string.isRequired
+  gameStatus: PropTypes.string.isRequired,
+  stopMusic: PropTypes.bool.isRequired,
+  selectAttackRef: PropTypes.instanceOf(Object).isRequired,
+  attackTargetRef: PropTypes.instanceOf(Object).isRequired,
+  youLoseRef: PropTypes.instanceOf(Object).isRequired,
+  opponentAttackRef: PropTypes.instanceOf(Object).isRequired,
+  drawRef: PropTypes.instanceOf(Object).isRequired,
+  youWinRef: PropTypes.instanceOf(Object).isRequired
 };
 
 DisplayBoard.defaultProps = {

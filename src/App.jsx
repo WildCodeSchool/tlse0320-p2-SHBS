@@ -10,13 +10,8 @@ import './App.css';
 
 function App() {
   const [deck, setDeck] = useState([]);
-  const addDeck = deckSelect => {
-    setDeck(deckSelect);
-  };
   const [deckOp, setDeckOp] = useState([]);
-  const addDeckOp = deckOpponent => {
-    setDeckOp(deckOpponent);
-  };
+
   return (
     <div>
       <Router>
@@ -24,7 +19,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/Collection" exact>
-            <Collection addDeck={addDeck} addDeckOp={addDeckOp} />
+            <Collection addDeck={setDeck} addDeckOp={setDeckOp} />
           </Route>
           <Route path="/Board" exact>
             <Board deck={deck} deckOp={deckOp} />
