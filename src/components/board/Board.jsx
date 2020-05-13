@@ -58,6 +58,7 @@ const Board = props => {
         deckOp[1].powerstats.combat,
         deckOp[2].powerstats.combat
       ]);
+      setLogConsole("Let's fight !");
     }
   }, [deck, deckOp]);
 
@@ -172,11 +173,21 @@ const Board = props => {
         // setLife(tempLife);
         setIsLoosingPoints(true);
         if (randomAttacker) {
-          setLogConsole(
-            `${deckOp[randomAttacker - 3].name} deals ${attack[randomAttacker]} to ${
-              deck[randomTarget].name
-            } who counterattacks ${attack[randomTarget]}`
-          );
+          if (newLife === 0 && newLifeReturn === 0) {
+            setLogConsole(
+              `${deckOp[randomAttacker - 3].name} and ${deck[randomTarget].name} killed each other!`
+            );
+          } else if (newLife === 0) {
+            setLogConsole(`${deckOp[randomAttacker - 3].name} killed ${deck[randomTarget].name}!`);
+          } else if (newLifeReturn === 0) {
+            setLogConsole(`${deck[randomTarget].name} killed ${deckOp[randomAttacker - 3].name}!`);
+          } else {
+            setLogConsole(
+              `${deckOp[randomAttacker - 3].name} deals ${attack[randomAttacker]} to ${
+                deck[randomTarget].name
+              } who counterattacks for ${attack[randomTarget]}...`
+            );
+          }
         }
         setPlayerTurn(true);
       }, 400);
@@ -205,11 +216,21 @@ const Board = props => {
       attackTargetRef.current.play();
       setSelectedCard();
       setIsLoosingPoints(true);
-      setLogConsole(
-        `${deck[selectedCard].name} deals ${attack[selectedCard]} to ${
-          deckOp[index - 3].name
-        } who counterattacks for ${attack[index]}`
-      );
+      if (newLife === 0 && newLifeReturn === 0) {
+        setLogConsole(
+          `${deck[selectedCard].name} and ${deckOp[index - 3].name} killed each other!`
+        );
+      } else if (newLife === 0) {
+        setLogConsole(`${deck[selectedCard].name} killed ${deckOp[index - 3].name}!`);
+      } else if (newLifeReturn === 0) {
+        setLogConsole(`${deckOp[index - 3].name} killed ${deck[selectedCard].name}!`);
+      } else {
+        setLogConsole(
+          `${deck[selectedCard].name} deals ${attack[selectedCard]} to ${
+            deckOp[index - 3].name
+          } who counterattacks for ${attack[index]}...`
+        );
+      }
       setPlayerTurn(false);
     }
   };
