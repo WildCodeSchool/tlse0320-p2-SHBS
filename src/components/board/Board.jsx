@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import DisplayBoard from './DisplayBoard';
 import './Board.css';
+import './ModalAndPopUps.css';
 
 const Board = props => {
   const { deck, deckOp } = props;

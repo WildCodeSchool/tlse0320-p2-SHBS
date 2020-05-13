@@ -62,7 +62,7 @@ const MusicAndSounds = props => {
   };
 
   return (
-    <div className="music-and-sounds">
+    <div className="flex-column">
       {(musicActive === 'true' || !musicActive) && !stopMusic ? (
         <>
           <img

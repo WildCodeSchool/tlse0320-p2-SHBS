@@ -5,7 +5,6 @@ import MusicAndSounds from './MusicAndSounds';
 import DisplayTurnIndication from './DisplayTurnIndication';
 import StandardCard from '../Cards/StandardCard';
 import ModalCard from './ModalCard';
-import './DisplayBoard.css';
 
 const DisplayBoard = props => {
   const {
@@ -33,93 +32,85 @@ const DisplayBoard = props => {
   } = props;
 
   return (
-    <section className="darkcity-bg flex-row">
-      <MusicAndSounds
-        selectAttackRef={selectAttackRef}
-        attackTargetRef={attackTargetRef}
-        youLoseRef={youLoseRef}
-        opponentAttackRef={opponentAttackRef}
-        drawRef={drawRef}
-        youWinRef={youWinRef}
-        stopMusic={stopMusic}
-      />
+    <section className="darkcity-bg">
       <DisplayTurnIndication
         gameStatus={gameStatus}
         playerIsWating={playerIsWating}
         opponentIsWating={opponentIsWating}
       />
-      <div className="board-cards flex-column">
-        <div className="board-cards-top flex-row">
-          {opponentDeck.map((character, i) => {
-            return (
-              <div className="flex-row">
-                <ModalCard
-                  indexToDisplay={indexToDisplay}
-                  character={character}
-                  id={i + 3}
-                  background=" bg-opponent"
-                />
-                <StandardCard
-                  handleHover={handleHover}
-                  handleClick={handleClick}
-                  clearIndex={clearIndex}
-                  combat={attack[i + 3]}
-                  durability={life[i + 3]}
-                  image={character.images.md}
-                  index={i + 3}
-                  key={character.id}
-                  damages={damages[1]}
-                  cardClass={
-                    life[i + 3] > 0
-                      ? `container-card-text ${
-                          damages[1][1] === i + 3 && !damages[2]
-                            ? ' isAttacking'
-                            : ' isNotAttacking'
-                        }
+      <div className="flex-row board-page">
+        <MusicAndSounds
+          selectAttackRef={selectAttackRef}
+          attackTargetRef={attackTargetRef}
+          youLoseRef={youLoseRef}
+          opponentAttackRef={opponentAttackRef}
+          drawRef={drawRef}
+          youWinRef={youWinRef}
+          stopMusic={stopMusic}
+        />
+        <div className="board-cards flex-column">
+          <div className="board-cards-top flex-row">
+            {opponentDeck.map((character, i) => {
+              return (
+                <div className="flex-row">
+                  <ModalCard indexToDisplay={indexToDisplay} character={character} id={i + 3} />
+                  <StandardCard
+                    handleHover={handleHover}
+                    handleClick={handleClick}
+                    clearIndex={clearIndex}
+                    combat={attack[i + 3]}
+                    durability={life[i + 3]}
+                    image={character.images.md}
+                    index={i + 3}
+                    key={character.id}
+                    damages={damages[1]}
+                    cardClass={
+                      life[i + 3] > 0
+                        ? `container-card-text ${
+                            damages[1][1] === i + 3 && !damages[2]
+                              ? ' isAttacking'
+                              : ' isNotAttacking'
+                          }
                       ${damages[1][1] === i + 3 && damages[2] ? ' isShaking' : ''}`
-                      : 'container-card-text dead isNotAttacking'
-                  }
-                />
-              </div>
-            );
-          })}
+                        : 'container-card-text dead isNotAttacking'
+                    }
+                  />
+                </div>
+              );
+            })}
+          </div>
+          <div className="board-cards-bottom flex-row">
+            {playerDeck.map((character, i) => {
+              return (
+                <div>
+                  <ModalCard indexToDisplay={indexToDisplay} character={character} id={i} />
+                  <StandardCard
+                    handleHover={handleHover}
+                    handleClick={handleClick}
+                    clearIndex={clearIndex}
+                    combat={attack[i]}
+                    durability={life[i]}
+                    image={character.images.md}
+                    index={i}
+                    key={character.id}
+                    damages={damages[0]}
+                    cardClass={
+                      life[i] > 0
+                        ? `container-card-text${
+                            selectedCard === i || damages[0][1] === i
+                              ? ' isAttacking'
+                              : ' isNotAttacking'
+                          }${damages[0][1] === i && !damages[2] ? ' isShaking' : ''}`
+                        : 'container-card-text dead isNotAttacking'
+                    }
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
-        <div className="board-cards-bottom flex-row">
-          {playerDeck.map((character, i) => {
-            return (
-              <div>
-                <ModalCard
-                  indexToDisplay={indexToDisplay}
-                  character={character}
-                  id={i}
-                  background=" bg-player"
-                />
-                <StandardCard
-                  handleHover={handleHover}
-                  handleClick={handleClick}
-                  clearIndex={clearIndex}
-                  combat={attack[i]}
-                  durability={life[i]}
-                  image={character.images.md}
-                  index={i}
-                  key={character.id}
-                  damages={damages[0]}
-                  cardClass={
-                    life[i] > 0
-                      ? `container-card-text${
-                          selectedCard === i || damages[0][1] === i
-                            ? ' isAttacking'
-                            : ' isNotAttacking'
-                        }${damages[0][1] === i && !damages[2] ? ' isShaking' : ''}`
-                      : 'container-card-text dead isNotAttacking'
-                  }
-                />
-              </div>
-            );
-          })}
-        </div>
+        <CombatLog logConsole={logConsole} />
       </div>
-      <CombatLog logConsole={logConsole} />
     </section>
   );
 };

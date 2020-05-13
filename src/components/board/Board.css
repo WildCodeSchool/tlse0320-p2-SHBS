@@ -1,22 +1,32 @@
+/* Layout */
+
+.board-page {
+  height: 85vh;
+  width: 100vw;
+  position: absolute;
+  bottom: 0;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Cards */
+
 .board-cards {
-  justify-content: space-around;
-  margin: 0 0 15vh 0;
-  width: 60vw;
+  justify-content: space-between;
+  margin: 0 5vw 0 0;
+  width: 65vw;
+  height: 75vh;
 }
 
 .board-cards-top,
 .board-cards-bottom {
   justify-content: space-around;
 }
-
-/* Cards */
-
 .board-cards .standard-card {
   width: 10vw;
 }
 
 .board-cards .container-card-text {
-  position: fixed;
   margin: 0 0 0 10vw;
 }
 
@@ -98,10 +108,8 @@
 /* Console */
 
 .board-log-text {
-  position: absolute;
-  right: 0;
   width: 22vw;
-  margin: 20vh 1vw 0 0;
+  margin: 0 1vw 4em 0;
 }
 
 .board-log-text h2 {
@@ -110,7 +118,7 @@
 }
 
 .board-game-history {
-  height: 40vh;
+  height: 43vh;
   background-color: rgba(255, 255, 255, 0.3);
   border: 1px solid black;
   overflow: hidden;
@@ -134,39 +142,7 @@
   }
 }
 
-.displayboard-end-game {
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.6);
-  height: 100vh;
-  width: 100vw;
-  z-index: 100;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.displayboard-v-d-text {
-  margin-top: 20vh;
-  width: 60vw;
-}
-
-.displayboard-end-game .displayboard-splash-play-again {
-  height: 20vh;
-  transition: transform 0.2s;
-}
-
-.displayboard-splash-play-again:hover {
-  transform: scale(1.4) rotate(-3deg);
-}
-
 /* Sound button */
-
-.music-and-sounds {
-  align-self: center;
-  display: flex;
-  flex-direction: column;
-}
 
 .active-sound,
 .active-music {
