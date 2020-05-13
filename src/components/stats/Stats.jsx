@@ -13,6 +13,18 @@ const Stats = () => {
   const lvl = Math.floor(totalXp / 1000) + 1;
   const currentXp = totalXp - (lvl - 1) * 1000;
   const visualCurrentXp = currentXp / 10;
+  const allUsed = JSON.parse(window.localStorage.getItem('myAllUsed'));
+
+  const timesUsed = {};
+  allUsed.forEach(function(item) {
+    const key = JSON.stringify(item);
+    if (timesUsed[key]) {
+      timesUsed[key]++;
+    } else {
+      timesUsed[key] = 1;
+    }
+  });
+  console.log(timesUsed);
 
   return (
     <div className="stats-page">

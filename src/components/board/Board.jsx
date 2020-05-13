@@ -219,29 +219,14 @@ const Board = props => {
         const result = JSON.stringify(drawCount + 1);
         window.localStorage.setItem('myDraws', result);
       }
-      const mostUsed = window.localStorage.getItem('myMostUsed')
-        ? JSON.parse(window.localStorage.getItem('myMostUsed'))
+      const allUsed = window.localStorage.getItem('myAllUsed')
+        ? JSON.parse(window.localStorage.getItem('myAllUsed'))
         : [];
-
-      mostUsed.push(deck[0]);
-      mostUsed.push(deck[1]);
-      mostUsed.push(deck[2]);
-
-      const arrayOfObjs = mostUsed;
-
-      const hash = {};
-      arrayOfObjs.forEach(function(item) {
-        const key = JSON.stringify(item);
-        if (hash[key]) {
-          hash[key]++;
-        } else {
-          hash[key] = 1;
-        }
-      });
-      console.log(hash);
-
-      const times = JSON.stringify(mostUsed);
-      window.localStorage.setItem('myMostUsed', times);
+      allUsed.push(deck[0]);
+      allUsed.push(deck[1]);
+      allUsed.push(deck[2]);
+      const all = JSON.stringify(allUsed);
+      window.localStorage.setItem('myAllUsed', all);
     }
   }, [gameStatus]);
 
