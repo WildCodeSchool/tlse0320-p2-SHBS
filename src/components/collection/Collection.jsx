@@ -56,6 +56,11 @@ class Collection extends Component {
           function(...res) {
             const allChars = res.map(result => result.data);
             allChars.forEach((chars, i) => (chars['index'] = i));
+            const keys = Object.keys(charsDatas);
+            allChars.forEach((chars, i) => (chars.powerstats.combat = charsDatas[keys[i]].combat));
+            allChars.forEach(
+              (chars, i) => (chars.powerstats.durability = charsDatas[keys[i]].durability)
+            );
             this.setState({ characters: allChars });
           }.bind(this)
         )

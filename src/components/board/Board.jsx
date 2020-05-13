@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import DisplayBoard from './DisplayBoard';
 import './Board.css';
+import './ModalAndPopUps.css';
 
 const Board = props => {
   const { deck, deckOp } = props;
@@ -129,19 +130,6 @@ const Board = props => {
     }
   }, [isLoosingPoints]);
 
-  useEffect(() => {
-    if (gameStatus === 'victory') {
-      setStopMusic(true);
-      youWinRef.current.play();
-    } else if (gameStatus === 'defeat') {
-      setStopMusic(true);
-      youLoseRef.current.play();
-    } else if (gameStatus === 'draw') {
-      setStopMusic(true);
-      drawRef.current.play();
-    }
-  }, [gameStatus]);
-
   // Set moment to pop-up the indication //
   useEffect(() => {
     setTimeout(() => {
@@ -185,9 +173,9 @@ const Board = props => {
         setIsLoosingPoints(true);
         if (randomAttacker) {
           setLogConsole(
-            `${deckOp[randomAttacker - 3].name} inflige ${attack[randomAttacker]} a ${
+            `${deckOp[randomAttacker - 3].name} deals ${attack[randomAttacker]} to ${
               deck[randomTarget].name
-            }`
+            } who counterattacks ${attack[randomTarget]}`
           );
         }
         setPlayerTurn(true);
@@ -218,11 +206,54 @@ const Board = props => {
       setSelectedCard();
       setIsLoosingPoints(true);
       setLogConsole(
-        `${deck[selectedCard].name} inflige ${attack[selectedCard]} a ${deckOp[index - 3].name}`
+        `${deck[selectedCard].name} deals ${attack[selectedCard]} to ${
+          deckOp[index - 3].name
+        } who counterattacks for ${attack[index]}`
       );
       setPlayerTurn(false);
     }
   };
+
+  // Local storage //
+  useEffect(() => {
+    if (gameStatus !== 'onGoing') {
+      if (gameStatus === 'victory') {
+        setStopMusic(true);
+        youWinRef.current.play();
+        const victoryCount = window.localStorage.getItem('myVictories')
+          ? JSON.parse(window.localStorage.getItem('myVictories'))
+          : 0;
+        const result = JSON.stringify(victoryCount + 1);
+        window.localStorage.setItem('myVictories', result);
+      } else if (gameStatus === 'defeat') {
+        setStopMusic(true);
+        youLoseRef.current.play();
+        const defeatCount = window.localStorage.getItem('myDefeats')
+          ? JSON.parse(window.localStorage.getItem('myDefeats'))
+          : 0;
+        const result = JSON.stringify(defeatCount + 1);
+        window.localStorage.setItem('myDefeats', result);
+      } else if (gameStatus === 'draw') {
+        setStopMusic(true);
+        drawRef.current.play();
+        const drawCount = window.localStorage.getItem('myDraws')
+          ? JSON.parse(window.localStorage.getItem('myDraws'))
+          : 0;
+        const result = JSON.stringify(drawCount + 1);
+        window.localStorage.setItem('myDraws', result);
+      }
+      const playedCount = window.localStorage.getItem('myPlayedCount')
+        ? JSON.parse(window.localStorage.getItem('myPlayedCount'))
+        : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+      playedCount[deck[0].index] += 1;
+      playedCount[deck[1].index] += 1;
+      playedCount[deck[2].index] += 1;
+
+      const all = JSON.stringify(playedCount);
+      window.localStorage.setItem('myPlayedCount', all);
+    }
+  }, [gameStatus]);
 
   return (
     <>

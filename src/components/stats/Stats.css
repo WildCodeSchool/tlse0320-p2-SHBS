@@ -14,20 +14,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1em;
+  /* margin-top: 1em; */
 }
 
 /* Games section */
 
 .stats-games ul {
   list-style: none;
-  margin: 0 22% 0 6em;
+  margin: 0 22% 0 3em;
 }
 
 /* Level section */
 
 .stats-bar-wrapper {
-  margin: 0 22% 0 6em !important;
+  margin: 0 22% 0 3em !important;
 }
 
 .stats-level p {
@@ -57,5 +57,21 @@
 }
 
 .stats-played img {
-  width: 150px;
+  width: 20vh;
+}
+
+.container-xp-bar {
+  width: 20vw;
+  height: 3vh;
+  background-color: #d2d2d2;
+  border-radius: 15px;
+  box-shadow: 4px 4px 4px black;
+  /* box-shadow: 3px 3px #333; */
+}
+
+.xp-bar {
+  height: 100%;
+  background-color: #6cf436;
+  border-radius: 15px;
+  box-shadow: 2px 2px 2px black;
 }

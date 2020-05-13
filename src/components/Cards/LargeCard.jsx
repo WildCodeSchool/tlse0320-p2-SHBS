@@ -27,12 +27,10 @@ const LargeCard = props => {
 LargeCard.propTypes = {
   name: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
-  combat: PropTypes.number.isRequired,
-  durability: PropTypes.number.isRequired,
-  strength: PropTypes.number.isRequired,
-  speed: PropTypes.number.isRequired,
-  power: PropTypes.number.isRequired,
-  intelligence: PropTypes.number.isRequired
+  fullName: PropTypes.string.isRequired,
+  alignment: PropTypes.string.isRequired,
+  height: PropTypes.string.isRequired,
+  weight: PropTypes.string.isRequired
 };
 
 export default LargeCard;
