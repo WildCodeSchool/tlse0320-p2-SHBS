@@ -199,24 +199,49 @@ const Board = props => {
 
   // Local storage //
   useEffect(() => {
-    if (gameStatus === 'victory') {
-      const victoryCount = window.localStorage.getItem('myVictories')
-        ? parseInt(window.localStorage.getItem('myVictories'))
-        : 0;
-      const result = JSON.stringify(victoryCount + 1);
-      window.localStorage.setItem('myVictories', result);
-    } else if (gameStatus === 'defeat') {
-      const defeatCount = window.localStorage.getItem('myDefeats')
-        ? parseInt(window.localStorage.getItem('myDefeats'))
-        : 0;
-      const result = JSON.stringify(defeatCount + 1);
-      window.localStorage.setItem('myDefeats', result);
-    } else if (gameStatus === 'draw') {
-      const drawCount = window.localStorage.getItem('myDraws')
-        ? parseInt(window.localStorage.getItem('myDraws'))
-        : 0;
-      const result = JSON.stringify(drawCount + 1);
-      window.localStorage.setItem('myDraws', result);
+    if (gameStatus !== 'onGoing') {
+      if (gameStatus === 'victory') {
+        const victoryCount = window.localStorage.getItem('myVictories')
+          ? JSON.parse(window.localStorage.getItem('myVictories'))
+          : 0;
+        const result = JSON.stringify(victoryCount + 1);
+        window.localStorage.setItem('myVictories', result);
+      } else if (gameStatus === 'defeat') {
+        const defeatCount = window.localStorage.getItem('myDefeats')
+          ? JSON.parse(window.localStorage.getItem('myDefeats'))
+          : 0;
+        const result = JSON.stringify(defeatCount + 1);
+        window.localStorage.setItem('myDefeats', result);
+      } else if (gameStatus === 'draw') {
+        const drawCount = window.localStorage.getItem('myDraws')
+          ? JSON.parse(window.localStorage.getItem('myDraws'))
+          : 0;
+        const result = JSON.stringify(drawCount + 1);
+        window.localStorage.setItem('myDraws', result);
+      }
+      const mostUsed = window.localStorage.getItem('myMostUsed')
+        ? JSON.parse(window.localStorage.getItem('myMostUsed'))
+        : [];
+
+      mostUsed.push(deck[0]);
+      mostUsed.push(deck[1]);
+      mostUsed.push(deck[2]);
+
+      const arrayOfObjs = mostUsed;
+
+      const hash = {};
+      arrayOfObjs.forEach(function(item) {
+        const key = JSON.stringify(item);
+        if (hash[key]) {
+          hash[key]++;
+        } else {
+          hash[key] = 1;
+        }
+      });
+      console.log(hash);
+
+      const times = JSON.stringify(mostUsed);
+      window.localStorage.setItem('myMostUsed', times);
     }
   }, [gameStatus]);
 
