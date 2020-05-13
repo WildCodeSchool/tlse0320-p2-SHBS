@@ -1,20 +1,27 @@
 import React from 'react';
-import PropTypes, { object } from 'prop-types';
+import PropTypes from 'prop-types';
+import bgmodalblue from '../../img/bgmodalblue.PNG';
+import bgmodalred from '../../img/bgmodalred.PNG';
 
 const ModalCard = props => {
-  const { indexToDisplay, character, id, background } = props;
+  const { indexToDisplay, character, id } = props;
   return (
-    <div className={indexToDisplay === id ? `info-show${background}` : 'info-hide'}>
-      <h4>{character.name}</h4>
-      <h6>{character.biography.fullName}</h6>
-      <h5>
-        {'Life : '}
-        {character.powerstats.durability}
-      </h5>
-      <h5>
-        {'Attack : '}
-        {character.powerstats.combat}
-      </h5>
+    <div className={indexToDisplay === id ? `info-show` : 'info-hide'}>
+      <img src={id > 2 ? bgmodalred : bgmodalblue} alt="modal infos" />
+      <div className="modal-content flex-column">
+        <h4>{character.name}</h4>
+        <h5>{character.biography.fullName}</h5>
+        <div>
+          <h5>
+            {'Life : '}
+            {character.powerstats.durability}
+          </h5>
+          <h5>
+            {'Attack : '}
+            {character.powerstats.combat}
+          </h5>
+        </div>
+      </div>
     </div>
   );
 };
@@ -22,7 +29,6 @@ const ModalCard = props => {
 ModalCard.propTypes = {
   indexToDisplay: PropTypes.number,
   id: PropTypes.number.isRequired,
-  background: PropTypes.string.isRequired,
   character: PropTypes.instanceOf(Object).isRequired
 };
 

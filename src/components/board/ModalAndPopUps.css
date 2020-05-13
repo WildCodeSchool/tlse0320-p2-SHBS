@@ -1,0 +1,128 @@
+/* Card Modal */
+
+.info-show,
+.info-hide {
+  position: fixed;
+  overflow: hidden;
+}
+
+.info-show img,
+.info-hide img {
+  width: 10vw;
+  border-radius: 4.5%;
+  box-shadow: 2px 2px 2px black;
+  border: 1px inset rgb(239, 201, 88, 0.3);
+}
+
+.info-show {
+  animation: modalApparition 1.1s ease;
+}
+
+@keyframes modalApparition {
+  0% {
+    transform: translateX(100%);
+  }
+
+  70% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.info-hide {
+  transition: transform 0.4s;
+  transform: translateX(100%);
+}
+
+.modal-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0%;
+  padding: 2%;
+  justify-content: space-evenly;
+}
+
+.info-show h4,
+.info-hide h4 {
+  text-align: center;
+  color: #efc958;
+  text-shadow: 3px 3px #333;
+  font-size: 1.7em;
+}
+
+.info-show h5,
+.info-hide h5 {
+  text-align: center;
+  color: #efc958;
+  text-shadow: 3px 3px #333;
+  font-size: 1.4em;
+}
+
+/* Between turns pop-ups */
+
+.board-between-turns {
+  position: absolute;
+  width: 100vw;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.466);
+  height: 100vh;
+  animation: popBetweenTurns 2.1s ease;
+  display: flex;
+}
+
+@keyframes popBetweenTurns {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.board-between-turns img {
+  margin: auto;
+}
+
+.board-between-turns .opponents-turn {
+  width: 50%;
+}
+
+.board-between-turns .player-turn {
+  width: 30%;
+}
+
+.displayboard-end-game {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100vh;
+  width: 100vw;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.displayboard-v-d-text {
+  margin-top: 20vh;
+  width: 40vw;
+}
+
+.displayboard-end-game .displayboard-splash-play-again {
+  height: 20vh;
+  transition: transform 0.2s;
+}
+
+.displayboard-splash-play-again:hover {
+  transform: scale(1.4) rotate(-3deg);
+}
