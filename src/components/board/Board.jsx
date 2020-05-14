@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import DisplayBoard from './DisplayBoard';
 import './Board.css';
@@ -19,6 +20,7 @@ const Board = props => {
   const [opponentIsWating, setOpponentIsWating] = useState(false);
   const [playerIsWating, setPlayerIsWating] = useState(false);
   const [gameStatus, setGameStatus] = useState('onGoing');
+  const [redirection, setRedirection] = useState(null);
   /* audio */
   const selectAttackRef = useRef();
   const attackTargetRef = useRef();
@@ -39,6 +41,13 @@ const Board = props => {
     setDidMount(true);
   }, []);
 
+  // Redirection to collection if no deck //
+  useEffect(() => {
+    if (deck.length === 0) {
+      setRedirection(true);
+    }
+  }, [redirection]);
+
   // load the life & attack props in the state //
   useEffect(() => {
     if (didMount && deck[0]) {
@@ -58,7 +67,9 @@ const Board = props => {
         deckOp[1].powerstats.combat,
         deckOp[2].powerstats.combat
       ]);
+      setLogConsole("Let's fight !");
     }
+    setRedirection(false);
   }, [deck, deckOp]);
 
   const handleHover = index => {
@@ -172,11 +183,21 @@ const Board = props => {
         // setLife(tempLife);
         setIsLoosingPoints(true);
         if (randomAttacker) {
-          setLogConsole(
-            `${deckOp[randomAttacker - 3].name} deals ${attack[randomAttacker]} to ${
-              deck[randomTarget].name
-            } who counterattacks ${attack[randomTarget]}`
-          );
+          if (newLife === 0 && newLifeReturn === 0) {
+            setLogConsole(
+              `${deckOp[randomAttacker - 3].name} and ${deck[randomTarget].name} killed each other!`
+            );
+          } else if (newLife === 0) {
+            setLogConsole(`${deckOp[randomAttacker - 3].name} killed ${deck[randomTarget].name}!`);
+          } else if (newLifeReturn === 0) {
+            setLogConsole(`${deck[randomTarget].name} killed ${deckOp[randomAttacker - 3].name}!`);
+          } else {
+            setLogConsole(
+              `${deckOp[randomAttacker - 3].name} deals ${attack[randomAttacker]} damages to ${
+                deck[randomTarget].name
+              } who counterattacks for ${attack[randomTarget]} damages...`
+            );
+          }
         }
         setPlayerTurn(true);
       }, 400);
@@ -205,11 +226,21 @@ const Board = props => {
       attackTargetRef.current.play();
       setSelectedCard();
       setIsLoosingPoints(true);
-      setLogConsole(
-        `${deck[selectedCard].name} deals ${attack[selectedCard]} to ${
-          deckOp[index - 3].name
-        } who counterattacks for ${attack[index]}`
-      );
+      if (newLife === 0 && newLifeReturn === 0) {
+        setLogConsole(
+          `${deck[selectedCard].name} and ${deckOp[index - 3].name} killed each other!`
+        );
+      } else if (newLife === 0) {
+        setLogConsole(`${deck[selectedCard].name} killed ${deckOp[index - 3].name}!`);
+      } else if (newLifeReturn === 0) {
+        setLogConsole(`${deckOp[index - 3].name} killed ${deck[selectedCard].name}!`);
+      } else {
+        setLogConsole(
+          `${deck[selectedCard].name} deals ${attack[selectedCard]} damages to ${
+            deckOp[index - 3].name
+          } who counterattacks for ${attack[index]} damages...`
+        );
+      }
       setPlayerTurn(false);
     }
   };
@@ -257,6 +288,7 @@ const Board = props => {
 
   return (
     <>
+      {redirection && <Redirect to="/Collection" />}
       {didMount && (
         <DisplayBoard
           opponentDeck={deckOp}

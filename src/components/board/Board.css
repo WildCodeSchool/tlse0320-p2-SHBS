@@ -22,6 +22,7 @@
 .board-cards-bottom {
   justify-content: space-around;
 }
+
 .board-cards .standard-card {
   width: 10vw;
 }
@@ -142,7 +143,7 @@
 
 .board-game-history p {
   text-align: start;
-  margin: 3px 0 3px 0;
+  /* margin: 3px 0 3px 0; */
 }
 
 .console-cursor {
@@ -163,4 +164,10 @@
   margin: 1vw;
   cursor: pointer;
   filter: drop-shadow(4px 3px #333);
+}
+
+.opponent-indicator,
+.player-indicator {
+  align-self: center;
+  width: 0;
 }
