@@ -193,9 +193,9 @@ const Board = props => {
             setLogConsole(`${deck[randomTarget].name} killed ${deckOp[randomAttacker - 3].name}!`);
           } else {
             setLogConsole(
-              `${deckOp[randomAttacker - 3].name} deals ${attack[randomAttacker]} to ${
+              `${deckOp[randomAttacker - 3].name} deals ${attack[randomAttacker]} damages to ${
                 deck[randomTarget].name
-              } who counterattacks for ${attack[randomTarget]}...`
+              } who counterattacks for ${attack[randomTarget]} damages...`
             );
           }
         }
@@ -236,9 +236,9 @@ const Board = props => {
         setLogConsole(`${deckOp[index - 3].name} killed ${deck[selectedCard].name}!`);
       } else {
         setLogConsole(
-          `${deck[selectedCard].name} deals ${attack[selectedCard]} to ${
+          `${deck[selectedCard].name} deals ${attack[selectedCard]} damages to ${
             deckOp[index - 3].name
-          } who counterattacks for ${attack[index]}...`
+          } who counterattacks for ${attack[index]} damages...`
         );
       }
       setPlayerTurn(false);
