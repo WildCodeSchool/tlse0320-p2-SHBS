@@ -31,3 +31,11 @@
 .collection-big-card div {
   margin-top: 3%;
 }
+
+@media screen and (max-width: 1650px) {
+  .collection-big-card li {
+    margin: 10px;
+    margin-top: 1em;
+    font-size: 1.2em;
+  }
+}

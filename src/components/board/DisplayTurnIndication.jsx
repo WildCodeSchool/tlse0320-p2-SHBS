@@ -5,6 +5,7 @@ import yourTurn from '../../img/yourturn.png';
 import opponentTurn from '../../img/opponentsturn.png';
 import victory from '../../img/Victory.png';
 import defeat from '../../img/Defeat.png';
+import draw from '../../img/Draw.png';
 import playagaintxt from '../../img/Playagaintxt.png';
 
 const DisplayTurnIndication = props => {
@@ -48,14 +49,13 @@ const DisplayTurnIndication = props => {
       )}
       {gameStatus === 'draw' && (
         <div className="displayboard-end-game">
-          {/* <img src={victory} alt="victory" className="displayboard-v-d-text" /> */}
+          <img src={draw} alt="draw" className="displayboard-v-d-text" />
           <Link to="Collection" className="button-splashbg">
             <img
               src={playagaintxt}
               alt="Button playagaintxt"
               className="displayboard-splash-play-again"
             />
-            <h1>Drawn</h1>
           </Link>
         </div>
       )}

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './components/home/Home';
 import Collection from './components/collection/Collection';
-import Contact from './components/contact/Contact';
+import SecondHomePage from './components/home/SecondHomePage';
 import Board from './components/board/Board';
 import Stats from './components/stats/Stats';
 import NavBar from './components/nav/NavBar';
@@ -24,7 +24,7 @@ function App() {
           <Route path="/Board" exact>
             <Board deck={deck} deckOp={deckOp} />
           </Route>
-          <Route path="/Contact" exact component={Contact} />
+          <Route path="/Rules" exact component={Home} />
           <Route path="/Stats" exact component={Stats} />
         </Switch>
       </Router>
