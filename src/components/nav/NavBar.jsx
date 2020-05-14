@@ -12,7 +12,9 @@ function NavBar() {
             <img src={logo} alt="Accueil SHBS" />
           </Link>
         </li>
-        <li>The game</li>
+        <Link to="Rules">
+          <li>The game</li>
+        </Link>
         <li>
           <Link to="Collection">The cards</Link>
         </li>
