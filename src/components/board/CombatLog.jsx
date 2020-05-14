@@ -23,7 +23,7 @@ const CombatLog = ({ logConsole }) => {
         setTempPhrase('');
         setIsConcat(false);
       }
-    }, 40);
+    }, 35);
     return () => {
       clearInterval(letterByletter);
     };

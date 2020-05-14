@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import DisplayBoard from './DisplayBoard';
 import './Board.css';
+import './ModalAndPopUps.css';
 
 const Board = props => {
   const { deck, deckOp } = props;
@@ -185,9 +186,9 @@ const Board = props => {
         setIsLoosingPoints(true);
         if (randomAttacker) {
           setLogConsole(
-            `${deckOp[randomAttacker - 3].name} inflige ${attack[randomAttacker]} a ${
+            `${deckOp[randomAttacker - 3].name} deals ${attack[randomAttacker]} to ${
               deck[randomTarget].name
-            }`
+            } who counterattacks ${attack[randomTarget]}`
           );
         }
         setPlayerTurn(true);
@@ -218,7 +219,9 @@ const Board = props => {
       setSelectedCard();
       setIsLoosingPoints(true);
       setLogConsole(
-        `${deck[selectedCard].name} inflige ${attack[selectedCard]} a ${deckOp[index - 3].name}`
+        `${deck[selectedCard].name} deals ${attack[selectedCard]} to ${
+          deckOp[index - 3].name
+        } who counterattacks for ${attack[index]}`
       );
       setPlayerTurn(false);
     }
