@@ -51,6 +51,7 @@ const DisplayBoard = props => {
         />
         <div className="board-cards flex-column">
           <div className="board-cards-top flex-row">
+            <h2 className="opponent-indicator">Opponent</h2>
             {opponentDeck.map((character, i) => {
               return (
                 <div className="flex-row">
@@ -82,6 +83,7 @@ const DisplayBoard = props => {
           </div>
           <img src={lineRed} alt="red line" className="red-line" />
           <div className="board-cards-bottom flex-row">
+            <h2 className="player-indicator">Player</h2>
             {playerDeck.map((character, i) => {
               return (
                 <div>
