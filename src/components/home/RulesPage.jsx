@@ -1,39 +1,19 @@
 import React from 'react';
+import gameslash from '../../img/gameslash.PNG';
+import gamevict from '../../img/gamevict.png';
 
 const RulesPage = () => {
   return (
     <section className="home-second-page darkcity-bg flex-column">
       <article className="flex-row">
-        <img
-          src="https://via.placeholder.com/720x480.png?text=Board Presentation"
-          alt="Placeholder"
-        />
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nihil consectetur officia minima
-          saepe earum officiis facere libero numquam voluptas quasi, impedit alias maxime nisi quas
-          fugiat rem nobis provident. Ab? Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Aliquam voluptate, consequuntur natus unde quos perferendis delectus dolor eveniet
-          veritatis doloribus commodi possimus expedita deserunt. Facilis veritatis sapiente quaerat
-          officia tempore! Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio qui vel
-          fugiat sit et nisi, eligendi, accusantium atque id voluptatum amet deleniti ipsa
-          asperiores eaque odit quo quisquam, corporis quidem!
+        <img src={gameslash} alt="Damages exemple" />
+        <p className="second-page-p">
+          {`Select your hero then click on the opponent you want to destroy ! Be carefull, he should retaliate...`}
         </p>
       </article>
       <article className="flex-row">
-        <img
-          src="https://via.placeholder.com/720x480.png?text=Cards Presentation"
-          alt="Placeholder"
-        />
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nihil consectetur officia minima
-          saepe earum officiis facere libero numquam voluptas quasi, impedit alias maxime nisi quas
-          fugiat rem nobis provident. Ab? Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Aliquam voluptate, consequuntur natus unde quos perferendis delectus dolor eveniet
-          veritatis doloribus commodi possimus expedita deserunt. Facilis veritatis sapiente quaerat
-          officia tempore! Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio qui vel
-          fugiat sit et nisi, eligendi, accusantium atque id voluptatum amet deleniti ipsa
-          asperiores eaque odit quo quisquam, corporis quidem!
-        </p>
+        <img src={gamevict} alt="Victory" />
+        <p className="second-page-p">{`Bring all your opponents to 0 HP to get the victory.`}</p>
       </article>
     </section>
   );

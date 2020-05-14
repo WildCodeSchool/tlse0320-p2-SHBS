@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import SecondHomePage from './SecondHomePage';
+import RulesPage from './RulesPage';
 import SHBSLong from '../../img/SHBSLong.png';
 import playnowtext from '../../img/playnowtext.png';
 import arrowswhite from '../../img/arrowswhite.png';
@@ -49,6 +50,7 @@ class Home extends React.Component {
           </div>
         </div>
         <SecondHomePage />
+        <RulesPage />
       </div>
     );
   }
