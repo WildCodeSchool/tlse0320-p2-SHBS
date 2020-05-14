@@ -23,7 +23,7 @@ const CombatLog = ({ logConsole }) => {
         setTempPhrase('');
         setIsConcat(false);
       }
-    }, 40);
+    }, 35);
     return () => {
       clearInterval(letterByletter);
     };
@@ -33,8 +33,13 @@ const CombatLog = ({ logConsole }) => {
     <div className="board-log-text flex-column">
       <h2>Combat log</h2>
       <div className="board-game-history">
-        {phrasesToPrint.map(phrase => {
-          return <p className="bigger-P-Li">{phrase}</p>;
+        {phrasesToPrint.map((phrase, index) => {
+          return (
+            <>
+              {phrasesToPrint.length > 1 && index > 0 && <p>-</p>}
+              <p className="bigger-P-Li">{phrase}</p>
+            </>
+          );
         })}
         {!isConcat && <p className="console-cursor bigger-P-Li">-</p>}
       </div>

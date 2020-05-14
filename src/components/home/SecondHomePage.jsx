@@ -1,38 +1,20 @@
 import React from 'react';
+import carddetails from '../../img/carddetails.png';
+import cardcol from '../../img/cardcol.png';
 
 const SecondHomePage = () => {
   return (
     <section className="home-second-page darkcity-bg flex-column" id="home-bottom-encre">
       <article className="flex-row">
-        <img
-          src="https://via.placeholder.com/720x480.png?text=Board Presentation"
-          alt="Placeholder"
-        />
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nihil consectetur officia minima
-          saepe earum officiis facere libero numquam voluptas quasi, impedit alias maxime nisi quas
-          fugiat rem nobis provident. Ab? Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Aliquam voluptate, consequuntur natus unde quos perferendis delectus dolor eveniet
-          veritatis doloribus commodi possimus expedita deserunt. Facilis veritatis sapiente quaerat
-          officia tempore! Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio qui vel
-          fugiat sit et nisi, eligendi, accusantium atque id voluptatum amet deleniti ipsa
-          asperiores eaque odit quo quisquam, corporis quidem!
+        <img src={cardcol} alt="Placeholder" />
+        <p className="second-page-p">
+          {`Choose among more than 20 heroes from multiple universes !`}
         </p>
       </article>
       <article className="flex-row">
-        <img
-          src="https://via.placeholder.com/720x480.png?text=Cards Presentation"
-          alt="Placeholder"
-        />
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nihil consectetur officia minima
-          saepe earum officiis facere libero numquam voluptas quasi, impedit alias maxime nisi quas
-          fugiat rem nobis provident. Ab? Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Aliquam voluptate, consequuntur natus unde quos perferendis delectus dolor eveniet
-          veritatis doloribus commodi possimus expedita deserunt. Facilis veritatis sapiente quaerat
-          officia tempore! Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio qui vel
-          fugiat sit et nisi, eligendi, accusantium atque id voluptatum amet deleniti ipsa
-          asperiores eaque odit quo quisquam, corporis quidem!
+        <img src={carddetails} alt="Placeholder" />
+        <p className="second-page-p">
+          {`Just two stats: Attack at the bottom left and health-points at the bottom right.`}
         </p>
       </article>
     </section>

@@ -104,7 +104,7 @@
 }
 
 .home-second-page article:first-child {
-  margin-top: 200px;
+  margin-top: 15vh;
 }
 
 .home-second-page article:last-child {
@@ -117,10 +117,23 @@
 }
 
 .home-main p {
-  text-align: justify;
+  text-align: center;
   margin: auto 0 auto 10%;
 }
 
 .home-second-page article:last-child p {
   margin: auto 10% auto 0;
+}
+
+.second-page-p {
+  font-size: 2em;
+}
+
+@media screen and (max-width: 1650px) {
+  .home-second-page article {
+    justify-content: center;
+    align-content: center;
+    margin: 0 5%;
+    height: 250px;
+  }
 }

@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import DisplayBoard from './DisplayBoard';
 import './Board.css';
+import './ModalAndPopUps.css';
 
 const Board = props => {
   const { deck, deckOp } = props;
   const [didMount, setDidMount] = useState(false);
   const [indexToDisplay, setIndexToDisplay] = useState();
   const [selectedCard, setSelectedCard] = useState();
-  const [playerTurn, setPlayerTurn] = useState(true);
+  const [playerTurn, setPlayerTurn] = useState(false);
   const [opponentTurn, setOpponentTurn] = useState(false);
   const [isLoosingPoints, setIsLoosingPoints] = useState(false);
   const [logConsole, setLogConsole] = useState();
@@ -18,23 +20,37 @@ const Board = props => {
   const [opponentIsWating, setOpponentIsWating] = useState(false);
   const [playerIsWating, setPlayerIsWating] = useState(false);
   const [gameStatus, setGameStatus] = useState('onGoing');
+  const [redirection, setRedirection] = useState(null);
+  /* audio */
+  const selectAttackRef = useRef();
+  const attackTargetRef = useRef();
+  const youLoseRef = useRef();
+  const opponentAttackRef = useRef();
+  const youWinRef = useRef();
+  const drawRef = useRef();
+  const [stopMusic, setStopMusic] = useState(false);
 
   // set a boolean state to true after mounting //
   useEffect(() => {
-    if (!didMount) {
-      const randomStart = Math.floor(Math.random() * 100);
-      if (randomStart > 50) {
-        setOpponentIsWating(true);
-      } else {
-        setPlayerIsWating(true);
-      }
+    const randomStart = Math.floor(Math.random() * 100);
+    if (randomStart > 50) {
+      setOpponentIsWating(true);
+    } else {
+      setPlayerIsWating(true);
     }
     setDidMount(true);
   }, []);
 
+  // Redirection to collection if no deck //
+  useEffect(() => {
+    if (deck.length === 0) {
+      setRedirection(true);
+    }
+  }, [redirection]);
+
   // load the life & attack props in the state //
   useEffect(() => {
-    if (deck[0]) {
+    if (didMount && deck[0]) {
       setLife([
         deck[0].powerstats.durability,
         deck[1].powerstats.durability,
@@ -51,7 +67,9 @@ const Board = props => {
         deckOp[1].powerstats.combat,
         deckOp[2].powerstats.combat
       ]);
+      setLogConsole("Let's fight !");
     }
+    setRedirection(false);
   }, [deck, deckOp]);
 
   const handleHover = index => {
@@ -64,9 +82,9 @@ const Board = props => {
 
   // Losing points one by one //
   useEffect(() => {
-    if (didMount && isLoosingPoints) {
-      const oneByOne = setInterval(() => {
-        /* Loses -1 while life is greater than calculated new life */
+    const oneByOne = setInterval(() => {
+      /* Loses -1 while life is greater than calculated new life */
+      if (didMount && isLoosingPoints) {
         const tempLife = [...life];
         if (life[damages[0][1]] > damages[0][2] && life[damages[1][1]] > damages[1][2]) {
           setIsLoosingPoints(true);
@@ -85,40 +103,42 @@ const Board = props => {
           setIsLoosingPoints(false);
           setDamages([[0, 10], [0, 10], false]);
         }
-      }, 10);
-      return () => {
-        clearInterval(oneByOne);
-      };
-    }
+      }
+    }, 10);
+    return () => {
+      clearInterval(oneByOne);
+    };
   }, [isLoosingPoints, life]);
 
   // Set pause moment after the attack (depends on turn) //
   useEffect(() => {
-    setTimeout(() => {
-      if (
-        (life[0] <= 0 && life[1] <= 0 && life[2] <= 0) ||
-        (life[3] <= 0 && life[4] <= 0 && life[5] <= 0 && !isLoosingPoints)
-      ) {
+    if (didMount && !isLoosingPoints) {
+      setTimeout(() => {
         if (
-          life[0] <= 0 &&
-          life[1] <= 0 &&
-          life[2] <= 0 &&
-          life[3] <= 0 &&
-          life[4] <= 0 &&
-          life[5] <= 0
+          (life[0] <= 0 && life[1] <= 0 && life[2] <= 0) ||
+          (life[3] <= 0 && life[4] <= 0 && life[5] <= 0)
         ) {
-          setGameStatus('draw');
-        } else if (life[0] <= 0 && life[1] <= 0 && life[2] <= 0) {
-          setGameStatus('defeat');
-        } else {
-          setGameStatus('victory');
+          if (
+            life[0] <= 0 &&
+            life[1] <= 0 &&
+            life[2] <= 0 &&
+            life[3] <= 0 &&
+            life[4] <= 0 &&
+            life[5] <= 0
+          ) {
+            setGameStatus('draw');
+          } else if (life[0] <= 0 && life[1] <= 0 && life[2] <= 0) {
+            setGameStatus('defeat');
+          } else {
+            setGameStatus('victory');
+          }
+        } else if (!playerTurn) {
+          setOpponentIsWating(true);
+        } else if (playerTurn) {
+          setPlayerIsWating(true);
         }
-      } else if (didMount && !isLoosingPoints && !playerTurn) {
-        setOpponentIsWating(true);
-      } else if (didMount && !isLoosingPoints && playerTurn) {
-        setPlayerIsWating(true);
-      }
-    }, 300);
+      }, 400);
+    }
   }, [isLoosingPoints]);
 
   // Set moment to pop-up the indication //
@@ -130,6 +150,7 @@ const Board = props => {
         setOpponentTurn(!opponentTurn);
       } else if (didMount && playerIsWating) {
         setPlayerIsWating(false);
+        setPlayerTurn(true);
       }
     }, 2000);
   }, [opponentIsWating, playerIsWating]);
@@ -152,21 +173,34 @@ const Board = props => {
         life[randomAttacker] - attack[randomTarget] > 0
           ? life[randomAttacker] - attack[randomTarget]
           : 0;
-      setDamages([
-        [attack[randomAttacker], randomTarget, newLife],
-        [attack[randomTarget], randomAttacker, newLifeReturn],
-        false
-      ]);
-      // setLife(tempLife);
-      setIsLoosingPoints(true);
-      if (randomAttacker) {
-        setLogConsole(
-          `${deckOp[randomAttacker - 3].name} inflige ${attack[randomAttacker]} a ${
-            deck[randomTarget].name
-          }`
-        );
-      }
-      setPlayerTurn(true);
+      setTimeout(() => {
+        setDamages([
+          [attack[randomAttacker], randomTarget, newLife],
+          [attack[randomTarget], randomAttacker, newLifeReturn],
+          false
+        ]);
+        opponentAttackRef.current.play();
+        // setLife(tempLife);
+        setIsLoosingPoints(true);
+        if (randomAttacker) {
+          if (newLife === 0 && newLifeReturn === 0) {
+            setLogConsole(
+              `${deckOp[randomAttacker - 3].name} and ${deck[randomTarget].name} killed each other!`
+            );
+          } else if (newLife === 0) {
+            setLogConsole(`${deckOp[randomAttacker - 3].name} killed ${deck[randomTarget].name}!`);
+          } else if (newLifeReturn === 0) {
+            setLogConsole(`${deck[randomTarget].name} killed ${deckOp[randomAttacker - 3].name}!`);
+          } else {
+            setLogConsole(
+              `${deckOp[randomAttacker - 3].name} deals ${attack[randomAttacker]} damages to ${
+                deck[randomTarget].name
+              } who counterattacks for ${attack[randomTarget]} damages...`
+            );
+          }
+        }
+        setPlayerTurn(true);
+      }, 400);
     }
   }, [opponentTurn]);
 
@@ -175,6 +209,7 @@ const Board = props => {
     const index = Number(e.currentTarget.getAttribute('index'));
     /* Select attacker */
     if (index < 3 && life[index] > 0 && playerTurn && !isLoosingPoints) {
+      selectAttackRef.current.play();
       setSelectedCard(index);
       /* Select target */
     } else if (index >= 3 && life[index] > 0 && selectedCard !== undefined) {
@@ -188,32 +223,98 @@ const Board = props => {
         [attack[selectedCard], index, newLife],
         true
       ]);
+      attackTargetRef.current.play();
       setSelectedCard();
       setIsLoosingPoints(true);
-      setLogConsole(
-        `${deck[selectedCard].name} inflige ${attack[selectedCard]} a ${deckOp[index - 3].name}`
-      );
+      if (newLife === 0 && newLifeReturn === 0) {
+        setLogConsole(
+          `${deck[selectedCard].name} and ${deckOp[index - 3].name} killed each other!`
+        );
+      } else if (newLife === 0) {
+        setLogConsole(`${deck[selectedCard].name} killed ${deckOp[index - 3].name}!`);
+      } else if (newLifeReturn === 0) {
+        setLogConsole(`${deckOp[index - 3].name} killed ${deck[selectedCard].name}!`);
+      } else {
+        setLogConsole(
+          `${deck[selectedCard].name} deals ${attack[selectedCard]} damages to ${
+            deckOp[index - 3].name
+          } who counterattacks for ${attack[index]} damages...`
+        );
+      }
       setPlayerTurn(false);
     }
   };
 
+  // Local storage //
+  useEffect(() => {
+    if (gameStatus !== 'onGoing') {
+      if (gameStatus === 'victory') {
+        setStopMusic(true);
+        youWinRef.current.play();
+        const victoryCount = window.localStorage.getItem('myVictories')
+          ? JSON.parse(window.localStorage.getItem('myVictories'))
+          : 0;
+        const result = JSON.stringify(victoryCount + 1);
+        window.localStorage.setItem('myVictories', result);
+      } else if (gameStatus === 'defeat') {
+        setStopMusic(true);
+        youLoseRef.current.play();
+        const defeatCount = window.localStorage.getItem('myDefeats')
+          ? JSON.parse(window.localStorage.getItem('myDefeats'))
+          : 0;
+        const result = JSON.stringify(defeatCount + 1);
+        window.localStorage.setItem('myDefeats', result);
+      } else if (gameStatus === 'draw') {
+        setStopMusic(true);
+        drawRef.current.play();
+        const drawCount = window.localStorage.getItem('myDraws')
+          ? JSON.parse(window.localStorage.getItem('myDraws'))
+          : 0;
+        const result = JSON.stringify(drawCount + 1);
+        window.localStorage.setItem('myDraws', result);
+      }
+      const playedCount = window.localStorage.getItem('myPlayedCount')
+        ? JSON.parse(window.localStorage.getItem('myPlayedCount'))
+        : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+      playedCount[deck[0].index] += 1;
+      playedCount[deck[1].index] += 1;
+      playedCount[deck[2].index] += 1;
+
+      const all = JSON.stringify(playedCount);
+      window.localStorage.setItem('myPlayedCount', all);
+    }
+  }, [gameStatus]);
+
   return (
-    <DisplayBoard
-      opponentDeck={deckOp}
-      playerDeck={deck}
-      handleClick={handleClick}
-      handleHover={handleHover}
-      clearIndex={clearIndex}
-      life={life}
-      attack={attack}
-      selectedCard={selectedCard}
-      opponentIsWating={opponentIsWating}
-      indexToDisplay={indexToDisplay}
-      logConsole={logConsole}
-      playerIsWating={playerIsWating}
-      damages={damages}
-      gameStatus={gameStatus}
-    />
+    <>
+      {redirection && <Redirect to="/Collection" />}
+      {didMount && (
+        <DisplayBoard
+          opponentDeck={deckOp}
+          playerDeck={deck}
+          handleClick={handleClick}
+          handleHover={handleHover}
+          clearIndex={clearIndex}
+          life={life}
+          attack={attack}
+          selectedCard={selectedCard}
+          opponentIsWating={opponentIsWating}
+          indexToDisplay={indexToDisplay}
+          logConsole={logConsole}
+          playerIsWating={playerIsWating}
+          damages={damages}
+          gameStatus={gameStatus}
+          selectAttackRef={selectAttackRef}
+          attackTargetRef={attackTargetRef}
+          youLoseRef={youLoseRef}
+          opponentAttackRef={opponentAttackRef}
+          drawRef={drawRef}
+          youWinRef={youWinRef}
+          stopMusic={stopMusic}
+        />
+      )}
+    </>
   );
 };
 Board.propTypes = {
