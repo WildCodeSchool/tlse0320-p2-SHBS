@@ -12,6 +12,14 @@
 .collection-big-card li {
   text-align: start;
   margin: 1em;
+  list-style: none;
+  margin-left: 0;
+  font-size: 1.5em;
+}
+
+.collection-big-card li:first-child {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
 }
 
 .collection-big-card img {
@@ -22,4 +30,12 @@
 
 .collection-big-card div {
   margin-top: 3%;
+}
+
+@media screen and (max-width: 1650px) {
+  .collection-big-card li {
+    margin: 10px;
+    margin-top: 1em;
+    font-size: 1.2em;
+  }
 }

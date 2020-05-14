@@ -38,6 +38,11 @@ const Stats = () => {
           axios.spread(function(...res) {
             const allChars = res.map(result => result.data);
             allChars.forEach((chars, i) => (chars['index'] = i));
+            const keys = Object.keys(cards);
+            allChars.forEach((chars, i) => (chars.powerstats.combat = cards[keys[i]].combat));
+            allChars.forEach(
+              (chars, i) => (chars.powerstats.durability = cards[keys[i]].durability)
+            );
             setCharacters(allChars);
           })
         );
@@ -115,7 +120,7 @@ const Stats = () => {
               bestCards.map(character => {
                 return (
                   <div>
-                    <p>{`${character.games} games`}</p>
+                    <p className="bigger-P-Li">{`${character.games} games`}</p>
                     <StandardCard
                       handleHover={() => {}}
                       combat={character.powerstats.combat}
