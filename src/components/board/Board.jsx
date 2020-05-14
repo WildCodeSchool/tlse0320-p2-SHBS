@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import DisplayBoard from './DisplayBoard';
 import './Board.css';
@@ -19,6 +20,7 @@ const Board = props => {
   const [opponentIsWating, setOpponentIsWating] = useState(false);
   const [playerIsWating, setPlayerIsWating] = useState(false);
   const [gameStatus, setGameStatus] = useState('onGoing');
+  const [redirection, setRedirection] = useState(null);
   /* audio */
   const selectAttackRef = useRef();
   const attackTargetRef = useRef();
@@ -38,6 +40,13 @@ const Board = props => {
     }
     setDidMount(true);
   }, []);
+
+  // Redirection to collection if no deck //
+  useEffect(() => {
+    if (deck.length === 0) {
+      setRedirection(true);
+    }
+  }, [redirection]);
 
   // load the life & attack props in the state //
   useEffect(() => {
@@ -60,6 +69,7 @@ const Board = props => {
       ]);
       setLogConsole("Let's fight !");
     }
+    setRedirection(false);
   }, [deck, deckOp]);
 
   const handleHover = index => {
@@ -278,6 +288,7 @@ const Board = props => {
 
   return (
     <>
+      {redirection && <Redirect to="/Collection" />}
       {didMount && (
         <DisplayBoard
           opponentDeck={deckOp}
